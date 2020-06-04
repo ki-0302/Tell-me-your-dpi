@@ -27,3 +27,5 @@
 # -keep class com.google.firebase.crashlytics.** { *; }
 # -dontwarn com.google.firebase.crashlytics.**
 
+# For to use NavHostFragment.
+#-keepnames class androidx.navigation.fragment.NavHostFragment
