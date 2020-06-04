@@ -3,8 +3,11 @@ package com.maho_ya.tell_me_your_dpi
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 
 class DpiInfoAdapter(private val dataSet: MutableList<MyData>) :
     RecyclerView.Adapter<DpiInfoAdapter.DpiInfoViewHolder>() {
@@ -14,16 +17,29 @@ class DpiInfoAdapter(private val dataSet: MutableList<MyData>) :
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
     class DpiInfoViewHolder(constraintLayout: ConstraintLayout) : RecyclerView.ViewHolder(constraintLayout) {
+
+        private var container: ConstraintLayout? = null
         private var title: TextView? = null
         private var content: TextView? = null
 
 
         init {
+            container = itemView.findViewById(R.id.container)
             title = itemView.findViewById(R.id.textView2)
             content = itemView.findViewById(R.id.textView3)
         }
 
         fun bind(text: MyData) {
+            container?.setOnClickListener {
+//                val action =
+//                    MainFragmentDirections
+//                        .actionMainFragmentToAboutAppFragment()
+//                it.findNavController().navigate(R.id.action_aboutAppFragment_to_privacyFragment)
+
+                Snackbar.make(it, "クリックしました。", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+            }
             title?.text = text.key
             content?.text = text.value
         }
@@ -36,6 +52,8 @@ class DpiInfoAdapter(private val dataSet: MutableList<MyData>) :
         val textView = LayoutInflater.from(parent.context)
             .inflate(R.layout.my_text_view, parent, false) as ConstraintLayout
         // set the view's size, margins, paddings and layout parameters
+
+
 
         return DpiInfoViewHolder(textView)
     }
