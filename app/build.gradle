@@ -118,6 +118,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf:19.0.7'
     // AndroidBrowserHelper
     // https://github.com/GoogleChrome/android-browser-helper
+    // https://developers.google.com/web/android/trusted-web-activity/integration-guide
     implementation 'com.google.androidbrowserhelper:androidbrowserhelper:1.3.0'
     // etc
     implementation 'com.jakewharton.timber:timber:4.7.1'

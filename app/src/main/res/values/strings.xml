@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Tell me your DPI</string>
+    // AndroidBrowserHelper
+    <string name="asset_statements">
+        [{
+            \"relation\": [\"delegate_permission/common.handle_all_urls\"],
+            \"target\": {
+                \"namespace\": \"web\",
+                \"site\": \"https://maho-ya.firebaseapp.com\"}
+        }]
+    </string>
+
     // Fragment Titles
     <string name="title_info">Info</string>
     <string name="title_privacy">プライバシーポリシー</string>
