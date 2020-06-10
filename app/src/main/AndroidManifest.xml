@@ -40,6 +40,15 @@
                     android:host="maho-ya.firebaseapp.com"/>
             </intent-filter>
         </activity>
+
+        <!-- It needs to be overridden theme. The title doesn't appear because the theme style is set to NoActionBar.-->
+        <activity
+            android:theme="@style/OssLicenceTheme"
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity" />
+        <activity
+            android:theme="@style/OssLicenceTheme"
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity" />
+
     </application>
 
 </manifest>
