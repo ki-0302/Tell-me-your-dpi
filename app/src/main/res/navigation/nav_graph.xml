@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/aboutAppFragment"
         android:name="com.maho_ya.tell_me_your_dpi.AboutAppFragment"
-        android:label="AboutAppFragment"
+        android:label="@string/title_about_app"
         tools:layout="@layout/fragment_about_app" >
         <action
             android:id="@+id/action_aboutAppFragment_to_privacyFragment"
