@@ -2,20 +2,24 @@
 
     <!-- Base application theme. Disable AppBar to enable Toolbar -->
     <!-- https://developer.android.com/training/appbar/setting-up?hl=ja -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- Required to change Toolbar text color to white.  -->
+    <style name="ToolbarTheme" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textColorPrimary">@color/toolbarText</item>
+        <item name="android:textColorSecondary">@color/toolbarText</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Required to change Toolbar text color to white.  -->
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:textColorPrimary">@color/toolbarText</item>
-        <item name="android:textColorSecondary">@color/toolbarText</item>
-    </style>
-
-    <style name="OssLicenceTheme" parent="Theme.AppCompat.Light">
+    <style name="OssLicenceTheme" parent="Theme.MaterialComponents.DayNight">
         <item name="actionBarStyle">@style/OssLicenceActionBar</item>
     </style>
 
@@ -42,6 +46,6 @@
 
     <!-- タイトルカラーの設定 -->
     <style name="OssLicenceActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">#@color/toolbarText</item>
+        <item name="android:textColor">@color/toolbarText</item>
     </style>
 </resources>
