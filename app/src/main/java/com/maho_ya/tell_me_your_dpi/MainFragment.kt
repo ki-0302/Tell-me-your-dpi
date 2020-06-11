@@ -3,18 +3,25 @@ package com.maho_ya.tell_me_your_dpi
 import android.app.ActivityManager
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 
 class MainFragment: Fragment(R.layout.fragment_main) {
 
@@ -128,6 +135,28 @@ class MainFragment: Fragment(R.layout.fragment_main) {
         val fab: com.google.android.material.floatingactionbutton.FloatingActionButton = requireView().findViewById(R.id.fab)
         fab.setOnClickListener { view ->
 
+            val auth: FirebaseAuth = Firebase.auth
+
+
+            auth.signInAnonymously()
+                .addOnCompleteListener {
+                        task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInAnonymously:success")
+                        val user = auth.currentUser
+                        readApi()
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInAnonymously:failure", task.exception)
+                        Toast.makeText(context, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+
+
+
             val clipboardManager: ClipboardManager =
                 this.activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
@@ -143,6 +172,34 @@ class MainFragment: Fragment(R.layout.fragment_main) {
                 .setAction("Action", null)
                 .show()
         }
+
+    }
+
+    private fun readApi() {
+
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("releaseNotes").orderByChild("date")
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                dataSnapshot.children.forEach {
+                    val key = it.key
+                    val date = it.child("date")
+                    val appVersion = it.child("appVersion")
+                    val description = it.child("description")
+
+                    Log.d(TAG, "Value is: $date $appVersion $description")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException())
+            }
+        })
+
 
     }
 
