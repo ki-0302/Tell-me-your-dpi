@@ -116,6 +116,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.4.2'
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.firebase:firebase-perf:19.0.7'
+    // Retrofit
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    // Moshi - JSON library
+    def moshi_version = "1.9.2"
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version" // convert kotlin class from JSON
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"   // annotation processor
+
     // AndroidBrowserHelper
     // https://github.com/GoogleChrome/android-browser-helper
     // https://developers.google.com/web/android/trusted-web-activity/integration-guide
