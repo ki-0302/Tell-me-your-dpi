@@ -26,7 +26,6 @@ class ReleaseNotesDataSource {
             .create(WebService::class.java)
 
         return try {
-            throw IllegalStateException("test")
             Result.Success(webService.releaseNotes().releaseNotes)
         } catch (e: Exception) {
             Result.Error(e)
