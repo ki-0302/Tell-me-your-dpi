@@ -17,7 +17,7 @@
             android:name="asset_statements"
             android:resource="@string/asset_statements" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.maho_ya.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
