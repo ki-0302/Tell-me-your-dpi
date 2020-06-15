@@ -1,4 +1,4 @@
-package com.maho_ya.tell_me_your_dpi
+package com.maho_ya.ui.home
 
 import android.app.ActivityManager
 import android.content.ClipData
@@ -10,17 +10,25 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.maho_ya.data.remote.ReleaseNotesDataSource
+import com.maho_ya.result.Result
+import com.maho_ya.tell_me_your_dpi.R
+import kotlinx.coroutines.*
+import timber.log.Timber
+import kotlin.coroutines.CoroutineContext
 
-class MainFragment: Fragment(R.layout.fragment_main) {
+class HomeFragment: Fragment(R.layout.fragment_home), CoroutineScope {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + Job()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -94,19 +102,63 @@ class MainFragment: Fragment(R.layout.fragment_main) {
         val dpiHeight = (realSize.y / resources.displayMetrics.density).toInt()
 
         val mutableList = mutableListOf<MyData>()
-        mutableList.add(MyData("Density qualifier", dpi))
-        mutableList.add(MyData("Density DPI", "${resources.displayMetrics.densityDpi}"))
-        mutableList.add(MyData("Real Display Size - Width", "${realSize.x} px"))
-        mutableList.add(MyData("Real Display Size - Height",  "${realSize.y} px"))
-        mutableList.add(MyData("デバイス",  Build.DEVICE))
-        mutableList.add(MyData("ブランド",  Build.BRAND))
-        mutableList.add(MyData("モデル",  Build.MODEL))
-        mutableList.add(MyData("API Level",  "${Build.VERSION.SDK_INT}"))
-        mutableList.add(MyData("Android バージョン",  Build.VERSION.RELEASE))
-        mutableList.add(MyData("コードネーム",  androidCodeName))
-        mutableList.add(MyData("メモリ / 利用可能 （参考値）",
-            "${convertMemorySizeToMB(getMemoryInfo().totalMem)} MB" +
-                    " / ${convertMemorySizeToMB(getMemoryInfo().availMem)} MB"))
+        mutableList.add(
+            MyData(
+                "Density qualifier",
+                dpi
+            )
+        )
+        mutableList.add(
+            MyData(
+                "Density DPI",
+                "${resources.displayMetrics.densityDpi}"
+            )
+        )
+        mutableList.add(
+            MyData(
+                "Real Display Size - Width",
+                "${realSize.x} px"
+            )
+        )
+        mutableList.add(
+            MyData(
+                "Real Display Size - Height",
+                "${realSize.y} px"
+            )
+        )
+        mutableList.add(
+            MyData(
+                "デバイス",
+                Build.DEVICE
+            )
+        )
+        mutableList.add(MyData("ブランド", Build.BRAND))
+        mutableList.add(MyData("モデル", Build.MODEL))
+        mutableList.add(
+            MyData(
+                "API Level",
+                "${Build.VERSION.SDK_INT}"
+            )
+        )
+        mutableList.add(
+            MyData(
+                "Android バージョン",
+                Build.VERSION.RELEASE
+            )
+        )
+        mutableList.add(
+            MyData(
+                "コードネーム",
+                androidCodeName
+            )
+        )
+        mutableList.add(
+            MyData(
+                "メモリ / 利用可能 （参考値）",
+                "${convertMemorySizeToMB(getMemoryInfo().totalMem)} MB" +
+                        " / ${convertMemorySizeToMB(getMemoryInfo().availMem)} MB"
+            )
+        )
 
 
         viewManager = LinearLayoutManager(activity)
@@ -125,8 +177,32 @@ class MainFragment: Fragment(R.layout.fragment_main) {
             adapter = viewAdapter
         }
 
-        val fab: com.google.android.material.floatingactionbutton.FloatingActionButton = requireView().findViewById(R.id.fab)
+        val fab: com.google.android.material.floatingactionbutton.FloatingActionButton = requireView().findViewById(
+            R.id.fab
+        )
         fab.setOnClickListener { view ->
+
+
+            launch {
+
+                async(context = Dispatchers.Main) {
+
+                    when (val releaseNotesDataSource = ReleaseNotesDataSource().getReleaseNotes()) {
+                        is Result.Success -> {
+                            releaseNotesDataSource.data.forEach() {
+                                Timber.d("debug " + it.description)
+                            }
+                        }
+                        is Result.Error -> {
+                            Timber.d("debug " + releaseNotesDataSource.exception.message)
+                        }
+                    }
+
+                }
+
+            }
+
+
 
             val clipboardManager: ClipboardManager =
                 this.activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

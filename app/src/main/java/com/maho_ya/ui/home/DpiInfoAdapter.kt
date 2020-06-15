@@ -1,13 +1,12 @@
-package com.maho_ya.tell_me_your_dpi
+package com.maho_ya.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.maho_ya.tell_me_your_dpi.R
 
 class DpiInfoAdapter(private val dataSet: MutableList<MyData>) :
     RecyclerView.Adapter<DpiInfoAdapter.DpiInfoViewHolder>() {
@@ -47,7 +46,7 @@ class DpiInfoAdapter(private val dataSet: MutableList<MyData>) :
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): DpiInfoAdapter.DpiInfoViewHolder {
+                                    viewType: Int): DpiInfoViewHolder {
         // create a new view
         val textView = LayoutInflater.from(parent.context)
             .inflate(R.layout.my_text_view, parent, false) as ConstraintLayout

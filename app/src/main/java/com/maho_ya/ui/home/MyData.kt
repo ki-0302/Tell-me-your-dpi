@@ -1,4 +1,4 @@
-package com.maho_ya.tell_me_your_dpi
+package com.maho_ya.ui.home
 
 class MyData (
     val key: String?,

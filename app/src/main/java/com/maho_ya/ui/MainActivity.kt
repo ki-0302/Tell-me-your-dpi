@@ -1,4 +1,4 @@
-package com.maho_ya.tell_me_your_dpi
+package com.maho_ya.ui
 
 import android.app.ActivityManager
 import android.content.Context
@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.maho_ya.tell_me_your_dpi.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.nav_host_fragment).run {
             when (currentDestination!!.id) {
                 // タブごとの最初の画面
-                R.id.mainFragment -> finish()
+                R.id.navHome -> finish()
                 // それ以外の画面
                 else -> popBackStack()
             }
@@ -73,39 +75,53 @@ class MainActivity : AppCompatActivity() {
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, configuration)
 
+
+
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val logo = findViewById<ImageView>(R.id.logo)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.mainFragment) {
+            if(destination.id == R.id.navHome) {
                 logo.visibility = View.VISIBLE
                 bottomNavigationView.visibility = View.VISIBLE
             } else {
                 logo.visibility = View.GONE
-                bottomNavigationView.visibility = View.GONE
+                bottomNavigationView.visibility = View.VISIBLE
             }
         }
 
-        navController.currentDestination
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.action_release_note -> {
-                    true
-                }
-                R.id.action_share -> {
-                    true
-                }
-                R.id.action_aboutApp -> {
+        setupWithNavController(bottomNavigationView, navController)
 
-                    // Navigate to a destination
-                    val action =
-                        MainFragmentDirections
-                            .actionMainFragmentToAboutAppFragment()
-                    this.findNavController(R.id.nav_host_fragment).navigate(action)
-                    true
-                }
-                else -> false
-            }
-        }
+
+
+//        navController.currentDestination
+//        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.action_release_notes -> {
+//
+//                    this.findNavController(R.id.nav_host_fragment)
+//                        .navigate(
+//                            MainFragmentDirections
+//                                .actionMainFragmentToReleaseNotesFragment()
+//                        )
+//                    true
+//                }
+//                R.id.action_share -> {
+//                    true
+//                }
+//                R.id.action_aboutApp -> {
+//
+//                    // Navigate to a destination
+//                    this.findNavController(R.id.nav_host_fragment)
+//                        .navigate(
+//                            MainFragmentDirections
+//                                .actionMainFragmentToAboutAppFragment()
+//                        )
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
 
     }

@@ -1,4 +1,4 @@
-package com.maho_ya.tell_me_your_dpi
+package com.maho_ya.ui.aboutapp
 
 import android.content.pm.PackageInfo
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.maho_ya.tell_me_your_dpi.R
 
 
 class AboutAppFragment: Fragment() {
@@ -31,12 +32,28 @@ class AboutAppFragment: Fragment() {
         val versionName = packageInfo.versionName
 
         val mutableList = mutableListOf<AboutAppMenuData>()
-        mutableList.add(AboutAppMenuData(1, "バージョン $versionName"))
-        mutableList.add(AboutAppMenuData(2, "プライバシーポリシー"))
-        mutableList.add(AboutAppMenuData(3, "オープンソース ライセンス"))
+        mutableList.add(
+            AboutAppMenuData(
+                1,
+                "バージョン $versionName"
+            )
+        )
+        mutableList.add(
+            AboutAppMenuData(
+                2,
+                "プライバシーポリシー"
+            )
+        )
+        mutableList.add(
+            AboutAppMenuData(
+                3,
+                "オープンソース ライセンス"
+            )
+        )
 
         val viewManager = LinearLayoutManager(activity)
-        val viewAdapter = AboutAppMenuAdapter(mutableList)
+        val viewAdapter =
+            AboutAppMenuAdapter(mutableList)
 
 
 

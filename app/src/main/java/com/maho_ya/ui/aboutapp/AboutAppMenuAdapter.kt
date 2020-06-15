@@ -1,15 +1,15 @@
-package com.maho_ya.tell_me_your_dpi
+package com.maho_ya.ui.aboutapp
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.androidbrowserhelper.trusted.LauncherActivity
+import com.maho_ya.tell_me_your_dpi.R
 
 class AboutAppMenuAdapter(private val dataSet: MutableList<AboutAppMenuData>) :
     RecyclerView.Adapter<AboutAppMenuAdapter.AboutAppMenuViewHolder>() {
@@ -53,13 +53,15 @@ class AboutAppMenuAdapter(private val dataSet: MutableList<AboutAppMenuData>) :
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): AboutAppMenuAdapter.AboutAppMenuViewHolder {
+                                    viewType: Int): AboutAppMenuViewHolder {
         // create a new view
         val textView = LayoutInflater.from(parent.context)
             .inflate(R.layout.about_app_view, parent, false) as ConstraintLayout
         // set the view's size, margins, paddings and layout parameters
 
-        return AboutAppMenuViewHolder(textView)
+        return AboutAppMenuViewHolder(
+            textView
+        )
     }
 
     // Replace the contents of a view (invoked by the layout manager)
