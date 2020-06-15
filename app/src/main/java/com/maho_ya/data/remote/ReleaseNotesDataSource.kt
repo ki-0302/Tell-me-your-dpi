@@ -11,10 +11,13 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
+import com.maho_ya.result.Result
+import kotlinx.coroutines.flow.Flow
+import java.lang.IllegalStateException
 
 class ReleaseNotesDataSource {
 
-    fun getReleaseNotes() {
+    suspend fun getReleaseNotes(): Result<List<ReleaseNote>> {
 
         val webService = Retrofit.Builder()
             .baseUrl("https://maho-ya.firebaseapp.com/")
@@ -22,18 +25,12 @@ class ReleaseNotesDataSource {
             .build()
             .create(WebService::class.java)
 
-        webService.releaseNotes().enqueue(object : Callback<ReleaseNotesResults> {
-            override fun onFailure(call: Call<ReleaseNotesResults>, t: Throwable) {
-                Timber.v("retrofit failed" + t.message)
-            }
-
-            override fun onResponse(call: Call<ReleaseNotesResults>, response: Response<ReleaseNotesResults>) {
-
-                response.body()?.releaseNotes?.sortedBy { it.date }?.forEach {
-                    Timber.v("retrofit ${it.date} ${it.appVersion} ${it.description}")
-                }
-            }
-        })
+        return try {
+            throw IllegalStateException("test")
+            Result.Success(webService.releaseNotes().releaseNotes)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
     fun createMoshiBuilder(): Moshi {

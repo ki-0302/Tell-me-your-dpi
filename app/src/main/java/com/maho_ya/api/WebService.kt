@@ -9,7 +9,8 @@ import retrofit2.http.GET
  */
 interface WebService {
 
+    // Using suspend For Kotlin coroutine.
     @GET("api/release-notes")
-    fun releaseNotes(): Call<ReleaseNotesResults>
+    suspend fun releaseNotes(): ReleaseNotesResults
 
 }
