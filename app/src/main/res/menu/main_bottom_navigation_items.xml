@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_release_note"
+    <item android:id="@+id/navHome"
+        android:title="@string/menu_home"
+        android:icon="@drawable/ic_baseline_home" />
+    <item android:id="@+id/navReleaseNotes"
         android:title="@string/menu_release"
-        android:icon="@drawable/ic_check" />
-    <item android:id="@+id/action_share"
-        android:title="@string/menu_share"
-        android:icon="@drawable/ic_check" />
-    <item android:id="@+id/action_aboutApp"
+        android:icon="@drawable/ic_baseline_new_releases" />
+    <item android:id="@+id/navAboutApp"
         android:title="@string/menu_about_app"
-        android:icon="@drawable/ic_check" />
+        android:icon="@drawable/ic_baseline_about" />
 </menu>
