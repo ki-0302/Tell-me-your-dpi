@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
@@ -15,12 +16,13 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maho_ya.tell_me_your_dpi.R
+import com.maho_ya.tell_me_your_dpi.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+
+    private val viewModel: MainActivityViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
 
     // Tap ActionBar
     // https://developer.android.com/reference/android/app/Activity#onOptionsItemSelected(android.view.MenuItem)
@@ -45,14 +47,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        registerToolbar(savedInstanceState)
+
+        registerBottomNavigation()
+    }
+
+    private fun registerToolbar(savedInstanceState: Bundle?) {
 
         // TODO Consider recreated Activity.
         // Add Toolbar to Activity.
@@ -62,6 +68,9 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) toolbar.title = ""
 
         setSupportActionBar(toolbar)
+    }
+
+    private fun registerBottomNavigation() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
@@ -74,9 +83,6 @@ class MainActivity : AppCompatActivity() {
         val configuration = AppBarConfiguration(navController.graph)
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, configuration)
-
-
-
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val logo = findViewById<ImageView>(R.id.logo)
@@ -91,50 +97,5 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupWithNavController(bottomNavigationView, navController)
-
-
-
-//        navController.currentDestination
-//        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.action_release_notes -> {
-//
-//                    this.findNavController(R.id.nav_host_fragment)
-//                        .navigate(
-//                            MainFragmentDirections
-//                                .actionMainFragmentToReleaseNotesFragment()
-//                        )
-//                    true
-//                }
-//                R.id.action_share -> {
-//                    true
-//                }
-//                R.id.action_aboutApp -> {
-//
-//                    // Navigate to a destination
-//                    this.findNavController(R.id.nav_host_fragment)
-//                        .navigate(
-//                            MainFragmentDirections
-//                                .actionMainFragmentToAboutAppFragment()
-//                        )
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-
-
-    }
-
-    private fun convertMemorySizeToMB(memorySize: Long): Int {
-        return (memorySize / 1024 / 1024).toInt()
-    }
-
-    // Get a MemoryInfo object for the device's current memory status.
-    private fun getMemoryInfo(): ActivityManager.MemoryInfo {
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        return ActivityManager.MemoryInfo().also { memoryInfo ->
-            activityManager.getMemoryInfo(memoryInfo)
-        }
     }
 }
