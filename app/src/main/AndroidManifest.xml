@@ -33,7 +33,7 @@
 
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
-                android:resource="@color/colorPrimary" />
+                android:resource="@color/color_primary" />
             
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

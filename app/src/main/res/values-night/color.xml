@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000</color>
-    <color name="colorPrimaryDark">#999</color>
-    <color name="colorAccent">#D01C31</color>
+    <color name="color_primary">#211314</color>
+    <color name="color_primary_dark">#D01C31</color>
+    <color name="color_accent">#D01C31</color>
+    <color name="text_color">#e2e0e1</color>
 
-    <color name="toolbarText">#FFF</color>
-    <color name="colorSeparatorLine">#AAA</color>
+    <color name="toolbar_text">#e2e0e1</color>
+    <color name="color_separator_line">#AAA</color>
 
+    <color name="solid_rounded_button_text">#b8b8b8</color>
+    <color name="solid_rounded_button_background">#2c1f20</color>
+    <color name="solid_rounded_button_solid">#b8b8b8</color>
+
+    <color name="version">#AAA</color>
 </resources>

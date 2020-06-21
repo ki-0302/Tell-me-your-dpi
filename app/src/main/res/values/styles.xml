@@ -1,34 +1,50 @@
 <resources>
 
-    <!-- Base application theme. Disable AppBar to enable Toolbar -->
-    <!-- https://developer.android.com/training/appbar/setting-up?hl=ja -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+    <!-- tell_me_your_dpi -->
+    <style name="Widget.tell_me_your_dpi" parent="@android:style/Widget.Material" />
+
+    <!-- '?attr' is set to use the theme set in the 'AndroidManifest.xml'.  -->
+    <style name="Widget.tell_me_your_dpi.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorAccent</item>
+        <item name="android:textColor">?android:textColor</item>
     </style>
 
-    <!-- Required to change Toolbar text color to white.  -->
-    <style name="ToolbarTheme" parent="Theme.MaterialComponents.DayNight">
-        <item name="android:textColorPrimary">@color/toolbarText</item>
-        <item name="android:textColorSecondary">@color/toolbarText</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!-- AppAbout -->
+    <style name="Widget.tell_me_your_dpi.AppAbout" />
+
+    <style name="Widget.tell_me_your_dpi.AppAbout.List">
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">16dp</item>
     </style>
 
-    <style name="OssLicenceTheme" parent="Theme.MaterialComponents.DayNight">
-        <item name="actionBarStyle">@style/OssLicenceActionBar</item>
+    <style name="Widget.tell_me_your_dpi.Home" />
+
+    <style name="Widget.tell_me_your_dpi.Home.ListTitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
     </style>
+
+    <style name="Widget.tell_me_your_dpi.Home.ListDescription">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+
+    <!-- Oss Licence  -->
+    <style name="oss_licence" />
 
     <!-- ActionBar styles -->
-    <style name="OssLicenceActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="oss_licence.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <!-- For oss license, Change background color of the ActionBar.-->
-        <item name="background">@color/colorPrimary</item>
+        <item name="background">@color/color_primary</item>
         <!-- For oss license, Change color of the title.-->
-        <item name="titleTextStyle">@style/OssLicenceActionBarTitleTextStyle</item>
+        <item name="titleTextStyle">@style/oss_licence.ActionBarTitleTextStyle</item>
 
         <!-- For oss license, Change ActionBar home button.-->
         <item name="homeAsUpIndicator">@drawable/ic_actionbar_arrow_back</item>
@@ -45,7 +61,7 @@
 <!--    </style>-->
 
     <!-- タイトルカラーの設定 -->
-    <style name="OssLicenceActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/toolbarText</item>
+    <style name="oss_licence.ActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/toolbar_text</item>
     </style>
 </resources>

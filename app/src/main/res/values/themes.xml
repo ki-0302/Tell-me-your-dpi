@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. Disable AppBar to enable Toolbar -->
+    <!-- https://developer.android.com/training/appbar/setting-up?hl=ja -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:statusBarColor">@color/color_primary</item>
+        <item name="android:textColor">@color/text_color</item>
+        <!-- Button style for MaterialComponents. -->
+        <item name="materialButtonStyle">@style/Widget.tell_me_your_dpi.Button</item>
+    </style>
+
+    <!-- Required to change Toolbar text color to white.  -->
+    <style name="ToolbarTheme" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textColorPrimary">@color/toolbar_text</item>
+        <item name="android:textColorSecondary">@color/toolbar_text</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <style name="OssLicenceTheme" parent="Theme.MaterialComponents.DayNight">
+        <item name="actionBarStyle">@style/oss_licence.ActionBar</item>
+    </style>
+
+</resources>
