@@ -1,7 +1,6 @@
 package com.maho_ya.api
 
 import com.maho_ya.model.ReleaseNotesResults
-import retrofit2.Call
 import retrofit2.http.GET
 
 /**
@@ -11,6 +10,5 @@ interface WebService {
 
     // Using suspend For Kotlin coroutine.
     @GET("api/release-notes")
-    suspend fun releaseNotes(): ReleaseNotesResults
-
+    suspend fun releaseNotesResults(): ReleaseNotesResults
 }
