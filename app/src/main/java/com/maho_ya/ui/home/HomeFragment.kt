@@ -10,227 +10,118 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.maho_ya.data.remote.ReleaseNotesDataSource
+import com.maho_ya.data.device.DataDeviceDataSource
+import com.maho_ya.data.device.DataDeviceRepository
+import com.maho_ya.data.device.DeviceDataSource
+import com.maho_ya.data.device.DeviceRepository
+import com.maho_ya.data.releasenotes.DataReleaseNotesDataSource
+import com.maho_ya.data.releasenotes.DataReleaseNotesRepository
+import com.maho_ya.data.releasenotes.ReleaseNotesDataSource
+import com.maho_ya.domain.device.DeviceUseCase
+import com.maho_ya.domain.releasenotes.ReleaseNotesUseCase
 import com.maho_ya.result.Result
 import com.maho_ya.tell_me_your_dpi.R
+import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
+import com.maho_ya.tell_me_your_dpi.databinding.FragmentReleaseNotesBinding
+import com.maho_ya.ui.releasenotes.ReleaseNotesViewModel
+import com.maho_ya.ui.releasenotes.ReleaseNotesViewModelFactory
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
-class HomeFragment: Fragment(R.layout.fragment_home), CoroutineScope {
+class HomeFragment: Fragment(R.layout.fragment_home) {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + Job()
+    private val viewModel: HomeVieModel
+            by viewModels {
+                HomeViewModelFactory(
+                    DeviceUseCase(
+                        DataDeviceRepository(
+                            DataDeviceDataSource(
+                                activity?.applicationContext
+                            )
+                        )
+                    )
+                )
+            }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val binding = FragmentHomeBinding.bind(view)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        val wm = activity?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val disp = wm.defaultDisplay
-        val realSize = Point()
-        disp.getRealSize(realSize)
+        val fab: com.google.android.material.floatingactionbutton.FloatingActionButton
+                = requireView().findViewById(R.id.fab)
 
-
-        val androidCodeName= when(Build.VERSION.SDK_INT){
-            Build.VERSION_CODES.BASE, Build.VERSION_CODES.BASE_1_1  -> "Base"
-            Build.VERSION_CODES.CUPCAKE -> "Cupcake"
-            Build.VERSION_CODES.DONUT -> "Donut"
-            Build.VERSION_CODES.ECLAIR, Build.VERSION_CODES.ECLAIR_0_1, Build.VERSION_CODES.ECLAIR_MR1  -> "Eclair"
-            Build.VERSION_CODES.FROYO -> "Froyo"
-            Build.VERSION_CODES.GINGERBREAD, Build.VERSION_CODES.GINGERBREAD_MR1 -> "Gingerbread"
-            Build.VERSION_CODES.HONEYCOMB, Build.VERSION_CODES.HONEYCOMB_MR1, Build.VERSION_CODES.HONEYCOMB_MR2 -> "Honeycomb"
-            Build.VERSION_CODES.ICE_CREAM_SANDWICH, Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 -> "Ice Cream Sandwich"
-            Build.VERSION_CODES.JELLY_BEAN, Build.VERSION_CODES.JELLY_BEAN_MR1, Build.VERSION_CODES.JELLY_BEAN_MR2 -> "Jelly Bean"
-            Build.VERSION_CODES.KITKAT, Build.VERSION_CODES.KITKAT_WATCH -> "KitKat/4.4W"
-            Build.VERSION_CODES.LOLLIPOP, Build.VERSION_CODES.LOLLIPOP_MR1 -> "Lollipop"
-            Build.VERSION_CODES.M -> "Marshmallow"
-            Build.VERSION_CODES.N, Build.VERSION_CODES.N_MR1 -> "Nougat"
-            Build.VERSION_CODES.O, Build.VERSION_CODES.O_MR1 -> "Oreo"
-            Build.VERSION_CODES.P -> "Pie"
-            Build.VERSION_CODES.Q -> "Android 10 (Q)"
-            30 -> "Android 11 (R)"
-            else -> "UnKnown"
-        }
-
-
-        // /android-29/android/content/res/Configuration.java
-        val dpi2 = when (resources.displayMetrics.densityDpi) {
-            Configuration.DENSITY_DPI_UNDEFINED -> "UnDefined"
-            120 -> "ldpi"
-            160 -> "mdpi"
-            213 -> "tvdpi"
-            240 -> "hdpi"
-            320 -> "xhdpi"
-            480 -> "xxhdpi"
-            640 -> "xxxhdpi"
-            0xfffe -> "anydpi"
-            0xffff-> "nodpi"
-            else -> resources.displayMetrics.densityDpi.toString() + "dpi"
-        }
-
-        val dpi = when (resources.displayMetrics.densityDpi) {
-            0 -> "UnDefined"
-            in 1..120 -> "ldpi"
-            in 121..160 -> "mdpi"
-            in 161..240 -> "hdpi"
-            in 241..320 -> "xhdpi"
-            in 321..480 -> "xxhdpi"
-            in 481..640 -> "xxxhdpi"
-            else -> resources.displayMetrics.densityDpi.toString() + "dpi"
-        }
-
-
-
-
-
-        val activityManager =
-            activity?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val memoryInfo = ActivityManager.MemoryInfo()
-        activityManager.getMemoryInfo(memoryInfo)
-        val totalMemory = (memoryInfo.totalMem / 1024 / 1024).toInt()
-        val availableMemory = (memoryInfo.availMem / 1024 / 1024).toInt()
-
-
-        val dpiWidth = (realSize.x / resources.displayMetrics.xdpi).toInt()
-        val dpiHeight = (realSize.y / resources.displayMetrics.density).toInt()
-
-        val mutableList = mutableListOf<MyData>()
-        mutableList.add(
-            MyData(
-                "Density qualifier",
-                dpi
-            )
-        )
-        mutableList.add(
-            MyData(
-                "Density DPI",
-                "${resources.displayMetrics.densityDpi}"
-            )
-        )
-        mutableList.add(
-            MyData(
-                "Real Display Size - Width",
-                "${realSize.x} px"
-            )
-        )
-        mutableList.add(
-            MyData(
-                "Real Display Size - Height",
-                "${realSize.y} px"
-            )
-        )
-        mutableList.add(
-            MyData(
-                "デバイス",
-                Build.DEVICE
-            )
-        )
-        mutableList.add(MyData("ブランド", Build.BRAND))
-        mutableList.add(MyData("モデル", Build.MODEL))
-        mutableList.add(
-            MyData(
-                "API Level",
-                "${Build.VERSION.SDK_INT}"
-            )
-        )
-        mutableList.add(
-            MyData(
-                "Android バージョン",
-                Build.VERSION.RELEASE
-            )
-        )
-        mutableList.add(
-            MyData(
-                "コードネーム",
-                androidCodeName
-            )
-        )
-        mutableList.add(
-            MyData(
-                "メモリ / 利用可能 （参考値）",
-                "${convertMemorySizeToMB(getMemoryInfo().totalMem)} MB" +
-                        " / ${convertMemorySizeToMB(getMemoryInfo().availMem)} MB"
-            )
-        )
-
-
-        viewManager = LinearLayoutManager(activity)
-        viewAdapter = DpiInfoAdapter(mutableList)
-
-        // requireView(): NonNullのonCreateViewで取得したViewを返す。エラーの場合はIllegalStateException
-        recyclerView = requireView().findViewById<RecyclerView>(R.id.my_recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-
-            // use a linear layout manager
-            layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-        }
-
-        val fab: com.google.android.material.floatingactionbutton.FloatingActionButton = requireView().findViewById(
-            R.id.fab
-        )
         fab.setOnClickListener { view ->
 
+            copyDeviceInfoToClipboard()
 
-            launch {
-
-                async(context = Dispatchers.Main) {
-
-                    when (val releaseNotesDataSource = ReleaseNotesDataSource().getReleaseNotes()) {
-                        is Result.Success -> {
-                            releaseNotesDataSource.data.forEach() {
-                                Timber.d("debug " + it.description)
-                            }
-                        }
-                        is Result.Error -> {
-                            Timber.d("debug " + releaseNotesDataSource.exception.message)
-                        }
-                    }
-
-                }
-
-            }
-
-
-
-            val clipboardManager: ClipboardManager =
-                this.activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-
-            var clip = "";
-            mutableList.forEach {
-                clip += it.key + ":" + it.value + "\n"
-            }
-
-            clipboardManager.setPrimaryClip(ClipData.newPlainText("", clip))
             //fab.setImageResource(R.drawable.ic_check)
             //fab.setRippleColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            Snackbar.make(view, "情報をコピーしました。", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "デバイス情報をコピーしました。", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show()
         }
 
     }
 
-    private fun convertMemorySizeToMB(memorySize: Long): Int {
-        return (memorySize / 1024 / 1024).toInt()
+    private fun copyDeviceInfoToClipboard() {
+
+        val clipboardManager: ClipboardManager =
+            this.activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+
+        clipboardManager.setPrimaryClip(ClipData.newPlainText("", formatDeviceInfoForClipboard()))
     }
 
-    // Get a MemoryInfo object for the device's current memory status.
-    private fun getMemoryInfo(): ActivityManager.MemoryInfo {
-        val activityManager = activity?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        return ActivityManager.MemoryInfo().also { memoryInfo ->
-            activityManager.getMemoryInfo(memoryInfo)
-        }
+    private fun formatDeviceInfoForClipboard(): String {
+
+        return getString(R.string.device_density_qualifier_title) + ": " +
+                    viewModel.device.value?.densityQualifier + "\n" +
+            getString(R.string.device_density_dpi_title) + ": " +
+                    viewModel.device.value?.densityDpi.toString() + "\n" +
+            getString(R.string.device_real_display_size_width_title) + ": " +
+                    getString(R.string.device_real_display_size, viewModel.device.value?.realDisplaySizeWidth) + "\n" +
+            getString(R.string.device_real_display_size_height_title) + ": " +
+                    getString(R.string.device_real_display_size, viewModel.device.value?.realDisplaySizeHeight) + "\n" +
+            getString(R.string.device_brand_title) + ": " +
+                    viewModel.device.value?.brand + "\n" +
+            getString(R.string.device_model_title) + ": " +
+                    viewModel.device.value?.model + "\n" +
+            getString(R.string.device_api_level_title) + ": " +
+                    viewModel.device.value?.apiLevel.toString() + "\n" +
+            getString(R.string.device_android_os_version_title) + ": " +
+                    viewModel.device.value?.androidOsVersion + "\n" +
+            getString(R.string.device_android_code_name_title) + ": " +
+                    viewModel.device.value?.androidCodeName + "\n" +
+            getString(R.string.device_memory_size_title) + ": " +
+                    getString(R.string.device_memory_size,
+                        viewModel.device.value?.totalMemory,
+                        viewModel.device.value?.availableMemory)
     }
+
+
+}
+
+@BindingAdapter("deviceRealDisplaySize")
+fun setDeviceRealDisplaySize(textView: TextView, deviceRealDisplaySize: Int) {
+
+    textView.text = textView.resources.getString(
+        R.string.device_real_display_size, deviceRealDisplaySize)
+}
+
+@BindingAdapter(value = ["deviceMemoryTotalSize", "deviceMemoryAvailableSize"])
+fun setMemorySize(textView: TextView,
+                  deviceMemoryTotalSize: Int,
+                  deviceMemoryAvailableSize: Int) {
+
+    textView.text = textView.resources.getString(
+        R.string.device_memory_size, deviceMemoryTotalSize, deviceMemoryAvailableSize)
 }

@@ -1,29 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:scrollbars="vertical"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.maho_ya.ui.home.HomeVieModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:src="@drawable/ic_content_copy"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/home_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideOverlay"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--  device_density_qualifier -->
+                <TextView
+                    android:id="@+id/device_density_qualifier_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_density_qualifier_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_density_qualifier"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.device.densityQualifier}"
+                    tools:text="xxhdpi"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_density_dpi -->
+                <TextView
+                    android:id="@+id/device_density_dpi_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_density_dpi_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_density_dpi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(viewModel.device.densityDpi)}"
+                    tools:text="440"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_real_display_size_width -->
+                <TextView
+                    android:id="@+id/device_real_display_size_width_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_real_display_size_width_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_real_display_size_width"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:deviceRealDisplaySize="@{viewModel.device.realDisplaySizeWidth}"
+                    tools:text="1080 px"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_real_display_size_height -->
+                <TextView
+                    android:id="@+id/device_real_display_size_height_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_real_display_size_height_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_real_display_size_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:deviceRealDisplaySize="@{viewModel.device.realDisplaySizeHeight}"
+                    tools:text="2280 px"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_brand -->
+                <TextView
+                    android:id="@+id/device_brand_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_brand_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.device.brand}"
+                    tools:text="Google"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_model -->
+                <TextView
+                    android:id="@+id/device_model_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_model_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.device.model}"
+                    tools:text="Pixel 4"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_api_level -->
+                <TextView
+                    android:id="@+id/device_api_level_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_api_level_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_api_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(viewModel.device.apiLevel)}"
+                    tools:text="30"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_android_os_version -->
+                <TextView
+                    android:id="@+id/device_android_os_version_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_android_os_version_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_android_os_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.device.androidOsVersion}"
+                    tools:text="Android 11"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_android_code_name -->
+                <TextView
+                    android:id="@+id/device_android_code_name_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_android_code_name_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_android_code_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.device.androidCodeName}"
+                    tools:text="Android 11 (R)"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+                <!--  device_memory_size -->
+                <TextView
+                    android:id="@+id/device_memory_size_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_memory_size_title"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListTitle" />
+
+                <TextView
+                    android:id="@+id/device_memory_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:deviceMemoryTotalSize="@{viewModel.device.totalMemory}"
+                    app:deviceMemoryAvailableSize="@{viewModel.device.availableMemory}"
+                    tools:text="6000 MB / 3000MB"
+                    style="@style/Widget.tell_me_your_dpi.Home.ListDescription" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:dividerHorizontal" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_content_copy"
+            app:backgroundTint="@color/color_accent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@android:color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
