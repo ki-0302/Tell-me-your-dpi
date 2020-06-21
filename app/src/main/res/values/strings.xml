@@ -20,4 +20,30 @@
     <string name="menu_release">Release</string>
     <string name="menu_share">Share</string>
     <string name="menu_about_app">About</string>
+    // Release Notes
+    <string name="release_notes_item_version">Version %s</string>
+
+
+    <string name="network_error_title">サーバーへの接続に失敗しました。</string>
+    <string name="network_error_reload">再読み込み</string>
+
+    <string name="about_version_title">バージョン %s</string>
+    <string name="about_privacy_policy_title">プライバシーポリシー</string>
+    <string name="about_oss_licences_title">オープンソース ライセンス</string>
+    <string name="about_get_version_error">アプリバージョンの取得に失敗しました。</string>
+
+    <string name="device_density_qualifier_title">Density qualifier</string>
+    <string name="device_density_dpi_title">Density DPI</string>
+    <string name="device_real_display_size_width_title">Real Display Size - Width</string>
+    <string name="device_real_display_size_height_title">Real Display Size - Height</string>
+    <string name="device_brand_title">ブランド</string>
+    <string name="device_model_title">モデル</string>
+    <string name="device_api_level_title">API Level</string>
+    <string name="device_android_os_version_title">Android バージョン</string>
+    <string name="device_android_code_name_title">コードネーム</string>
+    <string name="device_memory_size_title">メモリ / 利用可能 （参考値）</string>
+
+    <string name="device_real_display_size">%d px</string>
+    <string name="device_memory_size">%1$d MB / %2$d MB</string>
+
 </resources>
