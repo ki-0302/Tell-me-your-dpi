@@ -1,10 +1,8 @@
 package com.maho_ya.data.releasenotes
 
 import android.annotation.SuppressLint
-import com.maho_ya.model.ReleaseNote
 import com.maho_ya.model.ReleaseNotesResults
 import com.maho_ya.result.Result
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber

@@ -1,6 +1,5 @@
 package com.maho_ya.data.device
 
-import com.maho_ya.model.AboutApp
 import com.maho_ya.model.Device
 
 interface DeviceRepository {
