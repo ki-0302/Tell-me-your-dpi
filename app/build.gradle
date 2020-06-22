@@ -85,14 +85,10 @@ android {
         }
     }
 
-    // Setting up to use ViewBinding.
-    viewBinding {
-        enabled = true
-    }
-
     // Setting up to use DataBinding.
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
+        viewBinding = true
     }
 }
 
