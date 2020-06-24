@@ -1,20 +1,49 @@
 # ![App Logo](app/src/main/res/drawable/ic_logo.png)Tell me your dpi App
 
+このプロジェクトは、使用者のデバイスのDensity Qualifierなどの画面に関わる情報や、OSの情報などを表示するAndroidアプリを開発しています。
+
+自身のAndroidへの理解を深めるために、新しい技術を採用させやすいように全体を把握しやすいミニマムなプロジェクトでスタートさせました。
+
+次のGoogle Playのリンクよりリリースしたアプリのダウンロードが可能です。
+
+[<img alt="Google Play で手に入れよう" src="https://play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png" width="155px">](https://play.google.com/store/apps/details?id=com.maho_ya.tell_me_your_dpi)
+
+# 機能
+自分のデバイスがどの密度サイズ（xxhdpiなどAndroid Studioで認識される情報）であったかなどを1つの画面で確認でき、表示した情報をまとめてクリップボードにコピーすることもできるようになっています。
+
+その他の画面として、リリースノートやプライバシーポリシーなどのアプリに関しての画面があります。
+
+ダークテーマにも対応しており、Android 10以上であればユーザーのデバイスで設置を変えることにより、表示の切り替えが可能です。
+
+アダプティブアイコンへも対応しています。
+
+# 開発環境
+Android Studio 4.0で開発を行っています。
+
+コードはGradleを除き、Kotlinで記述しています。
+
 # アーキテクチャ
 
 このアプリは[Google I/O Android App](https://github.com/google/iosched)のアーキテクチャを参考に作成しています。
 
-MVVMをベースにクリーンアーキテクチャを取り入れ、UseCase、Repository、各DataSourceが追加される形となっています。
+同様にAACをベースにMVVMにクリーンアーキテクチャの概念を一部取り入れ、UseCase、Repository、各DataSourceが追加される形となっています。
 
 ![Architecture](docs/img/app-architecture.png "Architecture")
 
-画面の構成としてはActivityはMainActivityのみとなっており、Home、リリースノート、このアプリについての各画面がFragmentで切り替わる仕組みになっています。
+ロジックをUIと疎結合になるようにしていますが、FragmentでViewModelへのDIを実行しているなど課題として残っている箇所があります。
+
+今後、Daggerライブラリを取り入れ対応していくつもりです。
+
+LiveDataを利用し、データソースの状態にあわせUIに自動的に通知されるようになっています。
+
+Kotlin、Kotlin Coroutines、Firebase、Retrofitがそれらを支えています。
+
+## 画面構成
+画面の構成はActivityはMainActivityのみとなっており、Home、リリースノート、このアプリについての各画面がFragmentで切り替わる仕組みになっています。
 
 画面下にはBottomNavigationを配置し、各ボタンをクリックすることでFragmentが切り替わるようになっています。
 
 Navigation GraphとBottomNavigationを利用することで、コード上ではFragmentの生成処理はあえて記述せずに済むようになりました。
-
-このアプリでは画面数が少ないためあまり恩恵はありませんが、JetpackのNavigationを利用することにより、画面の移動に関して様々な恩恵を受けることができます。
 
 ## Home(Device info)
 
@@ -22,9 +51,21 @@ Navigation GraphとBottomNavigationを利用することで、コード上では
 
 右下のフローティングボタンをクリックすることにより、表示している情報をクリップボードへコピーすることも可能です。
 
+デバイスの情報をここではデータソースと見立て、Kotlin Coroutinesを使用し、非同期に受け取るようにしています。
 
+データソースはLiveDataにバインディングされており、ViewModelと連携し自動的に取得したデータを通知します。
 
+データソースにはApplicationContextのみ渡しています。
 
+各データは次の項目から取得しています。
+
+- 画面密度: displayMetrics
+
+- ディスプレイサイズ: WindowManager
+
+- メモリ情報: ActivityManager
+
+- その他のOSの情報など: Build
 
 ## ReleaseNotes（リリースノート）
 
@@ -76,6 +117,7 @@ AndroidBrowserHelper の AppBar をダークテーマに対応できるように
 
 こちらもダークテーマに対応できるよう実装しています。
 
+このライブラリのAppBarのバックボタンへのダークテーマの対応方法がわからなかったため、アイコンを差し替えることで対応しています。
 
 ## DarkTheme
 
@@ -85,7 +127,31 @@ Android 10以上であれば、設定のダークテーマの有効・無効で�
 
 専用のテーマや配色、アイコンを定義することで対応しています。
 
+## Firebase
 
+いくつかのFirebaseのサービスを利用しています。
+
+### Hosting
+
+リリースノートのJSONファイルやプライバシーポリシーはFirebase Hostingへデプロイしています。
+
+最初はGithub Pagesを使用していましたが、AndroidBrowserHelperで使用しているassetlinks.jsonの配置場所がドット付きのディレクトリのためかうまくいかなかったため移行しました。
+
+### Analytics
+
+アプリのAnalyticsのログを送信しています。
+
+アプリの利用状況の分析に利用することができます。
+
+### Crashlytics
+
+クラッシュログの送信を行っています。
+
+クラッシュ解析をし、アプリの改善に役立てることができます。
+
+### App Distribution
+
+アプリの開発　TODO　途中
 
 # デザイン
 TODO: Put a AdobeXD ScreenShot.
