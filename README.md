@@ -22,6 +22,10 @@ Android Studio 4.0で開発を行っています。
 
 コードはKotlinで記述しています。（Gradleを除く）
 
+# 動作環境
+
+Android 5.0 から Android 10.0 で動作するように設計されています。
+
 # アーキテクチャ
 
 このアプリは[Google I/O Android App](https://github.com/google/iosched)のアーキテクチャを参考に作成しています。
@@ -46,6 +50,8 @@ Kotlin、Kotlin Coroutines、Firebase、Retrofitがそれらを支えていま�
 Navigation GraphとBottomNavigationを利用することで、コード上ではFragmentの生成処理はあえて記述せずに済むようになりました。
 
 ## Home(Device info)
+
+![Architecture-Home](docs/img/app-architecture-home.png "Architecture-Home")
 
 デバイスのDPIやOSバージョン、メモリの情報などを表示する画面です。
 
