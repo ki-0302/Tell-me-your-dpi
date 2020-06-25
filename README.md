@@ -95,6 +95,8 @@ Flowはコールドストリームのためメモリリークもほとんど意�
 
 ### エラー時の処理
 
+![ReleaseNotes-Error](docs/img/release-notes-network-error.png "ReleaseNotes network error")
+
 エラーもストリームで管理が容易なためエラー時のみ専用の画面を表示し、再読み込み用のボタンをクリックすることで再度UseCaseからRepositoryに対しリリースノートのデータ取得をするように指示するのみですみます。
 
 クリック後にエラーメッセージを消去する処理もDataBindingがストリームに紐付いているため、あえてコーディングせずに自動的に状態が変わり非表示になるようになっています。
