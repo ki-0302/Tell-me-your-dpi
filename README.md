@@ -99,7 +99,9 @@ Flowはコールドストリームのためメモリリークもほとんど意�
 
 ローディングのProgressBarについても同様の処理で自動的に表示・非表示がなされています。
 
-## AboutApp（このアプリについて）
+## AboutApp（Tell me your DPI? について）
+
+![Architecture-About](docs/img/app-architecture-about.png "Architecture-About")
 
 このアプリについての各種情報を表示する画面です。
 
