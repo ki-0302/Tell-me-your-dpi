@@ -11,11 +11,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
-// Signing configuration
-// https://developer.android.com/studio/publish/app-signing#secure-shared-keystore
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 
 android {
     compileSdkVersion 29
@@ -53,6 +49,12 @@ android {
 
     signingConfigs {
         release {
+            // Signing configuration
+            // https://developer.android.com/studio/publish/app-signing#secure-shared-keystore
+            def keystorePropertiesFile = rootProject.file("keystore.properties")
+            def keystoreProperties = new Properties()
+            keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
