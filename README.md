@@ -75,6 +75,8 @@ Navigation GraphとBottomNavigationを利用することで、コード上では
 
 ## ReleaseNotes（リリースノート）
 
+![Architecture-Release](docs/img/app-architecture-release.png "Architecture-Release")
+
 アプリのリリースノートを表示する画面です。
 
 アプリのリリースタイミングで更新ができるように、Webサイト上に配置したJSONファイルからデータを取得し、RecyclerViewでリスト形式で各バージョンのリリース情報を表示しています。
