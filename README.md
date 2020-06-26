@@ -1,5 +1,5 @@
 # ![App Logo](app/src/main/res/drawable/ic_logo.png)Tell me your dpi App
-test
+
 このプロジェクトは、使用者のデバイスのDensity Qualifierなどの画面に関わる情報や、OSの情報などを表示するAndroidアプリを開発しています。
 
 自身のAndroidへの理解を深める目的で、新しい技術を採用させやすいミニマムなプロジェクトでスタートさせました。
@@ -131,7 +131,7 @@ AndroidBrowserHelper の AppBar をダークテーマに対応できるように
 
 このライブラリから作成されるActivityのAppBarのバックボタンへのダークテーマの対応方法がわからなかったため、アイコンを差し替えることで対応しています。
 
-## DarkTheme
+# DarkTheme
 
 このアプリはダークテーマに対応しています。
 
@@ -139,13 +139,13 @@ Android 10以上であれば、設定のダークテーマの有効・無効で�
 
 専用のテーマや配色、アイコンを定義することで対応しています。
 
-## アダプティブアイコン
+# アダプティブアイコン
 
 MaterialDesignに合わせた形でアダプティブアイコンを作成しています。
 
 Illustratorでアプリのロゴアイコンを作成し、svg形式のファイルをVectorAssetとしてリソースへ取り込んでいます。
 
-## Firebase
+# Firebase
 
 いくつかのFirebaseのサービスを利用しています。
 
@@ -173,7 +173,23 @@ Illustratorでアプリのロゴアイコンを作成し、svg形式のファイ
 
 アプリの開発中に指定の端末にテスト用のアプリを配信します。
 
-GithubActionsでプルリクエスト時に自動テストを実行し、開発チーム内にApp Distributionを通して自動配信するCI/CDツールとしての使い方も可能になります。
+GithubActionsでプルリクエスト時に自動テストを実行し、開発チーム内にApp Distributionを通して自動配信するCI/CDツールとしての使い方を可能にしています。
+
+# CI/CD
+
+Github Actionsを使用し、CI/CDの仕組みを実現しています。
+
+Pull Requestがあった場合に、標準のlintチェックをし、ビルドとktlintを実行。その結果を使用し、Dangerで自動コードレビューを行います。
+
+自動コードレビューによりPRに対してのチェックを簡略化でき、コードのレビューに対してのみ集中できるようになります。
+
+![ci-pr](docs/img/ci-pr.png "CI/CD Pull Request")
+
+![ci-pr-actions](docs/img/ci-pr-actions.png "CI/CD Pull Request Actions Log")
+
+その後にApp Distributionへ各テスターのデバイスに自動配信を行い、開発チームでの確認を可能にしています。
+
+![ci-app-distribution](docs/img/ci-app-distribution.png "CI/CD App Distribution")
 
 # デザイン
 
