@@ -40,7 +40,7 @@ jobs:
       - name: Android Lint
         run: ./gradlew lint assembleDebug
       - name: Build with Gradle
-        run: ./gradlew assembleDebug ktlintCheck
+        run: ./gradlew assembleDebug
       - name: exec danger
         run: bundle exec danger
       - name: Firebae CLI Install2
