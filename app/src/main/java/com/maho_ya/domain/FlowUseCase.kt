@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import java.lang.Exception
 
-abstract class FlowUseCase <out R>{
+abstract class FlowUseCase <out R> {
 
-    suspend operator fun invoke() : Flow<Result<R>> {
+    suspend operator fun invoke(): Flow<Result<R>> {
 
         return execute()
             .catch { e ->

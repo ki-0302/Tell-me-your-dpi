@@ -16,7 +16,7 @@ import com.maho_ya.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
 
-class HomeFragment: Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeVieModel
             by viewModels {
@@ -36,8 +36,8 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val fab: com.google.android.material.floatingactionbutton.FloatingActionButton
-                = requireView().findViewById(R.id.fab)
+        val fab: com.google.android.material.floatingactionbutton.FloatingActionButton =
+            requireView().findViewById(R.id.fab)
 
         fab.setOnClickListener {
 
@@ -49,7 +49,6 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                 .setAction("Action", null)
                 .show()
         }
-
     }
 
     private fun copyDeviceInfoToClipboard() {
@@ -67,9 +66,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             getString(R.string.device_density_dpi_title) + ": " +
                     viewModel.device.value?.densityDpi.toString() + "\n" +
             getString(R.string.device_real_display_size_width_title) + ": " +
-                    getString(R.string.device_real_display_size, viewModel.device.value?.realDisplaySizeWidth) + "\n" +
+                    getString(R.string.device_real_display_size,
+                        viewModel.device.value?.realDisplaySizeWidth) + "\n" +
             getString(R.string.device_real_display_size_height_title) + ": " +
-                    getString(R.string.device_real_display_size, viewModel.device.value?.realDisplaySizeHeight) + "\n" +
+                    getString(R.string.device_real_display_size,
+                    viewModel.device.value?.realDisplaySizeHeight) + "\n" +
             getString(R.string.device_brand_title) + ": " +
                     viewModel.device.value?.brand + "\n" +
             getString(R.string.device_model_title) + ": " +
@@ -85,8 +86,6 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                         viewModel.device.value?.totalMemory,
                         viewModel.device.value?.availableMemory)
     }
-
-
 }
 
 @BindingAdapter("deviceRealDisplaySize")
@@ -97,10 +96,11 @@ fun setDeviceRealDisplaySize(textView: TextView, deviceRealDisplaySize: Int) {
 }
 
 @BindingAdapter(value = ["deviceMemoryTotalSize", "deviceMemoryAvailableSize"])
-fun setMemorySize(textView: TextView,
-                  deviceMemoryTotalSize: Int,
-                  deviceMemoryAvailableSize: Int) {
-
+fun setMemorySize(
+    textView: TextView,
+    deviceMemoryTotalSize: Int,
+    deviceMemoryAvailableSize: Int
+) {
     textView.text = textView.resources.getString(
         R.string.device_memory_size, deviceMemoryTotalSize, deviceMemoryAvailableSize)
 }

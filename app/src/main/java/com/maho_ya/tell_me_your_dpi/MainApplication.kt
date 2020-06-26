@@ -5,10 +5,7 @@ import timber.log.Timber
 
 import timber.log.Timber.DebugTree
 
-
-
-
-class MainApplication: MultiDexApplication() {
+class MainApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

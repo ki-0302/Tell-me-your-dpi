@@ -17,8 +17,7 @@ class ReleaseNotesUseCase (
     override suspend fun execute(): Flow<Result<List<ReleaseNote>>> {
 
         return releaseNotesRepository.getReleaseNotes().map { result ->
-            
-            when(result) {
+            when (result) {
                 is Success -> {
                     Success(
                         result.data.releaseNotes.sortedWith(

@@ -15,7 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val logo = findViewById<ImageView>(R.id.logo)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.navHome) {
+            if (destination.id == R.id.navHome) {
                 logo.visibility = View.VISIBLE
                 bottomNavigationView.visibility = View.VISIBLE
             } else {

@@ -8,6 +8,6 @@ class DeviceUseCase(
     private val deviceRepository: DeviceRepository
 ) : UseCase<Device>() {
 
-    override suspend fun execute(): Device
-        = deviceRepository.getDevice()
+    override suspend fun execute(): Device =
+        deviceRepository.getDevice()
 }

@@ -12,7 +12,7 @@ import com.google.androidbrowserhelper.trusted.LauncherActivity
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentAboutAppBinding
 
-class AboutAppFragment: Fragment(R.layout.fragment_about_app) {
+class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 
     private val viewModel: AboutAppViewModel by viewModels()
 

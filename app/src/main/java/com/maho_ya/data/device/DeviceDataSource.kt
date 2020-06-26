@@ -79,7 +79,6 @@ class DataDeviceDataSource(
             val realSize = Point()
             defaultDisplay.getRealSize(realSize)
             realSize
-
         } catch (e: Exception) {
             Point()
         }
@@ -87,16 +86,21 @@ class DataDeviceDataSource(
 
     private fun getAndroidCodeName(): String {
 
-        return when(Build.VERSION.SDK_INT){
-            Build.VERSION_CODES.BASE, Build.VERSION_CODES.BASE_1_1  -> "Base"
+        return when (Build.VERSION.SDK_INT) {
+            Build.VERSION_CODES.BASE, Build.VERSION_CODES.BASE_1_1 -> "Base"
             Build.VERSION_CODES.CUPCAKE -> "Cupcake"
             Build.VERSION_CODES.DONUT -> "Donut"
-            Build.VERSION_CODES.ECLAIR, Build.VERSION_CODES.ECLAIR_0_1, Build.VERSION_CODES.ECLAIR_MR1  -> "Eclair"
+            Build.VERSION_CODES.ECLAIR, Build.VERSION_CODES.ECLAIR_0_1,
+                Build.VERSION_CODES.ECLAIR_MR1 -> "Eclair"
             Build.VERSION_CODES.FROYO -> "Froyo"
-            Build.VERSION_CODES.GINGERBREAD, Build.VERSION_CODES.GINGERBREAD_MR1 -> "Gingerbread"
-            Build.VERSION_CODES.HONEYCOMB, Build.VERSION_CODES.HONEYCOMB_MR1, Build.VERSION_CODES.HONEYCOMB_MR2 -> "Honeycomb"
-            Build.VERSION_CODES.ICE_CREAM_SANDWICH, Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 -> "Ice Cream Sandwich"
-            Build.VERSION_CODES.JELLY_BEAN, Build.VERSION_CODES.JELLY_BEAN_MR1, Build.VERSION_CODES.JELLY_BEAN_MR2 -> "Jelly Bean"
+            Build.VERSION_CODES.GINGERBREAD, Build.VERSION_CODES.GINGERBREAD_MR1
+                -> "Gingerbread"
+            Build.VERSION_CODES.HONEYCOMB, Build.VERSION_CODES.HONEYCOMB_MR1,
+                Build.VERSION_CODES.HONEYCOMB_MR2 -> "Honeycomb"
+            Build.VERSION_CODES.ICE_CREAM_SANDWICH,
+                Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 -> "Ice Cream Sandwich"
+            Build.VERSION_CODES.JELLY_BEAN, Build.VERSION_CODES.JELLY_BEAN_MR1,
+                Build.VERSION_CODES.JELLY_BEAN_MR2 -> "Jelly Bean"
             Build.VERSION_CODES.KITKAT, Build.VERSION_CODES.KITKAT_WATCH -> "KitKat/4.4W"
             Build.VERSION_CODES.LOLLIPOP, Build.VERSION_CODES.LOLLIPOP_MR1 -> "Lollipop"
             Build.VERSION_CODES.M -> "Marshmallow"
@@ -122,7 +126,8 @@ class DataDeviceDataSource(
     private fun getMemoryInfo(): ActivityManager.MemoryInfo? {
 
         return try {
-            val activityManager = context?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
+            val activityManager = context
+                ?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
             ActivityManager.MemoryInfo().also { memoryInfo ->
                 activityManager?.getMemoryInfo(memoryInfo)
             }
@@ -131,5 +136,4 @@ class DataDeviceDataSource(
             null
         }
     }
-
 }

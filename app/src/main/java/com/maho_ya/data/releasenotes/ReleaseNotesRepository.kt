@@ -24,7 +24,7 @@ class DataReleaseNotesRepository(
         return flow {
             emit(Result.Loading)
 
-            try{
+            try {
                 val releaseNotesResults = releaseNotesDataSource.getReleaseNotesResults()
 
                 // Format date.
@@ -37,7 +37,6 @@ class DataReleaseNotesRepository(
                         releaseNotesResults
                     )
                 )
-
             } catch (e: Exception) {
                 Timber.d(e)
                 emit(Result.Error(e))
@@ -46,7 +45,7 @@ class DataReleaseNotesRepository(
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun formatDate(date: String?) : String {
+    private fun formatDate(date: String?): String {
 
         date ?: return ""
         return try {
@@ -58,5 +57,4 @@ class DataReleaseNotesRepository(
             ""
         }
     }
-
 }
