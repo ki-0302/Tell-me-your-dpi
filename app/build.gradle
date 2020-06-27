@@ -50,9 +50,9 @@ android {
     signingConfigs {
         debug {
             def keyStoreFile = rootProject.file("debug.keystore")
-            //if (keyStoreFile.exists()) {
+            if (keyStoreFile.exists()) {
                 storeFile keyStoreFile
-            //}
+            }
         }
         release {
             // Signing configuration
