@@ -17,8 +17,10 @@ class ReleaseNotesAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseNotesViewHolder {
 
         return ReleaseNotesViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                viewType, parent, false)
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                viewType, parent, false
+            )
         )
     }
 
@@ -26,11 +28,12 @@ class ReleaseNotesAdapter() :
         holder.bind(getItem(position))
     }
 
-    override fun getItemViewType(position: Int): Int
-        = R.layout.release_notes_view
+    override fun getItemViewType(position: Int): Int =
+        R.layout.release_notes_view
 }
 
-class ReleaseNotesViewHolder(private val binding: ViewDataBinding
+class ReleaseNotesViewHolder(
+    private val binding: ViewDataBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(releaseNote: ReleaseNote) {
@@ -44,10 +47,10 @@ object ReleaseNotesDiffCallback : DiffUtil.ItemCallback<ReleaseNote>() {
     override fun areItemsTheSame(oldItem: ReleaseNote, newItem: ReleaseNote): Boolean {
 
         return oldItem.appVersion == newItem.appVersion &&
-                oldItem.date == newItem.date &&
-                oldItem.description == newItem.description
+            oldItem.date == newItem.date &&
+            oldItem.description == newItem.description
     }
 
-    override fun areContentsTheSame(oldItem: ReleaseNote, newItem: ReleaseNote) : Boolean
-        = oldItem == newItem
+    override fun areContentsTheSame(oldItem: ReleaseNote, newItem: ReleaseNote): Boolean =
+        oldItem == newItem
 }

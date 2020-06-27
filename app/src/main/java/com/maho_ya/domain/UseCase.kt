@@ -1,14 +1,14 @@
 package com.maho_ya.domain
 
 import com.maho_ya.result.Result
+import java.lang.Exception
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.lang.Exception
 
-abstract class UseCase <out R>{
+abstract class UseCase <out R> {
 
-    suspend operator fun invoke() : Result<R> {
+    suspend operator fun invoke(): Result<R> {
 
         return try {
             withContext(Dispatchers.IO) {

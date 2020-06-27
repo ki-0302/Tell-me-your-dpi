@@ -1,10 +1,10 @@
 package com.maho_ya.data.releasenotes
 
-
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.model.ReleaseNotesResults
 import com.maho_ya.result.data
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
@@ -13,22 +13,26 @@ import org.mockito.Mockito.mock
 
 class DataReleaseNotesRepositoryTest {
 
-    private fun createMockDataSource(date: String)
-        = object : ReleaseNotesDataSource by mock(DataReleaseNotesDataSource::class.java) {
-            override suspend fun getReleaseNotesResults(): ReleaseNotesResults
-                    = ReleaseNotesResults(
-                listOf(ReleaseNote(
-                    appVersion = "",
-                    date = date,
-                    description = ""
-                ))
-            )
+    private fun createMockDataSource(date: String) =
+        object : ReleaseNotesDataSource by mock(DataReleaseNotesDataSource::class.java) {
+            override suspend fun getReleaseNotesResults(): ReleaseNotesResults =
+                ReleaseNotesResults(
+                    listOf(
+                        ReleaseNote(
+                            appVersion = "",
+                            date = date,
+                            description = ""
+                        )
+                    )
+                )
         }
 
     @Test
     fun formatDate_correctDate_returnDate() {
 
-        val releaseNotesRepository = DataReleaseNotesRepository(createMockDataSource("2020-05-26T09:36:00.000Z"))
+        val releaseNotesRepository = DataReleaseNotesRepository(
+            createMockDataSource("2020-05-26T09:36:00.000Z")
+        )
 
         runBlocking {
 
@@ -57,8 +61,5 @@ class DataReleaseNotesRepositoryTest {
                     assertThat(it.data?.releaseNotes?.get(0)?.date, `is`(""))
                 }
         }
-
     }
-
 }
-

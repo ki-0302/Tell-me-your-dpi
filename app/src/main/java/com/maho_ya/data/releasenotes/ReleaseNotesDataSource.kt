@@ -11,6 +11,7 @@ interface ReleaseNotesDataSource {
 
 class DataReleaseNotesDataSource : ReleaseNotesDataSource {
 
-    override suspend fun getReleaseNotesResults(): ReleaseNotesResults =
-        DataDownloader(WebService::class.java).fetch().releaseNotesResults()
+    override suspend fun getReleaseNotesResults(): ReleaseNotesResults = DataDownloader(
+        WebService::class.java
+    ).fetch().releaseNotesResults()
 }

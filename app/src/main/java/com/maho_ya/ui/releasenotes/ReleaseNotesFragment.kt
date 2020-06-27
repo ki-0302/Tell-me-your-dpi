@@ -14,16 +14,17 @@ import com.maho_ya.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentReleaseNotesBinding
 
-class ReleaseNotesFragment: Fragment(R.layout.fragment_release_notes) {
+class ReleaseNotesFragment : Fragment(R.layout.fragment_release_notes) {
 
-    private val viewModel: ReleaseNotesViewModel
-            by viewModels {
-                ReleaseNotesViewModelFactory(
-                    ReleaseNotesUseCase(
-                    DataReleaseNotesRepository(
-                        DataReleaseNotesDataSource()
-                    )))
-            }
+    private val viewModel: ReleaseNotesViewModel by viewModels {
+        ReleaseNotesViewModelFactory(
+            ReleaseNotesUseCase(
+                DataReleaseNotesRepository(
+                    DataReleaseNotesDataSource()
+                )
+            )
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentReleaseNotesBinding.bind(view)
@@ -33,7 +34,11 @@ class ReleaseNotesFragment: Fragment(R.layout.fragment_release_notes) {
 }
 
 @BindingAdapter(value = ["releaseNotes", "hasError"])
-fun setReleaseNotesItems(recyclerView: RecyclerView, releaseNotes: List<ReleaseNote>?, hasError: Boolean) {
+fun setReleaseNotesItems(
+    recyclerView: RecyclerView,
+    releaseNotes: List<ReleaseNote>?,
+    hasError: Boolean
+) {
 
     releaseNotes ?: return
 
