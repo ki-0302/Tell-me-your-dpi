@@ -32,19 +32,17 @@ jobs:
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: echo $GOOGLE_SERVICES_JSON > ./app/google-services.json
-      - name: Android Lint
-        run: ./gradlew lint assembleDebug
       - name: Write debug.keystore
         env:
           DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
         run:
           # cat debug.keystore | base64
           if [ -n "$DEBUG_KEYSTORE_BASE64" ]; then
-            echo "$DEBUG_KEYSTORE_BASE64" | base64 -d > debug.keystore
-          fi
+            echo "$DEBUG_KEYSTORE_BASE64" | base64 -d > debug.keystore;
+          fi;
+      - name: Android Lint
+        run: ./gradlew lint assembleDebug
       - name: Build with Gradle
-        env:
-          DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
         run:
           ./gradlew assembleDebug ktlintCheck
       - name: exec danger
