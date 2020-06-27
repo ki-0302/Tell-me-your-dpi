@@ -48,6 +48,12 @@ android {
     }
 
     signingConfigs {
+        debug {
+            def keyStoreFile = rootProject.file("debug.keystor")
+            if (keyStoreFile.exists()) {
+                storeFile keyStoreFile
+            }
+        }
         release {
             // Signing configuration
             // https://developer.android.com/studio/publish/app-signing#secure-shared-keystore
