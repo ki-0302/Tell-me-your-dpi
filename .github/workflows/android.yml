@@ -53,5 +53,7 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-          FIREBASE_TESTERS: ${{ secrets.FIREBASE_TESTERS }}
-        run: firebase appdistribution:distribute app/build/outputs/apk/debug/app-debug.apk --app $FIREBASE_APP_ID --release-notes "Bug fixes and improvements" --testers "$FIREBASE_TESTERS" --token $FIREBASE_TOKEN
+          FIREBASE_TESTER_GROUPS: ${{ secrets.FIREBASE_TESTER_GROUPS }}
+          PR_NUMBER: "#${{ github.event.pull_request.number }}."
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: firebase appdistribution:distribute app/build/outputs/apk/debug/app-debug.apk --app $FIREBASE_APP_ID --release-notes "PR $PR_NUMBER $PR_TITLE" --groups "$FIREBASE_TESTER_GROUPS" --token $FIREBASE_TOKEN
