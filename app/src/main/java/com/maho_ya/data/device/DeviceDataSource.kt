@@ -6,8 +6,8 @@ import android.graphics.Point
 import android.os.Build
 import android.view.WindowManager
 import com.maho_ya.model.Device
-import timber.log.Timber
 import java.lang.Exception
+import timber.log.Timber
 
 interface DeviceDataSource {
     suspend fun getDevice(): Device
@@ -90,22 +90,29 @@ class DataDeviceDataSource(
             Build.VERSION_CODES.BASE, Build.VERSION_CODES.BASE_1_1 -> "Base"
             Build.VERSION_CODES.CUPCAKE -> "Cupcake"
             Build.VERSION_CODES.DONUT -> "Donut"
-            Build.VERSION_CODES.ECLAIR, Build.VERSION_CODES.ECLAIR_0_1,
-                Build.VERSION_CODES.ECLAIR_MR1 -> "Eclair"
+            Build.VERSION_CODES.ECLAIR,
+            Build.VERSION_CODES.ECLAIR_0_1,
+            Build.VERSION_CODES.ECLAIR_MR1 -> "Eclair"
             Build.VERSION_CODES.FROYO -> "Froyo"
-            Build.VERSION_CODES.GINGERBREAD, Build.VERSION_CODES.GINGERBREAD_MR1
-                -> "Gingerbread"
-            Build.VERSION_CODES.HONEYCOMB, Build.VERSION_CODES.HONEYCOMB_MR1,
-                Build.VERSION_CODES.HONEYCOMB_MR2 -> "Honeycomb"
+            Build.VERSION_CODES.GINGERBREAD,
+            Build.VERSION_CODES.GINGERBREAD_MR1 -> "Gingerbread"
+            Build.VERSION_CODES.HONEYCOMB,
+            Build.VERSION_CODES.HONEYCOMB_MR1,
+            Build.VERSION_CODES.HONEYCOMB_MR2 -> "Honeycomb"
             Build.VERSION_CODES.ICE_CREAM_SANDWICH,
-                Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 -> "Ice Cream Sandwich"
-            Build.VERSION_CODES.JELLY_BEAN, Build.VERSION_CODES.JELLY_BEAN_MR1,
-                Build.VERSION_CODES.JELLY_BEAN_MR2 -> "Jelly Bean"
-            Build.VERSION_CODES.KITKAT, Build.VERSION_CODES.KITKAT_WATCH -> "KitKat/4.4W"
-            Build.VERSION_CODES.LOLLIPOP, Build.VERSION_CODES.LOLLIPOP_MR1 -> "Lollipop"
+            Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 -> "Ice Cream Sandwich"
+            Build.VERSION_CODES.JELLY_BEAN,
+            Build.VERSION_CODES.JELLY_BEAN_MR1,
+            Build.VERSION_CODES.JELLY_BEAN_MR2 -> "Jelly Bean"
+            Build.VERSION_CODES.KITKAT,
+            Build.VERSION_CODES.KITKAT_WATCH -> "KitKat/4.4W"
+            Build.VERSION_CODES.LOLLIPOP,
+            Build.VERSION_CODES.LOLLIPOP_MR1 -> "Lollipop"
             Build.VERSION_CODES.M -> "Marshmallow"
-            Build.VERSION_CODES.N, Build.VERSION_CODES.N_MR1 -> "Nougat"
-            Build.VERSION_CODES.O, Build.VERSION_CODES.O_MR1 -> "Oreo"
+            Build.VERSION_CODES.N,
+            Build.VERSION_CODES.N_MR1 -> "Nougat"
+            Build.VERSION_CODES.O,
+            Build.VERSION_CODES.O_MR1 -> "Oreo"
             Build.VERSION_CODES.P -> "Pie"
             Build.VERSION_CODES.Q -> "Android 10 (Q)"
             30 -> "Android 11 (R)"

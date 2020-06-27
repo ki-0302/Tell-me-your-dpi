@@ -54,5 +54,6 @@ class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 fun setAppVersion(textView: TextView, versionName: String) {
 
     textView.text = textView.resources.getString(
-        R.string.about_version_title, versionName)
+        R.string.about_version_title, versionName
+    )
 }

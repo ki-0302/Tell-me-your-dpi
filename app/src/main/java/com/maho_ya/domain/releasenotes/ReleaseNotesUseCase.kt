@@ -4,13 +4,13 @@ import com.maho_ya.data.releasenotes.ReleaseNotesRepository
 import com.maho_ya.domain.FlowUseCase
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.result.Result
-import com.maho_ya.result.Result.Success
 import com.maho_ya.result.Result.Error
 import com.maho_ya.result.Result.Loading
+import com.maho_ya.result.Result.Success
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class ReleaseNotesUseCase (
+class ReleaseNotesUseCase(
     private val releaseNotesRepository: ReleaseNotesRepository
 ) : FlowUseCase<List<ReleaseNote>>() {
 

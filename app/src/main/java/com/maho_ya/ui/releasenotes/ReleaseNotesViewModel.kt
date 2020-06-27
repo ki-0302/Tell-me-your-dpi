@@ -1,6 +1,13 @@
 package com.maho_ya.ui.releasenotes
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import com.maho_ya.domain.releasenotes.ReleaseNotesUseCase
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.result.Result
@@ -21,12 +28,12 @@ class ReleaseNotesViewModel(
     }
 
     // map method of LiveData for main thread.
-    val isLoading: LiveData<Boolean> = _releaseNotesResult.map{
+    val isLoading: LiveData<Boolean> = _releaseNotesResult.map {
         it == Result.Loading
     }
 
     // switchMap method of LiveData for asynchronous.
-    val hasError: LiveData<Boolean> = _releaseNotesResult.switchMap{
+    val hasError: LiveData<Boolean> = _releaseNotesResult.switchMap {
         liveData {
             emit(it is Result.Error)
         }

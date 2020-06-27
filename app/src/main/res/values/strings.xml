@@ -11,14 +11,11 @@
     </string>
 
     // Fragment Titles
-    <string name="title_info">Info</string>
     <string name="title_release_notes">リリースノート</string>
-    <string name="title_privacy">プライバシーポリシー</string>
     <string name="title_about_app">Tell me your DPI? について</string>
     // Menu
     <string name="menu_home">Home</string>
     <string name="menu_release">Release</string>
-    <string name="menu_share">Share</string>
     <string name="menu_about_app">About</string>
     // Release Notes
     <string name="release_notes_item_version">Version %s</string>
@@ -30,7 +27,6 @@
     <string name="about_version_title">バージョン %s</string>
     <string name="about_privacy_policy_title">プライバシーポリシー</string>
     <string name="about_oss_licences_title">オープンソース ライセンス</string>
-    <string name="about_get_version_error">アプリバージョンの取得に失敗しました。</string>
 
     <string name="device_density_qualifier_title">Density qualifier</string>
     <string name="device_density_dpi_title">Density DPI</string>

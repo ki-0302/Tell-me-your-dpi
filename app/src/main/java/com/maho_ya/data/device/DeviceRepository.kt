@@ -10,6 +10,6 @@ class DataDeviceRepository(
     private val deviceDataSource: DeviceDataSource
 ) : DeviceRepository {
 
-    override suspend fun getDevice(): Device
-        = deviceDataSource.getDevice()
+    override suspend fun getDevice(): Device = deviceDataSource
+        .getDevice()
 }
