@@ -49,7 +49,7 @@ android {
 
     signingConfigs {
         debug {
-            def keyStoreFile = rootProject.file("debug.keystor")
+            def keyStoreFile = rootProject.file("debug.keystore")
             //if (keyStoreFile.exists()) {
                 storeFile keyStoreFile
             //}
