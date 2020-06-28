@@ -23,8 +23,11 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
-    <style name="OssLicenceTheme" parent="Theme.MaterialComponents.DayNight">
-        <item name="actionBarStyle">@style/oss_licence.ActionBar</item>
+    <style name="OssLicenseTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="titleTextColor">@color/toolbar_text</item>
+        <item name="android:statusBarColor">@color/color_primary</item>
+        <item name="homeAsUpIndicator">@drawable/ic_actionbar_arrow_back</item>
     </style>
 
 </resources>
