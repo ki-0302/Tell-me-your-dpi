@@ -144,7 +144,7 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-analytics:17.4.3'
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
     implementation 'com.google.firebase:firebase-perf:19.0.7'
     // Retrofit
     def retrofit_version = "2.9.0"
@@ -159,7 +159,7 @@ dependencies {
     // AndroidBrowserHelper
     // https://github.com/GoogleChrome/android-browser-helper
     // https://developers.google.com/web/android/trusted-web-activity/integration-guide
-    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:1.3.0'
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:1.3.1'
     // etc
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
