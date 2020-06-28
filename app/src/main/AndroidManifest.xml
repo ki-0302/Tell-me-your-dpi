@@ -34,7 +34,11 @@
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
                 android:resource="@color/color_primary" />
-            
+
+            <meta-data
+                android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR"
+                android:resource="@color/color_primary" />
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -48,10 +52,10 @@
 
         <!-- It needs to be overridden theme. The title doesn't appear because the theme style is set to NoActionBar.-->
         <activity
-            android:theme="@style/OssLicenceTheme"
+            android:theme="@style/OssLicenseTheme"
             android:name="com.google.android.gms.oss.licenses.OssLicensesActivity" />
         <activity
-            android:theme="@style/OssLicenceTheme"
+            android:theme="@style/OssLicenseTheme"
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity" />
 
     </application>
