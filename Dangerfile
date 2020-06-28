@@ -8,3 +8,4 @@ warn("Big PR") if git.lines_of_code > 500
 
 checkstyle_format.base_path = Dir.pwd
 checkstyle_format.report 'app/build/reports/ktlint/ktlintMainSourceSetCheck.xml'
+checkstyle_format.report 'app/build/reports/lint-results.xml'
