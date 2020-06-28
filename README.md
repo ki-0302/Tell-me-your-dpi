@@ -1,5 +1,5 @@
 # ![App Logo](app/src/main/res/drawable/ic_logo.png)Tell me your dpi App
-
+test
 このプロジェクトは、使用者のデバイスのDensity Qualifierなどの画面に関わる情報や、OSの情報などを表示するAndroidアプリを開発しています。
 
 自身のAndroidへの理解を深める目的で、新しい技術を採用させやすいミニマムなプロジェクトでスタートさせました。
