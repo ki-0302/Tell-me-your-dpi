@@ -1,24 +1,26 @@
 package com.maho_ya.ui.aboutapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import com.MainApplication
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.androidbrowserhelper.trusted.LauncherActivity
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentAboutAppBinding
+import javax.inject.Inject
 
 class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 
-    private val viewModel: AboutAppViewModel by viewModels()
+    @Inject lateinit var aboutAppViewModel: AboutAppViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentAboutAppBinding.bind(view)
-        binding.viewModel = viewModel
+        binding.viewModel = aboutAppViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         view.findViewById<TextView>(R.id.privacy_policy)?.apply {
@@ -28,6 +30,11 @@ class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
         view.findViewById<TextView>(R.id.oss_licences)?.apply {
             setOnClickListener { openOssLicences() }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MainApplication).appComponent.inject(this)
     }
 
     private fun openPrivacyPolicySite() {
