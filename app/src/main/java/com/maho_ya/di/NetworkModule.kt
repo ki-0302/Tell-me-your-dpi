@@ -16,11 +16,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 internal class NetworkModule {
 
-    @ActivityScope
+    @Singleton
     @Provides
     fun provideWebService(): WebService {
 

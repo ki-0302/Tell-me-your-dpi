@@ -6,11 +6,12 @@ import com.maho_ya.data.releasenotes.ReleaseNotesDataSource
 import com.maho_ya.data.releasenotes.ReleaseNotesRepository
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 @Module
 internal abstract class ReleaseNotesModule {
 
-    @ActivityScope
+    @Singleton
     @Binds
     abstract fun provideReleaseNoteRepository(
         dataReleaseNotesRepository: DataReleaseNotesRepository
