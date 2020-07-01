@@ -9,13 +9,14 @@ import java.text.SimpleDateFormat
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
+import javax.inject.Inject
 
 interface ReleaseNotesRepository {
 
     suspend fun getReleaseNotes(): Flow<Result<ReleaseNotesResults>>
 }
 
-class DataReleaseNotesRepository(
+class DataReleaseNotesRepository @Inject constructor(
     private val releaseNotesDataSource: ReleaseNotesDataSource
 ) : ReleaseNotesRepository {
 

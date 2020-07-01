@@ -9,8 +9,9 @@ import com.maho_ya.result.Result.Loading
 import com.maho_ya.result.Result.Success
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class ReleaseNotesUseCase(
+class ReleaseNotesUseCase @Inject constructor(
     private val releaseNotesRepository: ReleaseNotesRepository
 ) : FlowUseCase<List<ReleaseNote>>() {
 

@@ -6,7 +6,7 @@ import dagger.Component
 import javax.inject.Scope
 
 @ActivityScope
-@Component(modules = [NetworkModule::class])
+@Component(modules = [ReleaseNotesModule::class, NetworkModule::class])
 interface ApplicationComponent {
 
     fun inject(mainActivity: MainActivity)

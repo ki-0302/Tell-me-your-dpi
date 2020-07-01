@@ -14,8 +14,9 @@ import com.maho_ya.result.Result
 import com.maho_ya.result.data
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ReleaseNotesViewModel(
+class ReleaseNotesViewModel @Inject constructor(
     private val releaseNotesUseCase: ReleaseNotesUseCase
 ) : ViewModel(), ReleaseNotesEventListener {
 
