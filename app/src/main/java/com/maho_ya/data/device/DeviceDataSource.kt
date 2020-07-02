@@ -8,12 +8,13 @@ import android.view.WindowManager
 import com.maho_ya.model.Device
 import java.lang.Exception
 import timber.log.Timber
+import javax.inject.Inject
 
 interface DeviceDataSource {
     suspend fun getDevice(): Device
 }
 
-class DataDeviceDataSource(
+class DataDeviceDataSource @Inject constructor(
     private val context: Context?
 ) : DeviceDataSource {
 
