@@ -6,10 +6,10 @@ import com.maho_ya.result.Result
 import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
-import javax.inject.Inject
 
 interface ReleaseNotesRepository {
 

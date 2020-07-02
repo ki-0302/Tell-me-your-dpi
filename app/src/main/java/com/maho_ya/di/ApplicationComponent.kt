@@ -18,4 +18,3 @@ interface ApplicationComponent {
     fun inject(releaseNotesFragment: ReleaseNotesFragment)
     fun inject(aboutAppFragment: AboutAppFragment)
 }
-

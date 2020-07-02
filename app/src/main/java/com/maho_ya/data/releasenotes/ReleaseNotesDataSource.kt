@@ -11,7 +11,7 @@ interface ReleaseNotesDataSource {
 
 class DataReleaseNotesDataSource @Inject constructor(
     private val webService: WebService
-): ReleaseNotesDataSource {
+) : ReleaseNotesDataSource {
 
     override suspend fun getReleaseNotesResults(): ReleaseNotesResults =
         webService.releaseNotesResults()

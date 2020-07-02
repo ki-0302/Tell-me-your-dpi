@@ -15,7 +15,7 @@ class MainApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
-         appComponent = DaggerApplicationComponent
+        appComponent = DaggerApplicationComponent
             .builder()
             .appModule(AppModule(applicationContext))
             .build()

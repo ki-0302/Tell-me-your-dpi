@@ -17,7 +17,6 @@ import com.maho_ya.data.device.DataDeviceRepository
 import com.maho_ya.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
-import javax.inject.Inject
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -76,12 +75,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             getString(R.string.device_real_display_size_width_title) + ": " +
             getString(
                 R.string.device_real_display_size,
-            homeVieModel.device.value?.realDisplaySizeWidth
+                homeVieModel.device.value?.realDisplaySizeWidth
             ) + "\n" +
             getString(R.string.device_real_display_size_height_title) + ": " +
             getString(
                 R.string.device_real_display_size,
-            homeVieModel.device.value?.realDisplaySizeHeight
+                homeVieModel.device.value?.realDisplaySizeHeight
             ) + "\n" +
             getString(R.string.device_brand_title) + ": " +
             homeVieModel.device.value?.brand + "\n" +

@@ -1,22 +1,17 @@
 package com.maho_ya.di
 
 import com.maho_ya.api.WebService
-import com.maho_ya.data.releasenotes.DataReleaseNotesDataSource
-import com.maho_ya.data.releasenotes.DataReleaseNotesRepository
-import com.maho_ya.data.releasenotes.ReleaseNotesDataSource
-import com.maho_ya.data.releasenotes.ReleaseNotesRepository
 import com.maho_ya.tell_me_your_dpi.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 internal class NetworkModule {

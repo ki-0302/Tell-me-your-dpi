@@ -7,8 +7,8 @@ import android.os.Build
 import android.view.WindowManager
 import com.maho_ya.model.Device
 import java.lang.Exception
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 interface DeviceDataSource {
     suspend fun getDevice(): Device

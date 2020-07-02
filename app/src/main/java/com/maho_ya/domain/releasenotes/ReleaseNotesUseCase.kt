@@ -7,9 +7,9 @@ import com.maho_ya.result.Result
 import com.maho_ya.result.Result.Error
 import com.maho_ya.result.Result.Loading
 import com.maho_ya.result.Result.Success
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 class ReleaseNotesUseCase @Inject constructor(
     private val releaseNotesRepository: ReleaseNotesRepository
