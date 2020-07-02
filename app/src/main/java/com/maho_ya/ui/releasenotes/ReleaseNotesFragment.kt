@@ -5,18 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.MainApplication
-import com.maho_ya.api.WebService
-import com.maho_ya.data.releasenotes.DataReleaseNotesDataSource
-import com.maho_ya.data.releasenotes.DataReleaseNotesRepository
-import com.maho_ya.domain.releasenotes.ReleaseNotesUseCase
+import com.maho_ya.MainApplication
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentReleaseNotesBinding
-import com.maho_ya.ui.MainActivity
 import javax.inject.Inject
 
 class ReleaseNotesFragment : Fragment(R.layout.fragment_release_notes) {

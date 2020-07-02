@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
-import com.MainApplication
+import com.maho_ya.MainApplication
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.androidbrowserhelper.trusted.LauncherActivity
 import com.maho_ya.tell_me_your_dpi.R
