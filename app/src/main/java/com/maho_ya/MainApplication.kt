@@ -1,7 +1,6 @@
 package com.maho_ya
 
 import androidx.multidex.MultiDexApplication
-import com.maho_ya.di.AppModule
 import com.maho_ya.di.ApplicationComponent
 import com.maho_ya.di.DaggerApplicationComponent
 import com.maho_ya.tell_me_your_dpi.BuildConfig
@@ -17,7 +16,7 @@ class MainApplication : MultiDexApplication() {
 
         appComponent = DaggerApplicationComponent
             .builder()
-            .appModule(AppModule(applicationContext))
+            .application(this.applicationContext)
             .build()
 
         if (BuildConfig.DEBUG) {
