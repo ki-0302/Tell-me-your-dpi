@@ -6,6 +6,7 @@ import com.maho_ya.result.Result
 import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -15,7 +16,7 @@ interface ReleaseNotesRepository {
     suspend fun getReleaseNotes(): Flow<Result<ReleaseNotesResults>>
 }
 
-class DataReleaseNotesRepository(
+class DataReleaseNotesRepository @Inject constructor(
     private val releaseNotesDataSource: ReleaseNotesDataSource
 ) : ReleaseNotesRepository {
 

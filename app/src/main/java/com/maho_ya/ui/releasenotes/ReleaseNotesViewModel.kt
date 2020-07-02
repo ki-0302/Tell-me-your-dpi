@@ -12,10 +12,11 @@ import com.maho_ya.domain.releasenotes.ReleaseNotesUseCase
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.result.Result
 import com.maho_ya.result.data
+import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ReleaseNotesViewModel(
+class ReleaseNotesViewModel @Inject constructor(
     private val releaseNotesUseCase: ReleaseNotesUseCase
 ) : ViewModel(), ReleaseNotesEventListener {
 
