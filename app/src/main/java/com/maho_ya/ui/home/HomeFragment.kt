@@ -8,30 +8,17 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.maho_ya.MainApplication
-import com.maho_ya.data.device.DataDeviceDataSource
-import com.maho_ya.data.device.DataDeviceRepository
-import com.maho_ya.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
+import javax.inject.Inject
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private val homeVieModel: HomeVieModel by viewModels {
-        HomeViewModelFactory(
-            DeviceUseCase(
-                DataDeviceRepository(
-                    DataDeviceDataSource(
-                        activity?.applicationContext
-                    )
-                )
-            )
-        )
-    }
-//    @Inject lateinit var homeVieModel: HomeVieModel
+    @Inject
+    lateinit var homeVieModel: HomeVieModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentHomeBinding.bind(view)
