@@ -1,7 +1,6 @@
 package com.maho_ya.di
 
 import android.content.Context
-import com.maho_ya.MainApplication
 import com.maho_ya.ui.MainActivity
 import com.maho_ya.ui.aboutapp.AboutAppFragment
 import com.maho_ya.ui.home.HomeFragment
