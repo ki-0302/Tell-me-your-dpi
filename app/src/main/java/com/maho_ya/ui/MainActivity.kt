@@ -11,9 +11,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.maho_ya.MainApplication
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.ActivityMainBinding
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +46,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        (applicationContext as MainApplication).appComponent.inject(this)
+        // Get an MainApplication instance from Activity passed to it.
+        // If implement HasAndroidInjector, call androidInjector().
+        // If implement HasActivityInjector, call activityInjector().
+        // Then get AndroidInjector instance and that call inject().
+        AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
 

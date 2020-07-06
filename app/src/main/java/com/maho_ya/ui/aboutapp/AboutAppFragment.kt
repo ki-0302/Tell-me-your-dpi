@@ -9,9 +9,9 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.androidbrowserhelper.trusted.LauncherActivity
-import com.maho_ya.MainApplication
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentAboutAppBinding
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
@@ -34,7 +34,7 @@ class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as MainApplication).appComponent.inject(this)
+        AndroidSupportInjection.inject(this)
     }
 
     private fun openPrivacyPolicySite() {

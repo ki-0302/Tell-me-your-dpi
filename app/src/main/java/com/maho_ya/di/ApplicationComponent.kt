@@ -1,17 +1,20 @@
 package com.maho_ya.di
 
-import android.content.Context
-import com.maho_ya.ui.MainActivity
-import com.maho_ya.ui.aboutapp.AboutAppFragment
-import com.maho_ya.ui.home.HomeFragment
-import com.maho_ya.ui.releasenotes.ReleaseNotesFragment
+import com.maho_ya.MainApplication
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
+import javax.inject.Scope
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
+        AndroidInjectionModule::class,
+        MainActivityModule::class,
+        HomeFragmentModule::class,
+        ReleaseNotesFragmentModule::class,
+        AboutAppFragmentModule::class,
         DeviceModule::class,
         ReleaseNotesModule::class,
         NetworkModule::class
@@ -21,14 +24,13 @@ interface ApplicationComponent {
 
     @Component.Builder
     interface Builder {
-        fun build(): ApplicationComponent
-        // @BindsInstance have been added since Dagger Ver.2.9. Arguments inject to component.
         @BindsInstance
-        fun application(applicationContext: Context): Builder
+        fun application(mainApplication: MainApplication): Builder
+        fun build(): ApplicationComponent
     }
 
-    fun inject(mainActivity: MainActivity)
-    fun inject(homeFragment: HomeFragment)
-    fun inject(releaseNotesFragment: ReleaseNotesFragment)
-    fun inject(aboutAppFragment: AboutAppFragment)
+    fun inject(mainApplication: MainApplication)
 }
+
+@Scope
+annotation class MainActivityScope
