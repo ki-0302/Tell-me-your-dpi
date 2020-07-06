@@ -11,6 +11,8 @@ import com.maho_ya.MainApplication
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentReleaseNotesBinding
+import dagger.android.AndroidInjection
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class ReleaseNotesFragment : Fragment(R.layout.fragment_release_notes) {
@@ -19,7 +21,7 @@ class ReleaseNotesFragment : Fragment(R.layout.fragment_release_notes) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as MainApplication).appComponent.inject(this)
+        AndroidSupportInjection.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
