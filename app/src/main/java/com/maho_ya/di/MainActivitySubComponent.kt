@@ -24,7 +24,7 @@ interface MainActivityModule {
 
     @Binds
     @IntoMap
-    @ClassKey(MainActivity::class)  // Added Key:MainActivity, Value:MainActivitySubComponent.Factory into MultiBindings.
+    @ClassKey(MainActivity::class) // Added Key:MainActivity, Value:MainActivitySubComponent.Factory into MultiBindings.
     fun bindMainActivitySubComponentFactory(
         factory: MainActivitySubComponent.Factory
     ): AndroidInjector.Factory<*>

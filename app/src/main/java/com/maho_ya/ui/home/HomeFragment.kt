@@ -10,10 +10,8 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.maho_ya.MainApplication
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
-import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 

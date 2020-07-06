@@ -1,7 +1,6 @@
 package com.maho_ya.di
 
 import com.maho_ya.ui.aboutapp.AboutAppFragment
-import com.maho_ya.ui.releasenotes.ReleaseNotesFragment
 import dagger.Binds
 import dagger.Module
 import dagger.Subcomponent

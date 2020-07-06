@@ -1,6 +1,5 @@
 package com.maho_ya.di
 
-import com.maho_ya.ui.MainActivity
 import com.maho_ya.ui.home.HomeFragment
 import dagger.Binds
 import dagger.Module

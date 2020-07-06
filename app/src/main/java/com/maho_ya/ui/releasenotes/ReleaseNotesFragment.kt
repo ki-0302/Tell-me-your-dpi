@@ -7,11 +7,9 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.maho_ya.MainApplication
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentReleaseNotesBinding
-import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
