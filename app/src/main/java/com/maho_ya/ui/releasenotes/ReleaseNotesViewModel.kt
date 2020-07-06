@@ -1,5 +1,6 @@
 package com.maho_ya.ui.releasenotes
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,11 +13,10 @@ import com.maho_ya.domain.releasenotes.ReleaseNotesUseCase
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.result.Result
 import com.maho_ya.result.data
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ReleaseNotesViewModel @Inject constructor(
+class ReleaseNotesViewModel @ViewModelInject constructor(
     private val releaseNotesUseCase: ReleaseNotesUseCase
 ) : ViewModel(), ReleaseNotesEventListener {
 

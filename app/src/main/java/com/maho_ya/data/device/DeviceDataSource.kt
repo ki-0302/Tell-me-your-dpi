@@ -6,6 +6,7 @@ import android.graphics.Point
 import android.os.Build
 import android.view.WindowManager
 import com.maho_ya.model.Device
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.Exception
 import javax.inject.Inject
 import timber.log.Timber
@@ -15,7 +16,7 @@ interface DeviceDataSource {
 }
 
 class DataDeviceDataSource @Inject constructor(
-    private val context: Context?
+    @ApplicationContext private val context: Context?
 ) : DeviceDataSource {
 
     override suspend fun getDevice(): Device {

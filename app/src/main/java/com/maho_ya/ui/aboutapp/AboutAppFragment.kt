@@ -1,22 +1,22 @@
 package com.maho_ya.ui.aboutapp
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.androidbrowserhelper.trusted.LauncherActivity
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentAboutAppBinding
-import dagger.android.support.AndroidSupportInjection
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 
-    @Inject lateinit var aboutAppViewModel: AboutAppViewModel
+    private val aboutAppViewModel: AboutAppViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentAboutAppBinding.bind(view)
@@ -30,11 +30,6 @@ class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
         view.findViewById<TextView>(R.id.oss_licences)?.apply {
             setOnClickListener { openOssLicences() }
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
     }
 
     private fun openPrivacyPolicySite() {

@@ -8,17 +8,17 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
-import dagger.android.support.AndroidSupportInjection
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    @Inject
-    lateinit var homeVieModel: HomeVieModel
+    private val homeVieModel: HomeVieModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentHomeBinding.bind(view)
@@ -38,11 +38,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 .setAction("Action", null)
                 .show()
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
     }
 
     private fun copyDeviceInfoToClipboard() {
