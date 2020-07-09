@@ -1,2 +1,4 @@
 rootProject.name='Tell me your DPI'
-include ':app'
+include(
+    ":app"
+)
