@@ -1,4 +1,5 @@
 rootProject.name='Tell me your DPI'
 include(
-    ":app"
+    ":app",
+    "depconstraints"
 )

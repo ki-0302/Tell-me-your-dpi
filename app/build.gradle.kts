@@ -23,7 +23,6 @@ android {
         applicationId = "com.maho_ya.tell_me_your_dpi"
         minSdkVersion(Versions.MIN_SDK)
         targetSdkVersion(Versions.TARGET_SDK)
-        multiDexEnabled = true
         versionCode = Versions.versionCode
         versionName = Versions.versionName
 
@@ -117,67 +116,65 @@ android {
 }
 
 dependencies {
+    api(platform(project(":depconstraints")))
+    kapt(platform(project(":depconstraints")))
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.KOTLIN}")
-    implementation("com.android.support:multidex:1.0.3")
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("androidx.core:core-ktx:1.3.0")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation(Libs.KOTLIN_STDLIB)
+    implementation(Libs.APPCOMPAT)
+    implementation(Libs.CORE_KTX)
+    implementation(Libs.CONSTRAINT_LAYOUT)
     // RecyclerView
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("androidx.recyclerview:recyclerview-selection:1.1.0-rc01")
+    implementation(Libs.RECYCLER_VIEW)
+    implementation(Libs.RECYCLER_VIEW_SELECTION)
 
-    val lifecycle_version = "2.2.0"
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}")
-    implementation("androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}")
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:${Versions.NAVIGATION}")
+    implementation(Libs.NAVIGATION_FRAGMENT_KTX)
+    implementation(Libs.NAVIGATION_UI_KTX)
+    implementation(Libs.NAVIGATION_DYNAMIC_FEATURES_FRAGMENT)
     //Material Design
-    implementation("com.google.android.material:material:1.1.0")
+    implementation(Libs.MATERIAL)
     // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:${Versions.HILT}")
-    kapt("com.google.dagger:hilt-android-compiler:${Versions.HILT}")
+    implementation(Libs.HILT_ANDROID)
+    kapt(Libs.HILT_COMPILER)
     // androidx Hilt
-    val androidx_hilt_version = "1.0.0-alpha01"
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:$androidx_hilt_version")
-    kapt("androidx.hilt:hilt-compiler:$androidx_hilt_version")
+    implementation(Libs.ANDROIDX_HILT_VIEW_MODEL)
+    kapt(Libs.ANDROIDX_HILT_COMPILER)
 
     // Firebase
-    implementation("com.google.firebase:firebase-analytics:17.4.3")
-    implementation("com.google.firebase:firebase-crashlytics:17.1.0")
-    implementation("com.google.firebase:firebase-perf:19.0.7")
+    implementation(Libs.ANALYTICS)
+    implementation(Libs.CRASHLYTICS)
+    implementation(Libs.PERF)
     // Retrofit
-    val retrofit_version = "2.9.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation("com.squareup.retrofit2:converter-moshi:$retrofit_version")
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_CONVERTER_MOSHI)
     // OkHttp
-    implementation("com.squareup.okhttp3:okhttp:4.7.2")
+    implementation(Libs.OKHTTP)
     // https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
-    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
     // Moshi - JSON library
-    val moshi_version = "1.9.2"
-    implementation("com.squareup.moshi:moshi:$moshi_version")
-    implementation("com.squareup.moshi:moshi-kotlin:$moshi_version") // convert kotlin class from JSON
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi_version")   // annotation processor
+    implementation(Libs.MOSHI)
+    implementation(Libs.MOSHI_KOTLIN) // convert kotlin class from JSON
+    kapt(Libs.MOSHI_KOTLIN_CODEGEN)   // annotation processor
 
     // AndroidBrowserHelper
     // https://github.com/GoogleChrome/android-browser-helper
     // https://developers.google.com/web/android/trusted-web-activity/integration-guide
-    implementation("com.google.androidbrowserhelper:androidbrowserhelper:1.3.1")
+    implementation(Libs.ANDROID_BROWSER_HELPER)
     // etc
-    implementation("com.jakewharton.timber:timber:4.7.1")
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
+    implementation(Libs.TIMBER)
+    implementation(Libs.OSS_LICENSES)
 
-    testImplementation("junit:junit:4.13")
-    testImplementation("org.mockito:mockito-inline:3.3.1")
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.MOCKITO)
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    androidTestImplementation(Libs.ANDROIDX_TEST_EXT)
+    androidTestImplementation(Libs.ANDROIDX_TEST_ESPRESSO)
     // Testing Navigation
-    androidTestImplementation("androidx.navigation:navigation-testing:${Versions.NAVIGATION}")
+    androidTestImplementation(Libs.NAVIGATION_TEST)
 }
