@@ -1,7 +1,6 @@
 package com.maho_ya.data.releasenotes
 
 import com.maho_ya.api.WebService
-import com.maho_ya.model.ReleaseNotesResults
 import javax.inject.Inject
 
 interface ReleaseNotesDataSource {

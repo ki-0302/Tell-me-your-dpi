@@ -120,6 +120,7 @@ dependencies {
     kapt(platform(project(":depconstraints")))
 
     implementation(project(":model"))
+    implementation(project(":api"))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 

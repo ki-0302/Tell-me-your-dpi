@@ -1,7 +1,9 @@
+include ':api'
 include ':model'
 rootProject.name='Tell me your DPI'
 include(
     ":app",
     ":model",
+    ":api",
     "depconstraints"
 )
