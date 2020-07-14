@@ -13,14 +13,14 @@ import timber.log.Timber
 
 interface ReleaseNotesRepository {
 
-    suspend fun getReleaseNotes(): Flow<Result<ReleaseNotesResults>>
+    suspend fun getReleaseNotes(): Flow<Result<com.maho_ya.model.ReleaseNotesResults>>
 }
 
 class DataReleaseNotesRepository @Inject constructor(
     private val releaseNotesDataSource: ReleaseNotesDataSource
 ) : ReleaseNotesRepository {
 
-    override suspend fun getReleaseNotes(): Flow<Result<ReleaseNotesResults>> {
+    override suspend fun getReleaseNotes(): Flow<Result<com.maho_ya.model.ReleaseNotesResults>> {
 
         return flow {
             emit(Result.Loading)

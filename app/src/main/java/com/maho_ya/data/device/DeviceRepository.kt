@@ -4,13 +4,13 @@ import com.maho_ya.model.Device
 import javax.inject.Inject
 
 interface DeviceRepository {
-    suspend fun getDevice(): Device
+    suspend fun getDevice(): com.maho_ya.model.Device
 }
 
 class DataDeviceRepository @Inject constructor(
     private val deviceDataSource: DeviceDataSource
 ) : DeviceRepository {
 
-    override suspend fun getDevice(): Device = deviceDataSource
+    override suspend fun getDevice(): com.maho_ya.model.Device = deviceDataSource
         .getDevice()
 }

@@ -15,8 +15,8 @@ class HomeVieModel @ViewModelInject constructor(
     private val deviceUseCase: DeviceUseCase
 ) : ViewModel() {
 
-    private val _device = MutableLiveData<Device>()
-    val device: LiveData<Device>
+    private val _device = MutableLiveData<com.maho_ya.model.Device>()
+    val device: LiveData<com.maho_ya.model.Device>
         get() = _device
 
     init {

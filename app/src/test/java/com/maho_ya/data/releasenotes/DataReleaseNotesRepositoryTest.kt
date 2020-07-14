@@ -15,10 +15,10 @@ class DataReleaseNotesRepositoryTest {
 
     private fun createMockDataSource(date: String) =
         object : ReleaseNotesDataSource by mock(DataReleaseNotesDataSource::class.java) {
-            override suspend fun getReleaseNotesResults(): ReleaseNotesResults =
-                ReleaseNotesResults(
+            override suspend fun getReleaseNotesResults(): com.maho_ya.model.ReleaseNotesResults =
+                com.maho_ya.model.ReleaseNotesResults(
                     listOf(
-                        ReleaseNote(
+                        com.maho_ya.model.ReleaseNote(
                             appVersion = "",
                             date = date,
                             description = ""

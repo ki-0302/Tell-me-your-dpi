@@ -10,5 +10,5 @@ interface WebService {
 
     // Using suspend For Kotlin coroutine.
     @GET("api/release-notes")
-    suspend fun releaseNotesResults(): ReleaseNotesResults
+    suspend fun releaseNotesResults(): com.maho_ya.model.ReleaseNotesResults
 }

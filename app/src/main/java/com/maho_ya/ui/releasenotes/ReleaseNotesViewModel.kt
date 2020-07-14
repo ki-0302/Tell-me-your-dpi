@@ -20,9 +20,9 @@ class ReleaseNotesViewModel @ViewModelInject constructor(
     private val releaseNotesUseCase: ReleaseNotesUseCase
 ) : ViewModel(), ReleaseNotesEventListener {
 
-    private val _releaseNotesResult = MutableLiveData<Result<List<ReleaseNote>>>()
+    private val _releaseNotesResult = MutableLiveData<Result<List<com.maho_ya.model.ReleaseNote>>>()
 
-    val releaseNotes: LiveData<List<ReleaseNote>?> = _releaseNotesResult.switchMap {
+    val releaseNotes: LiveData<List<com.maho_ya.model.ReleaseNote>?> = _releaseNotesResult.switchMap {
         liveData {
             emit(it.data)
         }

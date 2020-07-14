@@ -12,7 +12,7 @@ import com.maho_ya.tell_me_your_dpi.BR
 import com.maho_ya.tell_me_your_dpi.R
 
 class ReleaseNotesAdapter() :
-    ListAdapter<ReleaseNote, ReleaseNotesViewHolder>(ReleaseNotesDiffCallback) {
+    ListAdapter<com.maho_ya.model.ReleaseNote, ReleaseNotesViewHolder>(ReleaseNotesDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseNotesViewHolder {
 
@@ -36,21 +36,21 @@ class ReleaseNotesViewHolder(
     private val binding: ViewDataBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(releaseNote: ReleaseNote) {
+    fun bind(releaseNote: com.maho_ya.model.ReleaseNote) {
         // DataBinding generate BR.
         binding.setVariable(BR.releaseNote, releaseNote)
         binding.executePendingBindings()
     }
 }
 
-object ReleaseNotesDiffCallback : DiffUtil.ItemCallback<ReleaseNote>() {
-    override fun areItemsTheSame(oldItem: ReleaseNote, newItem: ReleaseNote): Boolean {
+object ReleaseNotesDiffCallback : DiffUtil.ItemCallback<com.maho_ya.model.ReleaseNote>() {
+    override fun areItemsTheSame(oldItem: com.maho_ya.model.ReleaseNote, newItem: com.maho_ya.model.ReleaseNote): Boolean {
 
         return oldItem.appVersion == newItem.appVersion &&
             oldItem.date == newItem.date &&
             oldItem.description == newItem.description
     }
 
-    override fun areContentsTheSame(oldItem: ReleaseNote, newItem: ReleaseNote): Boolean =
+    override fun areContentsTheSame(oldItem: com.maho_ya.model.ReleaseNote, newItem: com.maho_ya.model.ReleaseNote): Boolean =
         oldItem == newItem
 }

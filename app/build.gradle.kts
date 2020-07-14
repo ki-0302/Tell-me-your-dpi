@@ -119,6 +119,8 @@ dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
 
+    implementation(project(":model"))
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.KOTLIN_STDLIB)
