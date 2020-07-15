@@ -50,6 +50,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun formatDeviceInfoForClipboard(): String {
 
+        val realDisplaySizeWidth: Int = homeVieModel.device.value?.realDisplaySizeWidth ?: 0
+        val realDisplaySizeHeight: Int = homeVieModel.device.value?.realDisplaySizeHeight ?: 0
+        val totalMemory: Int = homeVieModel.device.value?.totalMemory ?: 0
+        val availableMemory: Int = homeVieModel.device.value?.availableMemory ?: 0
+
         return getString(R.string.device_density_qualifier_title) + ": " +
             homeVieModel.device.value?.densityQualifier + "\n" +
             getString(R.string.device_density_dpi_title) + ": " +
@@ -57,12 +62,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             getString(R.string.device_real_display_size_width_title) + ": " +
             getString(
                 R.string.device_real_display_size,
-                homeVieModel.device.value?.realDisplaySizeWidth
+                realDisplaySizeWidth
             ) + "\n" +
             getString(R.string.device_real_display_size_height_title) + ": " +
             getString(
                 R.string.device_real_display_size,
-                homeVieModel.device.value?.realDisplaySizeHeight
+                realDisplaySizeHeight
             ) + "\n" +
             getString(R.string.device_brand_title) + ": " +
             homeVieModel.device.value?.brand + "\n" +
@@ -77,8 +82,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             getString(R.string.device_memory_size_title) + ": " +
             getString(
                 R.string.device_memory_size,
-                homeVieModel.device.value?.totalMemory,
-                homeVieModel.device.value?.availableMemory
+                totalMemory,
+                availableMemory
             )
     }
 }
