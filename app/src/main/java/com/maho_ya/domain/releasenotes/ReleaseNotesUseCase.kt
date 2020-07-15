@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.map
 
 class ReleaseNotesUseCase @Inject constructor(
     private val releaseNotesRepository: ReleaseNotesRepository
-) : FlowUseCase<List<com.maho_ya.model.ReleaseNote>>() {
+) : FlowUseCase<List<ReleaseNote>>() {
 
-    override suspend fun execute(): Flow<Result<List<com.maho_ya.model.ReleaseNote>>> {
+    override suspend fun execute(): Flow<Result<List<ReleaseNote>>> {
 
         return releaseNotesRepository.getReleaseNotes().map { result ->
             when (result) {
                 is Success -> {
                     Success(
                         result.data.releaseNotes.sortedWith(
-                            compareByDescending<com.maho_ya.model.ReleaseNote> { it.date }
+                            compareByDescending<ReleaseNote> { it.date }
                                 .thenByDescending { it.appVersion }
                         )
                     )

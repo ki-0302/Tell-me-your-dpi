@@ -9,6 +9,8 @@ object Libs {
     const val APPCOMPAT = "androidx.appcompat:appcompat"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout"
     const val CORE_KTX = "androidx.core:core-ktx"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+    const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
     const val CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
     const val HILT_ANDROID = "com.google.dagger:hilt-android"
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler"

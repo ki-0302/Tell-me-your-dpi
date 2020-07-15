@@ -11,6 +11,8 @@ val androidx_test_espresso = "3.2.0"
 val appcompat = "1.1.0"
 val constraint_layout = "1.1.3"
 val core_ktx = "1.3.0"
+// https://github.com/Kotlin/kotlinx.coroutines
+val coroutines = "1.3.7"
 val crashlytics = "17.1.0"
 val hilt_android = "1.0.0-alpha01"
 val junit = "4.13"
@@ -38,6 +40,8 @@ dependencies {
         api("${Libs.APPCOMPAT}:$appcompat")
         api("${Libs.CONSTRAINT_LAYOUT}:$constraint_layout")
         api("${Libs.CORE_KTX}:$core_ktx")
+        api("${Libs.COROUTINES}:$coroutines")
+        api("${Libs.COROUTINES_TEST}:$coroutines")
         api("${Libs.CRASHLYTICS}:$crashlytics")
         api("${Libs.HILT_ANDROID}:${Versions.HILT}")
         api("${Libs.HILT_COMPILER}:${Versions.HILT}")

@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class DeviceUseCase @Inject constructor(
     private val deviceRepository: DeviceRepository
-) : UseCase<com.maho_ya.model.Device>() {
+) : UseCase<Device>() {
 
-    override suspend fun execute(): com.maho_ya.model.Device = deviceRepository
+    override suspend fun execute(): Device = deviceRepository
         .getDevice()
 }

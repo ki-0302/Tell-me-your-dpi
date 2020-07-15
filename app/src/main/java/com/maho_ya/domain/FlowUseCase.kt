@@ -18,5 +18,5 @@ abstract class FlowUseCase <out R> {
             .flowOn(Dispatchers.IO)
     }
 
-    protected abstract suspend fun execute(): Flow<Result<R>>
+    protected abstract suspend fun execute(): Flow<com.maho_ya.result.Result<R>>
 }

@@ -12,19 +12,19 @@ import javax.inject.Inject
 import timber.log.Timber
 
 interface DeviceDataSource {
-    suspend fun getDevice(): com.maho_ya.model.Device
+    suspend fun getDevice(): Device
 }
 
 class DataDeviceDataSource @Inject constructor(
     @ApplicationContext private val context: Context?
 ) : DeviceDataSource {
 
-    override suspend fun getDevice(): com.maho_ya.model.Device {
+    override suspend fun getDevice(): Device {
 
         val displayRealSize = getDisplayRealSize()
         val memoryInfo = getMemoryInfo()
 
-        return com.maho_ya.model.Device(
+        return Device(
             densityQualifier = getDensityQualifier(),
             densityDpi = getDensityDpi(),
             realDisplaySizeWidth = displayRealSize.x,

@@ -20,7 +20,7 @@ class ReleaseNotesViewModel @ViewModelInject constructor(
     private val releaseNotesUseCase: ReleaseNotesUseCase
 ) : ViewModel(), ReleaseNotesEventListener {
 
-    private val _releaseNotesResult = MutableLiveData<Result<List<com.maho_ya.model.ReleaseNote>>>()
+    private val _releaseNotesResult = MutableLiveData<com.maho_ya.result.Result<List<ReleaseNote>>>()
 
     val releaseNotes: LiveData<List<com.maho_ya.model.ReleaseNote>?> = _releaseNotesResult.switchMap {
         liveData {
@@ -30,13 +30,13 @@ class ReleaseNotesViewModel @ViewModelInject constructor(
 
     // map method of LiveData for main thread.
     val isLoading: LiveData<Boolean> = _releaseNotesResult.map {
-        it == Result.Loading
+        it == com.maho_ya.result.Result.Loading
     }
 
     // switchMap method of LiveData for asynchronous.
     val hasError: LiveData<Boolean> = _releaseNotesResult.switchMap {
         liveData {
-            emit(it is Result.Error)
+            emit(it is com.maho_ya.result.Result.Error)
         }
     }
 

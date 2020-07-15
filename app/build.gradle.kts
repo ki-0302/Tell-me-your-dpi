@@ -119,12 +119,15 @@ dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
 
+    implementation(project(":data"))
     implementation(project(":model"))
     implementation(project(":api"))
-
+    implementation(project(":result"))
+    
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.KOTLIN_STDLIB)
+    implementation(Libs.COROUTINES)
     implementation(Libs.APPCOMPAT)
     implementation(Libs.CORE_KTX)
     implementation(Libs.CONSTRAINT_LAYOUT)

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.maho_ya.domain.device.DeviceUseCase
-import com.maho_ya.model.Device
 import com.maho_ya.result.data
 import kotlinx.coroutines.launch
 
