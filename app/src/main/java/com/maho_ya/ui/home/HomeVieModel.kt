@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.maho_ya.domain.device.DeviceUseCase
-import com.maho_ya.model.Device
 import com.maho_ya.result.data
 import kotlinx.coroutines.launch
 
@@ -15,8 +14,8 @@ class HomeVieModel @ViewModelInject constructor(
     private val deviceUseCase: DeviceUseCase
 ) : ViewModel() {
 
-    private val _device = MutableLiveData<Device>()
-    val device: LiveData<Device>
+    private val _device = MutableLiveData<com.maho_ya.model.Device>()
+    val device: LiveData<com.maho_ya.model.Device>
         get() = _device
 
     init {

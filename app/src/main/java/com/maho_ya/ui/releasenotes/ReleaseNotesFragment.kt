@@ -27,7 +27,7 @@ class ReleaseNotesFragment : Fragment(R.layout.fragment_release_notes) {
 @BindingAdapter(value = ["releaseNotes", "hasError"])
 fun setReleaseNotesItems(
     recyclerView: RecyclerView,
-    releaseNotes: List<ReleaseNote>?,
+    releaseNotes: List<com.maho_ya.model.ReleaseNote>?,
     hasError: Boolean
 ) {
 

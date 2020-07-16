@@ -204,7 +204,6 @@ Adobe XDでプロトタイプデザインを行いました。
 - [Android Jetpack](https://developer.android.com/jetpack/)
   - Core
   - ConstraintLayout
-  - MultiDex
   - AppCompat
   - RecyclerView
   - Navigation

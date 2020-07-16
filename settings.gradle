@@ -1,4 +1,13 @@
+include ':result'
+include ':data'
+include ':api'
+include ':model'
 rootProject.name='Tell me your DPI'
 include(
-    ":app"
+    ":app",
+    ":data",
+    ":result",
+    ":model",
+    ":api",
+    "depconstraints"
 )
