@@ -2,7 +2,7 @@ module Danger
     class DependencyUpdates < Plugin
         def checkDependencyUpdates
             require 'json'
-            dependency_report_path = "/Users/mahoya/Documents/android-projects/tell_me_your_dpi/build/dependencyUpdates/report.json"
+            dependency_report_path = "build/dependencyUpdates/report.json"
 
             return if !File.file?(dependency_report_path)
 
