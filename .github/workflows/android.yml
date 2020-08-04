@@ -40,16 +40,17 @@ jobs:
           if [ -n "$DEBUG_KEYSTORE_BASE64" ]; then
             echo $DEBUG_KEYSTORE_BASE64 | base64 -d > ./debug.keystore;
           fi;
-      - name: Android Lint
-        run: ./gradlew lint assembleDebug
-      - name: Build with Gradle
-        run:
-          ./gradlew assembleDebug ktlintCheck
       - name: Check dependecy updates
         run:
           ./gradlew dependencyUpdates -DoutputFormatter=json
       - name: exec danger
         run: bundle exec danger
+      - name: Android Lint
+        run: ./gradlew lint assembleDebug
+      - name: Build with Gradle
+        run:
+          ./gradlew assembleDebug ktlintCheck
+
       - name: Firebae CLI Install2
         run: npm install -g firebase-tools
       - name: Firebase CLI deploy

@@ -17,7 +17,7 @@ android_lint.filtering = true
 android_lint.lint(inline_mode: true)
 
 # dependency updates
-if File.file("build/dependencyUpdates/report.json")
+if File.file?("build/dependencyUpdates/report.json")
     warn("JSON")
 
 end
