@@ -17,7 +17,18 @@ warn("Big PR") if git.lines_of_code > 500
 #android_lint.lint(inline_mode: true)
 
 # dependency updates
+require 'json'
+dependency_report_path = "build/dependencyUpdates/report.json"
 if File.file?("build/dependencyUpdates/report.json")
-    warn("JSON")
+    dependency_report_json = File.open(dependency_report_path) do |file|
+        JSON.load(file)
+    end
+
+
+    dependencies = dependency_report_json["outdated"]["dependencies"]
+    dependencies.each { |lib|
+        report = "#{lib["group"]}.#{lib["name"]} [#{lib["version"]} -> #{lib["available"]["release"]}]"
+        warn(report)
+    }
 
 end
