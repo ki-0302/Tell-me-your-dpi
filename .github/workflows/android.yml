@@ -40,7 +40,7 @@ jobs:
           if [ -n "$DEBUG_KEYSTORE_BASE64" ]; then
             echo $DEBUG_KEYSTORE_BASE64 | base64 -d > ./debug.keystore;
           fi;
-      - name: Check dependecy updates
+      - name: Check dependency updates
         run:
           ./gradlew dependencyUpdates -DoutputFormatter=json
       - name: exec danger
