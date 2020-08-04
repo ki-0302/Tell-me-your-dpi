@@ -27,7 +27,7 @@ module Danger
                 message += "#{dependency["group"]}.#{dependency["name"]} [#{dependency["version"]} -> #{new_version}]\n"
             }
 
-            warn(report)
+            warn(message)
         end
     end
 
