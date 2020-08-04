@@ -45,6 +45,9 @@ jobs:
       - name: Build with Gradle
         run:
           ./gradlew assembleDebug ktlintCheck
+      - name: Check dependecy updates
+        run:
+          ./gradlew dependencyUpdates -DoutputFormatter=json
       - name: exec danger
         run: bundle exec danger
       - name: Firebae CLI Install2
