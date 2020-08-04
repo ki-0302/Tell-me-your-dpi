@@ -17,18 +17,33 @@ warn("Big PR") if git.lines_of_code > 500
 #android_lint.lint(inline_mode: true)
 
 # dependency updates
-require 'json'
-dependency_report_path = "build/dependencyUpdates/report.json"
-if File.file?("build/dependencyUpdates/report.json")
+checkDependencyUpdates
+
+def checkDependencyUpdates
+    require 'json'
+    dependency_report_path = "/Users/mahoya/Documents/android-projects/tell_me_your_dpi/build/dependencyUpdates/report.json"
+
+    return if !File.file?(dependency_report_path)
+
     dependency_report_json = File.open(dependency_report_path) do |file|
         JSON.load(file)
     end
 
+    return if !dependency_report_json.has_key?("outdated")
+    return if !dependency_report_json["outdated"].has_key?("dependencies")
 
     dependencies = dependency_report_json["outdated"]["dependencies"]
-    dependencies.each { |lib|
-        report = "#{lib["group"]}.#{lib["name"]} [#{lib["version"]} -> #{lib["available"]["release"]}]"
+
+    return if dependencies.empty?
+
+    warn("*** Using older version of library. ***")
+
+    dependencies.each { |dependency|
+        new_version = "unknown"
+        new_version = dependency["available"]["integration"] if !dependency["available"]["integration"].nil?
+        new_version = dependency["available"]["milestone"] if !dependency["available"]["milestone"].nil?
+        new_version = dependency["available"]["release"] if !dependency["available"]["release"].nil?
+        report = "#{dependency["group"]}.#{dependency["name"]} [#{dependency["version"]} -> #{new_version}]"
         warn(report)
     }
-
 end
