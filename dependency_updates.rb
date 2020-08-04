@@ -17,16 +17,17 @@ module Danger
 
             return if dependencies.empty?
 
-            warn("*** Using older version of library. ***")
+            message = "*** Using older version of library. ***\n"
 
             dependencies.each { |dependency|
                 new_version = "unknown"
                 new_version = dependency["available"]["integration"] if !dependency["available"]["integration"].nil?
                 new_version = dependency["available"]["milestone"] if !dependency["available"]["milestone"].nil?
                 new_version = dependency["available"]["release"] if !dependency["available"]["release"].nil?
-                report = "#{dependency["group"]}.#{dependency["name"]} [#{dependency["version"]} -> #{new_version}]"
-                warn(report)
+                message += "#{dependency["group"]}.#{dependency["name"]} [#{dependency["version"]} -> #{new_version}]\n"
             }
+
+            warn(report)
         end
     end
 
