@@ -1,6 +1,6 @@
 object Versions {
-    val versionName = "1.1"
-    val versionCode = 3
+    val versionName = "1.2"
+    val versionCode = 4
 
     const val COMPILE_SDK = 30
     const val TARGET_SDK = 30
