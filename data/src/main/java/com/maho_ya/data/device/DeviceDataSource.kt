@@ -4,9 +4,10 @@ import android.app.ActivityManager
 import android.content.Context
 import android.graphics.Point
 import android.os.Build
+import android.view.Display
 import android.view.WindowManager
 import com.maho_ya.model.Device
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.qualifiers.ActivityContext
 import java.lang.Exception
 import javax.inject.Inject
 import timber.log.Timber
@@ -16,7 +17,7 @@ interface DeviceDataSource {
 }
 
 class DataDeviceDataSource @Inject constructor(
-    @ApplicationContext private val context: Context?
+    @ActivityContext private val context: Context?
 ) : DeviceDataSource {
 
     override suspend fun getDevice(): Device {
@@ -76,13 +77,22 @@ class DataDeviceDataSource @Inject constructor(
         if (context == null) return Point()
 
         return try {
-            val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            val defaultDisplay = wm.defaultDisplay
             val realSize = Point()
-            defaultDisplay.getRealSize(realSize)
+            getDisplay()?.getRealSize(realSize)
             realSize
         } catch (e: Exception) {
             Point()
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun getDisplay(): Display? {
+        return when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> context?.display
+            else -> {
+                val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                wm.defaultDisplay
+            }
         }
     }
 

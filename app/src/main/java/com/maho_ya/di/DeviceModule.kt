@@ -7,20 +7,20 @@ import com.maho_ya.data.device.DeviceRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityComponent::class)
 @Module
 internal abstract class DeviceModule {
 
-    @Singleton
+    @ActivityScoped
     @Binds
     abstract fun provideDeviceRepository(
         deviceRepository: DataDeviceRepository
     ): DeviceRepository
 
-    @Singleton
+    @ActivityScoped
     @Binds
     abstract fun provideDeviceDataSource(
         deviceDataSource: DataDeviceDataSource
