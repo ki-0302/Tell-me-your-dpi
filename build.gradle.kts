@@ -2,6 +2,13 @@
 
 // For tasks
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+
+// https://github.com/ben-manes/gradle-versions-plugin
+// .gradlew dependencyUpdates
+plugins {
+    id("com.github.ben-manes.versions") version Versions.BEN_MANES
+}
 
 buildscript {
 
@@ -51,4 +58,29 @@ subprojects {
 
 tasks.register("clean", Delete::class.java) {
     delete(project.rootProject.buildDir)
+}
+
+tasks {
+    named<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask>("dependencyUpdates") {
+        resolutionStrategy {
+            componentSelection {
+                all {
+                    if (isNonStable(candidate.version) && !isNonStable(currentVersion)) {
+                        reject("Release candidate")
+                    }
+                }
+            }
+        }
+        checkForGradleUpdate = true
+        outputFormatter = "json"
+        outputDir = "build/dependencyUpdates"
+        reportfileName = "report"
+    }
+}
+
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("alpha", "beta", "rc", "cr", "m", "preview").any { version.toUpperCase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
 }
