@@ -11,9 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -37,6 +39,29 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             Snackbar.make(it, "デバイス情報をコピーしました。", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (homeVieModel.shouldLaunchReview()) {
+            homeVieModel.notifyReviewLaunchAttempted()
+            launchReviewFlow()
+        }
+    }
+
+    private fun launchReviewFlow() {
+        val manager = ReviewManagerFactory.create(requireContext())
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener {
+            if (!it.isSuccessful) return@addOnCompleteListener
+
+            // Request in-app reviews.
+            val flow = manager.launchReviewFlow(requireActivity(), it.result)
+            flow.addOnCompleteListener {
+                // Nothing
+            }
         }
     }
 
