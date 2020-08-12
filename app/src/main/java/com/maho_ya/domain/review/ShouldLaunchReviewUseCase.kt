@@ -1,7 +1,6 @@
 package com.maho_ya.domain.review
 
 import com.maho_ya.data.prefs.PreferenceStorage
-import com.maho_ya.model.Device
 import javax.inject.Inject
 
 interface ShouldLaunchReviewUseCase {
@@ -11,7 +10,7 @@ interface ShouldLaunchReviewUseCase {
 
 class ShouldLaunchReviewUseCaseImpl @Inject constructor(
     preferenceStorage: PreferenceStorage
-): ShouldLaunchReviewUseCase {
+) : ShouldLaunchReviewUseCase {
 
     private var shouldLaunchReview: Boolean = false
 
