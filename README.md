@@ -13,18 +13,20 @@
 
 その他の画面として、リリースノートやプライバシーポリシーなどのアプリに関しての画面があります。
 
-ダークテーマにも対応しており、Android 10以上であればユーザーのデバイスで設置を変えることにより、表示の切り替えが可能です。
+ダークテーマにも対応しており、Android 10 以上であればユーザーのデバイスで設置を変えることにより、表示の切り替えが可能です。
 
-アダプティブアイコンへも対応しています。
+Google Play In-App Review API でアプリ内レビューを表示するようにしました。
+
+DIはDagger Hiltを使用し実装しています。
 
 # 開発環境
-Android Studio 4.0で開発を行っています。
+Android Studio 4.01で開発を行っています。
 
-コードはKotlinで記述しています。（Gradleを除く）
+コードはKotlinで記述しています。
 
 # 動作環境
 
-Android 5.0 から Android 10.0 で動作するように設計されています。
+Android 5.0 から Android 11.0 で動作するように設計されています。
 
 # アーキテクチャ
 
@@ -34,9 +36,7 @@ Android 5.0 から Android 10.0 で動作するように設計されています
 
 ![Architecture](docs/img/app-architecture.png "Architecture")
 
-ロジックをUIと疎結合になるようにしていますが、FragmentでViewModelへのDIを実行しているなど課題として残っている箇所があります。
-
-今後、Daggerライブラリを取り入れ対応していくつもりです。
+DIはDagger Hiltを使用することで、簡潔に記述することができるようになりました。
 
 LiveDataを利用し、データソースの状態にあわせUIに自動的に通知されるようになっています。
 
@@ -175,6 +175,12 @@ Illustratorでアプリのロゴアイコンを作成し、svg形式のファイ
 
 GithubActionsでプルリクエスト時に自動テストを実行し、開発チーム内にApp Distributionを通して自動配信するCI/CDツールとしての使い方を可能にしています。
 
+## Google Play In-App Review API
+
+レビュー訴求する方法として、Play Core LibraryのGoogle Play In-App Review APIを使用しアプリ内でレビュー可能なようにしました。
+
+![In-App-Review](docs/img/in-app-review.png "In-App-Review")
+
 # CI/CD
 
 Github Actionsを使用し、CI/CDの仕組みを実現しています。
@@ -210,6 +216,7 @@ Adobe XDでプロトタイプデザインを行いました。
   - [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)
     - ViewModel
     - LiveData
+- [Play Core Library](https://developer.android.com/reference/com/google/android/play/core/release-notes)
 - [Material Components for Android](https://github.com/material-components/material-components-android)
 - [Kotlin](https://kotlinlang.org/)
   - kotlin-stdlib
