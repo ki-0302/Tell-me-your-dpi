@@ -74,7 +74,10 @@ android {
 
             isMinifyEnabled = false
             isShrinkResources = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
             // マッピングファイルをアップロードしない設定。難読化されてCrashlyticsにあがる
             // https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android#keep_obfuscated_build_variants
@@ -87,7 +90,10 @@ android {
             // https://developer.android.com/studio/build/shrink-code?hl=ja#shrink-resources
             isMinifyEnabled = true // コード圧縮
             isShrinkResources = true // リソース圧縮
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             signingConfig = signingConfigs.getByName("release")
         }
     }
