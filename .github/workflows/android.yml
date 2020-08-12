@@ -28,6 +28,15 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: set up gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Write google-services.json
         env:
           GOOGLE_SERVICE_JSON_BASE64: ${{ secrets.GOOGLE_SERVICE_JSON_BASE64 }}
@@ -40,14 +49,21 @@ jobs:
           if [ -n "$DEBUG_KEYSTORE_BASE64" ]; then
             echo $DEBUG_KEYSTORE_BASE64 | base64 -d > ./debug.keystore;
           fi;
-      - name: Android Lint
-        run: ./gradlew lint assembleDebug
-      - name: Build with Gradle
-        run:
-          ./gradlew assembleDebug ktlintCheck
       - name: Check dependency updates
-        run:
-          ./gradlew dependencyUpdates -DoutputFormatter=json
+        uses: eskatos/gradle-command-action@v1
+        with:
+          gradle-version: 6.1.1
+          arguments: dependencyUpdates -DoutputFormatter=json
+      - name: Android Lint
+        uses: eskatos/gradle-command-action@v1
+        with:
+          gradle-version: 6.1.1
+          arguments: lint assembleDebug
+      - name: Build with Gradle
+        uses: eskatos/gradle-command-action@v1
+        with:
+          gradle-version: 6.1.1
+          arguments: assembleDebug ktlintCheck
       - name: exec danger
         run: bundle exec danger
       - name: Firebae CLI Install2
