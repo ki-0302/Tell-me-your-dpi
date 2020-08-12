@@ -1,5 +1,5 @@
-import java.util.Properties
 import java.io.FileInputStream
+import java.util.Properties
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
@@ -74,7 +74,10 @@ android {
 
             isMinifyEnabled = false
             isShrinkResources = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
             // マッピングファイルをアップロードしない設定。難読化されてCrashlyticsにあがる
             // https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android#keep_obfuscated_build_variants
@@ -85,9 +88,12 @@ android {
         }
         getByName("release") {
             // https://developer.android.com/studio/build/shrink-code?hl=ja#shrink-resources
-            isMinifyEnabled = true          // コード圧縮
-            isShrinkResources = true        // リソース圧縮
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = true // コード圧縮
+            isShrinkResources = true // リソース圧縮
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             signingConfig = signingConfigs.getByName("release")
         }
     }
@@ -107,10 +113,10 @@ android {
     ktlint {
         version.set("0.37.2")
         android.set(true)
-        ignoreFailures.set(true)    // When warning continued build
+        ignoreFailures.set(true) // When warning continued build
         // disabledRules = ["no-line-break-before-assignment"]
         reporters {
-            reporter(ReporterType.CHECKSTYLE)  // for Danger
+            reporter(ReporterType.CHECKSTYLE) // for Danger
         }
     }
 }
@@ -123,7 +129,7 @@ dependencies {
     implementation(project(":model"))
     implementation(project(":api"))
     implementation(project(":result"))
-    
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.KOTLIN_STDLIB)
@@ -143,7 +149,7 @@ dependencies {
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     implementation(Libs.NAVIGATION_UI_KTX)
     implementation(Libs.NAVIGATION_DYNAMIC_FEATURES_FRAGMENT)
-    //Material Design
+    // Material Design
     implementation(Libs.MATERIAL)
     // Dagger Hilt
     implementation(Libs.HILT_ANDROID)
@@ -151,6 +157,8 @@ dependencies {
     // androidx Hilt
     implementation(Libs.ANDROIDX_HILT_VIEW_MODEL)
     kapt(Libs.ANDROIDX_HILT_COMPILER)
+    // Play Core
+    implementation(Libs.PLAY_CORE_KTX)
 
     // Firebase
     implementation(Libs.ANALYTICS)
@@ -166,7 +174,7 @@ dependencies {
     // Moshi - JSON library
     implementation(Libs.MOSHI)
     implementation(Libs.MOSHI_KOTLIN) // convert kotlin class from JSON
-    kapt(Libs.MOSHI_KOTLIN_CODEGEN)   // annotation processor
+    kapt(Libs.MOSHI_KOTLIN_CODEGEN) // annotation processor
 
     // AndroidBrowserHelper
     // https://github.com/GoogleChrome/android-browser-helper

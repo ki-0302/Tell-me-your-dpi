@@ -32,6 +32,7 @@ object Libs {
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor"
     const val OSS_LICENSES = "com.google.android.gms:play-services-oss-licenses"
     const val PERF = "com.google.firebase:firebase-perf"
+    const val PLAY_CORE_KTX = "com.google.android.play:core-ktx"
     const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview"
     const val RECYCLER_VIEW_SELECTION = "androidx.recyclerview:recyclerview-selection"
     const val RETROFIT = "com.squareup.retrofit2:retrofit"
