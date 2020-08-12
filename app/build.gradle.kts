@@ -151,6 +151,8 @@ dependencies {
     // androidx Hilt
     implementation(Libs.ANDROIDX_HILT_VIEW_MODEL)
     kapt(Libs.ANDROIDX_HILT_COMPILER)
+    // Play Core
+    implementation(Libs.PLAY_CORE_KTX)
 
     // Firebase
     implementation(Libs.ANALYTICS)

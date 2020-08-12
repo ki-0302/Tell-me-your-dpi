@@ -22,6 +22,7 @@ val moshi = "1.9.3"
 val okhttp = "4.8.0"
 val oss_licenses = "17.0.0"
 val perf = "19.0.8"
+val play_core_ktx = "1.8.0"
 val recycler_view = "1.1.0"
 val recycler_view_selection = "1.1.0-rc01"
 val retrofit = "2.9.0"
@@ -61,6 +62,7 @@ dependencies {
         api("${Libs.OKHTTP_LOGGING_INTERCEPTOR}:$okhttp")
         api("${Libs.OSS_LICENSES}:$oss_licenses")
         api("${Libs.PERF}:$perf")
+        api("${Libs.PLAY_CORE_KTX}:$play_core_ktx")
         api("${Libs.RECYCLER_VIEW}:$recycler_view")
         api("${Libs.RECYCLER_VIEW_SELECTION}:$recycler_view_selection")
         api("${Libs.RETROFIT}:$retrofit")
