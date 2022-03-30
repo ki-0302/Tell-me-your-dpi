@@ -1,20 +1,17 @@
 plugins {
     id("com.android.library")
     // https://kotlinlang.org/docs/reference/using-gradle.html
-    kotlin("android")
-    kotlin("android.extensions")
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdkVersion(Versions.COMPILE_SDK)
+    compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
-        minSdkVersion(Versions.MIN_SDK)
-        targetSdkVersion(Versions.TARGET_SDK)
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

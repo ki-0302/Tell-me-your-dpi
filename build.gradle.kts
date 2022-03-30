@@ -2,20 +2,22 @@
 
 // For tasks
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
-// https://github.com/ben-manes/gradle-versions-plugin
-// .gradlew dependencyUpdates
 plugins {
+    id("com.android.application") version Versions.ANDROID_GRADLE_PLUGIN apply false
+    id("com.android.library") version Versions.ANDROID_GRADLE_PLUGIN apply false
+    id("org.jetbrains.kotlin.android") version Versions.KOTLIN apply false
+    id("org.jetbrains.kotlin.kapt") version Versions.KOTLIN apply false
+
+    // https://github.com/ben-manes/gradle-versions-plugin
+    // .gradlew dependencyUpdates
     id("com.github.ben-manes.versions") version Versions.BEN_MANES
 }
 
 buildscript {
-
-    val kotlin_version by extra("1.3.72")
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url = uri("https://plugins.gradle.org/m2/") }  // for Ktlint
     }
 
@@ -34,13 +36,6 @@ buildscript {
         classpath("com.google.firebase:perf-plugin:${Versions.FIREBASE_PERF}")
         // etc
         classpath("com.google.android.gms:oss-licenses-plugin:${Versions.OSS_LICENSES}")
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
     }
 }
 

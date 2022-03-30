@@ -4,9 +4,8 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("org.jlleitschuh.gradle.ktlint")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.gms.google-services")
@@ -17,14 +16,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.COMPILE_SDK)
+    compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
         applicationId = "com.maho_ya.tell_me_your_dpi"
-        minSdkVersion(Versions.MIN_SDK)
-        targetSdkVersion(Versions.TARGET_SDK)
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
+        versionCode = Versions.VERSION_CODE
+        versionName = Versions.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -103,8 +102,7 @@ android {
         dataBinding = true
         viewBinding = true
     }
-
-    lintOptions {
+    lint {
         xmlReport = true
     }
 
