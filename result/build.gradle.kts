@@ -4,11 +4,15 @@ plugins {
     kotlin("jvm")
 }
 
+apply(from = "../lint.gradle.kts")
+
 dependencies {
     api(platform(project(":depconstraints")))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libs.KOTLIN_STDLIB)
+
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.MOCKITO)
 }
 
 java {

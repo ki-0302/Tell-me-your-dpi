@@ -35,33 +35,4 @@
         <item name="android:paddingRight">16dp</item>
     </style>
 
-
-    <!-- Oss Licence  -->
-    <style name="oss_licence" />
-
-    <!-- ActionBar styles -->
-    <style name="oss_licence.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <!-- For oss license, Change background color of the ActionBar.-->
-        <item name="background">@color/color_primary</item>
-        <!-- For oss license, Change color of the title.-->
-        <item name="titleTextStyle">@style/oss_licence.ActionBarTitleTextStyle</item>
-
-        <!-- For oss license, Change ActionBar home button.-->
-        <item name="homeAsUpIndicator">@drawable/ic_actionbar_arrow_back</item>
-
-        <!-- Setting to change the color of Actionbar Home button. but it didn't work. -->
-<!--        <item name="android:windowContentOverlay">@null</item>-->
-<!--        <item name="colorControlNormal">@color/toolbarText</item>-->
-<!--        <item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>-->
-    </style>
-
-<!--    <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">-->
-<!--        <item name="spinBars">true</item>-->
-<!--        <item name="color">#FFF</item>-->
-<!--    </style>-->
-
-    <!-- タイトルカラーの設定 -->
-    <style name="oss_licence.ActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/toolbar_text</item>
-    </style>
 </resources>

@@ -1,21 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 // For tasks
+import Versions.ANDROID_GRADLE_PLUGIN
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
-// https://github.com/ben-manes/gradle-versions-plugin
-// .gradlew dependencyUpdates
 plugins {
+    id("com.android.application") version Versions.ANDROID_GRADLE_PLUGIN apply false
+    id("com.android.library") version Versions.ANDROID_GRADLE_PLUGIN apply false
+    id("org.jetbrains.kotlin.android") version Versions.KOTLIN apply false
+    id("org.jetbrains.kotlin.kapt") version Versions.KOTLIN apply false
+
+    // https://github.com/ben-manes/gradle-versions-plugin
+    // ./gradlew dependencyUpdates
     id("com.github.ben-manes.versions") version Versions.BEN_MANES
 }
 
 buildscript {
-
-    val kotlin_version by extra("1.3.72")
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url = uri("https://plugins.gradle.org/m2/") }  // for Ktlint
     }
 
@@ -34,13 +37,6 @@ buildscript {
         classpath("com.google.firebase:perf-plugin:${Versions.FIREBASE_PERF}")
         // etc
         classpath("com.google.android.gms:oss-licenses-plugin:${Versions.OSS_LICENSES}")
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
     }
 }
 
@@ -79,8 +75,73 @@ tasks {
 }
 
 fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("alpha", "beta", "rc", "cr", "m", "preview").any { version.toUpperCase().contains(it) }
+    val stableKeyword = listOf("alpha", "beta", "rc", "cr", "m", "preview").any {
+        version.toUpperCase().contains(it)
+    }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
+}
+
+val ktlintMerge by tasks.register("ktlintMerge") {
+    val path = "reports/ktlint"
+    val outputReportName = "ktlint-results.xml"
+    val pattern = """^(<\?.*?<checkstyle .*?>\n)(.*?)(</checkstyle>)"""
+
+    var header = ""
+    var footer = ""
+    var body = ""
+
+    File(path).list()?.forEach {
+        val list = getLintResult("$path/$it", pattern)
+
+        header = list[0]
+        body += list[1]
+        footer = list[2]
+    }
+
+    File("$path/$outputReportName").writeText(
+        "$header$body$footer"
+    )
+}
+
+val lintMerge by tasks.register("lintMerge") {
+    val path = "reports/lint"
+    val outputReportName = "lint-results.xml"
+    val pattern = """^(<\?.*?<issues .*?>\n)(.*?)(</issues>)"""
+
+    var header = ""
+    var footer = ""
+    var body = ""
+
+    val outputFile = File("$path/$outputReportName")
+    if (outputFile.exists()) outputFile.delete()
+
+    File(path).list()?.sorted()?.forEach {
+        val list = getLintResult("$path/$it", pattern)
+        print(it)
+        header = list[0]
+        body += list[1]
+        footer = list[2]
+    }
+
+    outputFile.writeText("$header$body$footer")
+}
+
+fun getLintResult(path: String, pattern: String): List<String> {
+    val file = File(path)
+    if (!file.exists()) {
+        throw java.io.FileNotFoundException("File Not Found: $path")
+    }
+
+    val text = file.readText()
+
+    val regex =
+        Regex(pattern, RegexOption.DOT_MATCHES_ALL)
+
+    return listOf(
+        regex.find(text)?.groups?.get(1)?.value ?: "",
+        regex.find(text)?.groups?.get(2)?.value ?: "",
+        regex.find(text)?.groups?.get(3)?.value ?: ""
+    )
 }
