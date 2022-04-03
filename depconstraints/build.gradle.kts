@@ -5,8 +5,6 @@ plugins {
 
 val androidx_browser = "1.4.0"
 val androidx_hilt = "1.0.0"
-val androidx_test_ext = "1.1.1"
-val androidx_test_espresso = "3.2.0"
 val appcompat = "1.4.1"
 val constraint_layout = "2.1.3"
 val core_ktx = "1.7.0"
@@ -31,8 +29,7 @@ dependencies {
     constraints {
         api("${Libs.ANDROIDX_BROWSER}:$androidx_browser")
         api("${Libs.ANDROIDX_HILT_COMPILER}:$androidx_hilt")
-        api("${Libs.ANDROIDX_TEST_EXT}:$androidx_test_ext")
-        api("${Libs.ANDROIDX_TEST_ESPRESSO}:$androidx_test_espresso")
+
         api("${Libs.APPCOMPAT}:$appcompat")
         api("${Libs.CONSTRAINT_LAYOUT}:$constraint_layout")
         api("${Libs.CORE_KTX}:$core_ktx")
@@ -50,7 +47,6 @@ dependencies {
         api("${Libs.MOSHI_KOTLIN_CODEGEN}:$moshi")
         api("${Libs.NAVIGATION_DYNAMIC_FEATURES_FRAGMENT}:${Versions.NAVIGATION}")
         api("${Libs.NAVIGATION_FRAGMENT_KTX}:${Versions.NAVIGATION}")
-        api("${Libs.NAVIGATION_TEST}:${Versions.NAVIGATION}")
         api("${Libs.NAVIGATION_UI_KTX}:${Versions.NAVIGATION}")
         api("${Libs.OKHTTP}:$okhttp")
         api("${Libs.OKHTTP_LOGGING_INTERCEPTOR}:$okhttp")

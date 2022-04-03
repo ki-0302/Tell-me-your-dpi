@@ -17,10 +17,6 @@
         tools:ignore="DataExtractionRules"
         tools:targetApi="s">
 
-        <meta-data
-            android:name="asset_statements"
-            android:resource="@string/asset_statements" />
-
         <activity android:name="com.maho_ya.ui.MainActivity"
             android:exported="true">
             <intent-filter>
