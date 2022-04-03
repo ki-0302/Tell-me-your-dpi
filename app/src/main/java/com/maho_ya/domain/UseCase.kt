@@ -1,7 +1,6 @@
 package com.maho_ya.domain
 
 import com.maho_ya.result.Result
-import java.lang.Exception
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber

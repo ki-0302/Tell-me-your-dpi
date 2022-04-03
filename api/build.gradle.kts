@@ -37,7 +37,6 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.CORE_KTX)
     // Dagger Hilt
     implementation(Libs.HILT_ANDROID)

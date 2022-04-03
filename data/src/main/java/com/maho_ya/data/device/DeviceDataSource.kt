@@ -6,11 +6,11 @@ import android.graphics.Point
 import android.os.Build
 import android.view.Display
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import com.maho_ya.model.Device
 import dagger.hilt.android.qualifiers.ActivityContext
-import java.lang.Exception
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 interface DeviceDataSource {
     suspend fun getDevice(): Device
@@ -21,7 +21,6 @@ class DataDeviceDataSource @Inject constructor(
 ) : DeviceDataSource {
 
     override suspend fun getDevice(): Device {
-
         val displayRealSize = getDisplayRealSize()
         val memoryInfo = getMemoryInfo()
 
@@ -41,7 +40,6 @@ class DataDeviceDataSource @Inject constructor(
     }
 
     private fun getDensityQualifier(): String {
-
         if (context == null) return "Unknown"
 
         return try {
@@ -63,7 +61,6 @@ class DataDeviceDataSource @Inject constructor(
     }
 
     private fun getDensityDpi(): Int {
-
         return try {
             context?.resources?.displayMetrics?.densityDpi ?: 0
         } catch (e: Exception) {
@@ -73,9 +70,23 @@ class DataDeviceDataSource @Inject constructor(
     }
 
     private fun getDisplayRealSize(): Point {
+        return when {
+            context == null -> Point()
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+                getDisplayRealSizeForROrHigher()
+            }
+            else -> getDisplayRealSizeForLessThanR()
+        }
+    }
 
-        if (context == null) return Point()
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun getDisplayRealSizeForROrHigher(): Point {
+        val bounds = getWindowManager().currentWindowMetrics.bounds
+        return Point(bounds.width(), bounds.height())
+    }
 
+    @Suppress("DEPRECATION")
+    private fun getDisplayRealSizeForLessThanR(): Point {
         return try {
             val realSize = Point()
             getDisplay()?.getRealSize(realSize)
@@ -85,15 +96,16 @@ class DataDeviceDataSource @Inject constructor(
         }
     }
 
-    @Suppress("DEPRECATION")
     private fun getDisplay(): Display? {
         return when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> context?.display
-            else -> {
-                val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                wm.defaultDisplay
-            }
+            else -> getDisplayForLessThanR()
         }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun getDisplayForLessThanR(): Display? {
+        return getWindowManager().defaultDisplay
     }
 
     private fun getAndroidCodeName(): String {
@@ -154,5 +166,9 @@ class DataDeviceDataSource @Inject constructor(
             Timber.d(e)
             null
         }
+    }
+
+    private fun getWindowManager(): WindowManager {
+        return context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     }
 }

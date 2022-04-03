@@ -12,12 +12,16 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.maho_ya.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
+
+    @Inject lateinit var deviceUseCase: DeviceUseCase
 
     private val homeVieModel: HomeVieModel by viewModels()
 
@@ -39,6 +43,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 .setAction("Action", null)
                 .show()
         }
+
+        homeVieModel.getDevice(deviceUseCase)
     }
 
     override fun onResume() {

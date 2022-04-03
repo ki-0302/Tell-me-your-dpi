@@ -7,7 +7,9 @@ import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -70,7 +72,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun registerBottomNavigation() {
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        // https://developer.android.com/guide/navigation/navigation-getting-started?hl=ja#navigate
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         // AppBarConfiguration.java で navController.graph を引数に渡すと、TopLevelのidを取得し渡す　
         // TopLevelにはAppIconを付けない。 navGraph の他にR.idでも渡せる

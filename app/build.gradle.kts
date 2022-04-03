@@ -36,8 +36,7 @@ android {
 
     // For Kotlin projects. Support Java 8
     kotlinOptions {
-        val options = this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-        options.jvmTarget = "1.8"
+        this.jvmTarget = "1.8"
     }
 
     signingConfigs {
@@ -130,7 +129,6 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.COROUTINES)
     implementation(Libs.APPCOMPAT)
     implementation(Libs.CORE_KTX)
@@ -153,12 +151,13 @@ dependencies {
     implementation(Libs.HILT_ANDROID)
     kapt(Libs.HILT_COMPILER)
     // androidx Hilt
-    implementation(Libs.ANDROIDX_HILT_VIEW_MODEL)
     kapt(Libs.ANDROIDX_HILT_COMPILER)
     // Play Core
     implementation(Libs.PLAY_CORE_KTX)
-
+    // Custom Tabs
+    implementation(Libs.ANDROIDX_BROWSER)
     // Firebase
+    implementation(platform(Libs.FIREBASE_BOM))
     implementation(Libs.ANALYTICS)
     implementation(Libs.CRASHLYTICS)
     implementation(Libs.PERF)
@@ -174,10 +173,6 @@ dependencies {
     implementation(Libs.MOSHI_KOTLIN) // convert kotlin class from JSON
     kapt(Libs.MOSHI_KOTLIN_CODEGEN) // annotation processor
 
-    // AndroidBrowserHelper
-    // https://github.com/GoogleChrome/android-browser-helper
-    // https://developers.google.com/web/android/trusted-web-activity/integration-guide
-    implementation(Libs.ANDROID_BROWSER_HELPER)
     // etc
     implementation(Libs.TIMBER)
     implementation(Libs.OSS_LICENSES)

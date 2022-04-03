@@ -1,22 +1,17 @@
 package com.maho_ya.ui.releasenotes
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
-import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.maho_ya.domain.releasenotes.ReleaseNotesUseCase
 import com.maho_ya.model.ReleaseNote
 import com.maho_ya.result.Result
 import com.maho_ya.result.data
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ReleaseNotesViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ReleaseNotesViewModel @Inject constructor(
     private val releaseNotesUseCase: ReleaseNotesUseCase
 ) : ViewModel(), ReleaseNotesEventListener {
 
@@ -56,16 +51,6 @@ class ReleaseNotesViewModel @ViewModelInject constructor(
                 _releaseNotesResult.value = it
             }
         }
-    }
-}
-
-class ReleaseNotesViewModelFactory(
-    private val releaseNotesUseCase: ReleaseNotesUseCase
-) : ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ReleaseNotesViewModel(releaseNotesUseCase) as T
     }
 }
 

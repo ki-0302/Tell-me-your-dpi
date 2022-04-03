@@ -10,7 +10,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt") version Versions.KOTLIN apply false
 
     // https://github.com/ben-manes/gradle-versions-plugin
-    // .gradlew dependencyUpdates
+    // ./gradlew dependencyUpdates
     id("com.github.ben-manes.versions") version Versions.BEN_MANES
 }
 

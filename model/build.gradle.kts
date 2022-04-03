@@ -8,7 +8,6 @@ dependencies {
     api(platform(project(":depconstraints")))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libs.KOTLIN_STDLIB)
 }
 
 java {

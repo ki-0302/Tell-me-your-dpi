@@ -1,18 +1,16 @@
 package com.maho_ya.ui.home
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.maho_ya.domain.device.DeviceUseCase
 import com.maho_ya.domain.review.ShouldLaunchReviewUseCase
 import com.maho_ya.result.data
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeVieModel @ViewModelInject constructor(
-    private val deviceUseCase: DeviceUseCase,
+@HiltViewModel
+class HomeVieModel @Inject constructor(
+    private val handle: SavedStateHandle,
     private val shouldLaunchReviewUseCase: ShouldLaunchReviewUseCase
 ) : ViewModel() {
 
@@ -20,7 +18,7 @@ class HomeVieModel @ViewModelInject constructor(
     val device: LiveData<com.maho_ya.model.Device>
         get() = _device
 
-    init {
+    fun getDevice(deviceUseCase: DeviceUseCase) {
         viewModelScope.launch {
             _device.value = deviceUseCase().data
         }
@@ -31,16 +29,5 @@ class HomeVieModel @ViewModelInject constructor(
 
     fun notifyReviewLaunchAttempted() {
         shouldLaunchReviewUseCase.notifyReviewLaunchAttempted()
-    }
-}
-
-class HomeViewModelFactory(
-    private val deviceUseCase: DeviceUseCase,
-    private val shouldLaunchReviewUseCase: ShouldLaunchReviewUseCase
-) : ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HomeVieModel(deviceUseCase, shouldLaunchReviewUseCase) as T
     }
 }
