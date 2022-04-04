@@ -50,4 +50,7 @@ dependencies {
 
     testImplementation(Libs.JUNIT)
     testImplementation(Libs.MOCKITO)
+
+    androidTestImplementation(Libs.ANDROIDX_TEST_EXT)
+    androidTestImplementation(Libs.ANDROIDX_TEST_ESPRESSO)
 }

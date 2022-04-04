@@ -2,9 +2,7 @@ object Libs {
     const val ANALYTICS = "com.google.firebase:firebase-analytics"
     const val ANDROIDX_BROWSER = "androidx.browser:browser"
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler"
-
-    const val ANDROIDX_TEST_CORE = "androidx.test:core-ktx"
-    const val ANDROIDX_TEST_EXT = "androidx.test.ext:junit-ktx"
+    const val ANDROIDX_TEST_EXT = "androidx.test.ext:junit"
     const val ANDROIDX_TEST_ESPRESSO = "androidx.test.espresso:espresso-core"
     const val APPCOMPAT = "androidx.appcompat:appcompat"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout"

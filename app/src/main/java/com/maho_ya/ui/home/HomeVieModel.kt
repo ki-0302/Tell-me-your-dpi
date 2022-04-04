@@ -20,9 +20,7 @@ class HomeVieModel @Inject constructor(
 
     fun getDevice(deviceUseCase: DeviceUseCase) {
         viewModelScope.launch {
-            deviceUseCase().data?.let {
-                _device.value = it
-            }
+            _device.value = deviceUseCase().data
         }
     }
 

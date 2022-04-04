@@ -103,7 +103,6 @@ android {
     }
     lint {
         xmlReport = true
-        baseline = file("lint-baseline.xml")
     }
 
     // https://github.com/jlleitschuh/ktlint-gradle
@@ -181,8 +180,8 @@ dependencies {
     testImplementation(Libs.JUNIT)
     testImplementation(Libs.MOCKITO)
 
-    androidTestImplementation("${Libs.ANDROIDX_TEST_CORE}:${Versions.ANDROIDX_TEST_CORE}")
-    androidTestImplementation("${Libs.ANDROIDX_TEST_EXT}:${Versions.ANDROIDX_TEST_EXT}")
-    androidTestImplementation("${Libs.ANDROIDX_TEST_ESPRESSO}:${Versions.ANDROIDX_TEST_ESPRESSO}")
-    androidTestImplementation("${Libs.NAVIGATION_TEST}:${Versions.NAVIGATION}")
+    androidTestImplementation(Libs.ANDROIDX_TEST_EXT)
+    androidTestImplementation(Libs.ANDROIDX_TEST_ESPRESSO)
+    // Testing Navigation
+    androidTestImplementation(Libs.NAVIGATION_TEST)
 }
