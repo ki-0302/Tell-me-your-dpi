@@ -1,5 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.maho_ya.model">
-
-    /
-</manifest>
+<manifest package="com.maho_ya.model" />
