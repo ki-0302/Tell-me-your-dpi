@@ -1,14 +1,5 @@
 <resources>
     <string name="app_name">Tell me your DPI</string>
-    // AndroidBrowserHelper
-    <string name="asset_statements">
-        [{
-            \"relation\": [\"delegate_permission/common.handle_all_urls\"],
-            \"target\": {
-                \"namespace\": \"web\",
-                \"site\": \"https://maho-ya.firebaseapp.com\"}
-        }]
-    </string>
 
     // Fragment Titles
     <string name="title_release_notes">リリースノート</string>
@@ -20,6 +11,8 @@
     // Release Notes
     <string name="release_notes_item_version">Version %s</string>
 
+
+    <string name="copy_button">Copy</string>
 
     <string name="network_error_title">サーバーへの接続に失敗しました。</string>
     <string name="network_error_reload">再読み込み</string>

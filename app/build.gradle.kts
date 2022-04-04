@@ -103,7 +103,6 @@ android {
     }
     lint {
         xmlReport = true
-        baseline = file("lint-baseline.xml")
     }
 
     // https://github.com/jlleitschuh/ktlint-gradle
