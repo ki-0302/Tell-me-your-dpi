@@ -6,7 +6,7 @@
     <data>
         <variable
             name="releaseNote"
-            type="com.maho_ya.model.ReleaseNote" />
+            type="com.maho_ya.tell_me_your_dpi.model.ReleaseNote" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

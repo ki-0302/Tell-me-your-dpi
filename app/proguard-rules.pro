@@ -31,7 +31,7 @@
 #-keepnames class androidx.navigation.fragment.NavHostFragment
 
 # For data class.
--keepclassmembers class com.maho_ya.model.** { <fields>; }
+-keepclassmembers class com.maho_ya.tell_me_your_dpi.model.** { <fields>; }
 
 
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and

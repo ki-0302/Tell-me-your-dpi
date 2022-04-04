@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/navHome"
-        android:name="com.maho_ya.ui.home.HomeFragment"
+        android:name="com.maho_ya.tell_me_your_dpi.ui.home.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home">
     </fragment>
 
     <fragment
         android:id="@+id/navReleaseNotes"
-        android:name="com.maho_ya.ui.releasenotes.ReleaseNotesFragment"
+        android:name="com.maho_ya.tell_me_your_dpi.ui.releasenotes.ReleaseNotesFragment"
         android:label="@string/title_release_notes"
         tools:layout="@layout/fragment_release_notes">
     </fragment>
 
     <fragment
         android:id="@+id/navAboutApp"
-        android:name="com.maho_ya.ui.aboutapp.AboutAppFragment"
+        android:name="com.maho_ya.tell_me_your_dpi.ui.aboutapp.AboutAppFragment"
         android:label="@string/title_about_app"
         tools:layout="@layout/fragment_about_app" >
     </fragment>
