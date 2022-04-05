@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-android-ci
+      - uses: ./.github/actions/setup-jdk-gradle-keystore
       - name: Run ktlint
         run: ./gradlew ktlintCheck
       - name: Archive reports
@@ -24,7 +24,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-android-ci
+      - uses: ./.github/actions/setup-jdk-gradle-keystore
       - name: Run Android lint
         run: ./gradlew lintDebug
       - name: Archive reports
@@ -40,7 +40,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-android-ci
+      - uses: ./.github/actions/setup-jdk-gradle-keystore
       - name: Set up Ruby 2.6
         uses: ruby/setup-ruby@v1
         with:
