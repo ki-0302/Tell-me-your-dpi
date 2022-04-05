@@ -3,13 +3,12 @@ package com.maho_ya.tell_me_your_dpi.data.releasenotes
 import android.annotation.SuppressLint
 import com.maho_ya.tell_me_your_dpi.model.ReleaseNotesResults
 import com.maho_ya.tell_me_your_dpi.result.Result
-import java.lang.Exception
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import javax.inject.Inject
 
 interface ReleaseNotesRepository {
 

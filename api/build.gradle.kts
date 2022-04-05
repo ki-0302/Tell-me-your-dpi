@@ -27,6 +27,13 @@ android {
         val options = this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
         options.jvmTarget = "1.8"
     }
+
+    lint {
+        xmlReport = true
+        xmlOutput = rootProject.file("reports/lint/lint-results-${project.name}.xml")
+        abortOnError = false
+        checkDependencies = false // 実行時間がかかるため、依存関係やリソースのチェックは行わない
+    }
 }
 
 dependencies {
@@ -51,3 +58,5 @@ dependencies {
     testImplementation(Libs.JUNIT)
     testImplementation(Libs.MOCKITO)
 }
+
+apply(from = "../lint.gradle.kts")

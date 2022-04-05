@@ -12,9 +12,9 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
+import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

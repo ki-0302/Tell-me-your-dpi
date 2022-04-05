@@ -7,9 +7,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.maho_ya.tell_me_your_dpi.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.BR
 import com.maho_ya.tell_me_your_dpi.R
+import com.maho_ya.tell_me_your_dpi.model.ReleaseNote
 
 class ReleaseNotesAdapter() :
     ListAdapter<ReleaseNote, ReleaseNotesViewHolder>(ReleaseNotesDiffCallback) {

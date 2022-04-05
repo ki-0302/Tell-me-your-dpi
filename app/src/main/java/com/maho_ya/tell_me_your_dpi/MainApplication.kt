@@ -1,7 +1,6 @@
 package com.maho_ya.tell_me_your_dpi
 
 import android.app.Application
-import com.maho_ya.tell_me_your_dpi.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import timber.log.Timber.DebugTree

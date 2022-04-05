@@ -1,19 +1,19 @@
 package com.maho_ya.tell_me_your_dpi.di
 
-import com.maho_ya.tell_me_your_dpi.api.WebService
 import com.maho_ya.tell_me_your_dpi.BuildConfig
+import com.maho_ya.tell_me_your_dpi.api.WebService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module

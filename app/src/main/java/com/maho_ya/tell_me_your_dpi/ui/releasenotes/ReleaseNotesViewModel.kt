@@ -1,13 +1,16 @@
 package com.maho_ya.tell_me_your_dpi.ui.releasenotes
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import com.maho_ya.tell_me_your_dpi.domain.releasenotes.ReleaseNotesUseCase
 import com.maho_ya.tell_me_your_dpi.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.result.Result
 import com.maho_ya.tell_me_your_dpi.result.data
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,7 +47,6 @@ class ReleaseNotesViewModel @Inject constructor(
     }
 
     private fun loadReleaseNotes() {
-
         viewModelScope.launch {
             // collect method of coroutine executes a suspend fun. It then collects a flow.
             releaseNotesUseCase().collect {

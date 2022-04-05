@@ -59,12 +59,11 @@ class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
         resources.getColor(R.color.color_primary, context?.theme)
 
     @Suppress("DEPRECATION")
-    private fun getColorForLessThanM()  =
+    private fun getColorForLessThanM() =
         resources.getColor(R.color.color_primary)
 
     private fun openOssLicences() {
         activity?.let { activity ->
-
             val intent = Intent(activity, OssLicensesMenuActivity::class.java)
             intent.putExtra("title", getString(R.string.about_oss_licences_title))
             startActivity(intent)
@@ -74,7 +73,6 @@ class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 
 @BindingAdapter("versionName")
 fun setAppVersion(textView: TextView, versionName: String) {
-
     textView.text = textView.resources.getString(
         R.string.about_version_title, versionName
     )

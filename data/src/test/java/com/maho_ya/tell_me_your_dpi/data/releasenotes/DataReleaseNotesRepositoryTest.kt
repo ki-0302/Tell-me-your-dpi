@@ -12,8 +12,7 @@ import org.mockito.Mockito.mock
 class DataReleaseNotesRepositoryTest {
 
     private fun createMockDataSource(date: String) =
-        object : ReleaseNotesDataSource by mock(
-            DataReleaseNotesDataSource::class.java) {
+        object : ReleaseNotesDataSource by mock(DataReleaseNotesDataSource::class.java) {
             override suspend fun getReleaseNotesResults(): com.maho_ya.tell_me_your_dpi.model.ReleaseNotesResults =
                 com.maho_ya.tell_me_your_dpi.model.ReleaseNotesResults(
                     listOf(

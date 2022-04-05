@@ -1,12 +1,10 @@
 import java.io.FileInputStream
 import java.util.Properties
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
-    id("org.jlleitschuh.gradle.ktlint")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
@@ -101,20 +99,12 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
     lint {
         xmlReport = true
-    }
-
-    // https://github.com/jlleitschuh/ktlint-gradle
-    // https://github.com/JLLeitschuh/ktlint-gradle/blob/565c3e782d32fbbe91502e4b7b784ad93a050163/plugin/src/main/kotlin/org/jlleitschuh/gradle/ktlint/KtlintExtension.kt
-    ktlint {
-        version.set("0.37.2")
-        android.set(true)
-        ignoreFailures.set(true) // When warning continued build
-        // disabledRules = ["no-line-break-before-assignment"]
-        reporters {
-            reporter(ReporterType.CHECKSTYLE) // for Danger
-        }
+        xmlOutput = rootProject.file("reports/lint/lint-results-${project.name}.xml")
+        abortOnError = false
+        checkDependencies = false // 実行時間がかかるため、依存関係やリソースのチェックは行わない
     }
 }
 
@@ -185,3 +175,5 @@ dependencies {
     androidTestImplementation("${Libs.ANDROIDX_TEST_ESPRESSO}:${Versions.ANDROIDX_TEST_ESPRESSO}")
     androidTestImplementation("${Libs.NAVIGATION_TEST}:${Versions.NAVIGATION}")
 }
+
+apply(from = "../lint.gradle.kts")
