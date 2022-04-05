@@ -82,6 +82,7 @@ fastlane/readme.md
 vcs.xml
 
 # lint
+reports/
 lint/intermediates/
 lint/generated/
 lint/outputs/
