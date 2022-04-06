@@ -4,6 +4,8 @@ plugins {
     kotlin("jvm")
 }
 
+apply(from = "../lint.gradle.kts")
+
 dependencies {
     api(platform(project(":depconstraints")))
 
@@ -17,5 +19,3 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 }
-
-apply(from = "../lint.gradle.kts")

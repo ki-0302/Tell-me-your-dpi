@@ -13,6 +13,8 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+apply(from = "../lint.gradle.kts")
+
 android {
     compileSdk = Versions.COMPILE_SDK
 
@@ -101,8 +103,12 @@ android {
     }
 
     lint {
+        val lintReportPath: String by project
+        val lintReportFilePrefix: String by project
+        val lintReportFileSuffix: String by project
+
         xmlReport = true
-        xmlOutput = rootProject.file("reports/lint/lint-results-${project.name}.xml")
+        xmlOutput = rootProject.file("${lintReportPath}${lintReportFilePrefix}${project.name}${lintReportFileSuffix}")
         abortOnError = false
         checkDependencies = false // 実行時間がかかるため、依存関係やリソースのチェックは行わない
     }
@@ -175,5 +181,3 @@ dependencies {
     androidTestImplementation("${Libs.ANDROIDX_TEST_ESPRESSO}:${Versions.ANDROIDX_TEST_ESPRESSO}")
     androidTestImplementation("${Libs.NAVIGATION_TEST}:${Versions.NAVIGATION}")
 }
-
-apply(from = "../lint.gradle.kts")

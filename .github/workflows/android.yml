@@ -48,6 +48,7 @@ jobs:
       - uses: ./.github/actions/setup-jdk-gradle-keystore
         with:
           debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+          google_service_json_base64: ${{ secrets.GOOGLE_SERVICE_JSON_BASE64 }}
       - name: Set up Ruby 2.6
         uses: ruby/setup-ruby@v1
         with:

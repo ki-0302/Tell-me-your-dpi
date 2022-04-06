@@ -3,6 +3,12 @@
  * 各モジュールのbuild.gradleに次を追加する
  * apply(from = "../lint.gradle.kts")
  */
+
+// 出力ファイルパス
+val lintReportPath: String by extra("reports/")
+val lintReportFilePrefix: String by extra("reports/lint-results-")
+val lintReportFileSuffix: String by extra(".xml")
+
 val ktlint by configurations.creating
 
 dependencies {
