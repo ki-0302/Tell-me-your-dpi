@@ -5,8 +5,8 @@
  */
 
 // 出力ファイルパス
-val lintReportPath: String by extra("reports/")
-val lintReportFilePrefix: String by extra("reports/lint-results-")
+val lintReportPath: String by extra("reports/lint/")
+val lintReportFilePrefix: String by extra("lint-results-")
 val lintReportFileSuffix: String by extra(".xml")
 
 val ktlint by configurations.creating
