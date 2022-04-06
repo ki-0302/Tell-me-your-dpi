@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup-jdk-gradle-keystore
+        with:
+          debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
       - name: Run ktlint
         run: ./gradlew ktlintCheck
       - name: Archive reports
@@ -25,6 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup-jdk-gradle-keystore
+        with:
+          debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
       - name: Run Android lint
         run: ./gradlew lintDebug
       - name: Archive reports
@@ -41,6 +45,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup-jdk-gradle-keystore
+        with:
+          debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
       - name: Set up Ruby 2.6
         uses: ruby/setup-ruby@v1
         with:
