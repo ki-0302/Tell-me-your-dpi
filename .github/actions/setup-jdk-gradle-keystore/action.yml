@@ -21,8 +21,6 @@ runs:
         key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
     - name: Write debug.keystore
       shell: bash
-      env:
-        DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
       run: |
         if [ -n "${{ inputs.debug-keystore-base64 }}" ]; then
           echo ${{ inputs.debug-keystore-base64 }} | base64 -d > ./debug.keystore;
