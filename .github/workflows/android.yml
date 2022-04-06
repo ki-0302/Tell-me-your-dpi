@@ -29,6 +29,7 @@ jobs:
       - uses: ./.github/actions/setup-jdk-gradle-keystore
         with:
           debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+          google_service_json_base64: ${{ secrets.GOOGLE_SERVICE_JSON_BASE64 }}
       - name: Run Android lint
         run: ./gradlew lintDebug
       - name: Archive reports

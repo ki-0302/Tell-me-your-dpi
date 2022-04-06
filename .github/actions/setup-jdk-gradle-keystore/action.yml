@@ -4,6 +4,9 @@ inputs:
   debug-keystore-base64:
     description: "debug.keystoreをBase64エンコードしたものを指定"
     required: false
+  google_service_json_base64:
+    description: "google-service.jsonをBase64エンコードしたものを指定"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -24,4 +27,10 @@ runs:
       run: |
         if [ -n "${{ inputs.debug-keystore-base64 }}" ]; then
           echo ${{ inputs.debug-keystore-base64 }} | base64 -d > ./debug.keystore;
+        fi;
+    - name: Write google-services.json
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.google_service_json_base64 }}" ]; then
+          echo ${{ inputs.google_service_json_base64 }} | base64 -d > ./app/google-services.json;
         fi;
