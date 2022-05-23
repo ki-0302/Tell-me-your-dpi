@@ -88,21 +88,7 @@ val ktlintMerge by tasks.register("ktlintMerge") {
     val outputReportName = "ktlint-results.xml"
     val pattern = """^(<\?.*?<checkstyle .*?>\n)(.*?)(</checkstyle>)"""
 
-    var header = ""
-    var footer = ""
-    var body = ""
-
-    File(path).list()?.forEach {
-        val list = getLintResult("$path/$it", pattern)
-
-        header = list[0]
-        body += list[1]
-        footer = list[2]
-    }
-
-    File("$path/$outputReportName").writeText(
-        "$header$body$footer"
-    )
+    writeLintReport(path, outputReportName, pattern)
 }
 
 val lintMerge by tasks.register("lintMerge") {
@@ -110,6 +96,10 @@ val lintMerge by tasks.register("lintMerge") {
     val outputReportName = "lint-results.xml"
     val pattern = """^(<\?.*?<issues .*?>\n)(.*?)(</issues>)"""
 
+    writeLintReport(path, outputReportName, pattern)
+}
+
+fun writeLintReport(path: String, outputReportName: String, pattern: String) {
     var header = ""
     var footer = ""
     var body = ""
@@ -119,7 +109,6 @@ val lintMerge by tasks.register("lintMerge") {
 
     File(path).list()?.sorted()?.forEach {
         val list = getLintResult("$path/$it", pattern)
-        print(it)
         header = list[0]
         body += list[1]
         footer = list[2]
