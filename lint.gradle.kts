@@ -38,6 +38,7 @@ val ktlintCheck by tasks.creating(JavaExec::class) {
                 rootProject.file("reports/ktlint/ktlint-results-${project.getName()}.xml"),
         "src/**/*.kt"
     )
+    isIgnoreExitValue = true
 }
 
 val ktlintFormat by tasks.creating(JavaExec::class) {
