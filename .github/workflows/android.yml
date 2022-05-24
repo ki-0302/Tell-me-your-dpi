@@ -38,14 +38,41 @@ jobs:
           name: reports
           path: ./reports
           retention-days: 3
+  lint-report-marge:
+    if: cancelled() != true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # 通常は並列実行する。needsをつけると指定したjobが終わるまで待機する
+    needs: [ktlint,android-lint]
+    steps:
+      - uses: actions/checkout@v2
+      # 共通のgradleセットアップ用の関数を呼び出す
+      - uses: ./.github/actions/setup-jdk-gradle-keystore
+        with:
+          debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+          google_service_json_base64: ${{ secrets.GOOGLE_SERVICE_JSON_BASE64 }}
+      - name: Download reports
+        uses: actions/download-artifact@v2
+        with:
+          name: reports
+          path: ./reports
+      - name: Run merge reports
+        run: ./gradlew mergeReports
+      - name: Archive reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: reports
+          path: ./reports
+          retention-days: 3
   danger:
     if: cancelled() != true
     runs-on: ubuntu-latest
-    needs: [ktlint,android-lint]
+    needs: [lint-report-marge]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
         with:
+          # gitの先頭Commit以外を取得するのに必要
           fetch-depth: 0
       - uses: ./.github/actions/setup-jdk-gradle-keystore
         with:

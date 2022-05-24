@@ -83,7 +83,13 @@ fun isNonStable(version: String): Boolean {
     return isStable.not()
 }
 
-val ktlintMerge by tasks.register("ktlintMerge") {
+// ktlintとlintのレポートを1つのファイルにマージする
+val mergeReports by tasks.register("mergeReports") {
+    mergeKtlintReports()
+    mergeLintReports()
+}
+
+fun mergeKtlintReports() {
     val path = "reports/ktlint"
     val outputReportName = "ktlint-results.xml"
     val pattern = """^(<\?.*?<checkstyle .*?>\n)(.*?)(</checkstyle>)"""
@@ -91,7 +97,7 @@ val ktlintMerge by tasks.register("ktlintMerge") {
     writeLintReport(path, outputReportName, pattern)
 }
 
-val lintMerge by tasks.register("lintMerge") {
+fun mergeLintReports() {
     val path = "reports/lint"
     val outputReportName = "lint-results.xml"
     val pattern = """^(<\?.*?<issues .*?>\n)(.*?)(</issues>)"""
