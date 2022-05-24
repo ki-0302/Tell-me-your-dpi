@@ -7,10 +7,8 @@ warn("PR is classed as Work in Progress") if github.pr_title.include? "[WIP]"
 warn("Big PR") if git.lines_of_code > 500
 
 # ktlintの結果をコメント投稿
-Dir.glob("reports/ktlint/ktlint-results.xml").each { |report|
-  checkstyle_format.base_path = Dir.pwd
-  checkstyle_format.report report.to_s
-}
+checkstyle_format.base_path = Dir.pwd
+checkstyle_format.report "reports/ktlint/ktlint-results.xml"
 
 # Android lintの結果をコメント投稿
 android_lint.skip_gradle_task = true # 予めlint実行してあるためGradleの実行をスキップ
