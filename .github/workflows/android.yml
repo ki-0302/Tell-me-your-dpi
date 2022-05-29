@@ -51,8 +51,10 @@ jobs:
         run: ./gradlew testDebugUnitTest
       - name: Copy unit test reports to reports dir
         run: ./gradlew copyUnitTestReports
+        if: always()
       - name: Archive reports
         uses: actions/upload-artifact@v2
+        if: always()
         with:
           name: reports
           path: ./reports
@@ -128,6 +130,7 @@ jobs:
     steps:
       - name: Download reports
         uses: actions/download-artifact@v2
+        if: always()
         with:
           name: reports
           path: ./reports
