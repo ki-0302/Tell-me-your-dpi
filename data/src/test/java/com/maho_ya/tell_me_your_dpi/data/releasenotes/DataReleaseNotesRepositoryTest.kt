@@ -34,7 +34,7 @@ class DataReleaseNotesRepositoryTest {
             )
                 .getReleaseNotes().drop(1)
                 .collect {
-                    assertThat(it.data?.releaseNotes?.get(0)?.date, `is`("デバッグ用消す"))
+                    assertThat(it.data?.releaseNotes?.get(0)?.date, `is`(""))
                 }
         }
     }
