@@ -104,12 +104,10 @@ val copyUnitTestReports by tasks.register("copyUnitTestReports") {
     // 各モジュールのUnitTestのXMLファイルをコピーする
     File(".").listFiles()?.forEach { moduleDir ->
         if (moduleDir.isDirectory) {
-            println("${moduleDir.path}$pathSuffix")
             val unitTestDir = File("${moduleDir.path}$pathSuffix")
             if (unitTestDir.exists()) {
                 unitTestDir.listFiles()?.filter { it.isFile }?.forEach { xmlFile ->
-                    println(xmlFile.path)
-                    xmlFile.copyTo(File("${Paths.TEST_REPORTS}${xmlFile.name}"))
+                    xmlFile.copyTo(File("${Paths.TEST_REPORTS}${xmlFile.name}"), true)
                 }
             }
         }
