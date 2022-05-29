@@ -12,7 +12,7 @@ object Versions {
     const val ANDROIDX_TEST_EXT = "1.1.3"
     const val ANDROIDX_TEST_ESPRESSO = "3.4.0"
 
-    const val KOTLIN = "1.5.30"
+    const val KOTLIN = "1.6.21"
     const val NAVIGATION = "2.4.1"
     const val KTLINT = "10.2.1"
     const val HILT = "2.41"
