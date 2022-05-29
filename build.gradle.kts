@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 // For tasks
+import org.gradle.internal.impldep.com.google.common.io.Files.isFile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -97,14 +98,18 @@ val copyUnitTestReports by tasks.register("copyUnitTestReports") {
     val pathSuffix = "/build/test-results/testDebugUnitTest/"
 
     // ディレクトリを再作成
-    val reportsDir = File(Paths.TEST_REPORTS)
-    recursiveDeleteFile(reportsDir)
-    reportsDir.mkdirs()
 
-    if (reportsDir.exists()) {
+    val reportDir = File(Paths.REPORTS)
+    if (!reportDir.exists()) reportDir.mkdir()
+
+    val testReportsDir = File(Paths.TEST_REPORTS)
+    recursiveDeleteFile(testReportsDir)
+    if (!testReportsDir.exists()) testReportsDir.mkdir()
+
+    if (testReportsDir.exists()) {
         println("test")
     }
-    
+
     // 各モジュールのUnitTestのXMLファイルをコピーする
     File(".").listFiles()?.forEach { moduleDir ->
         if (moduleDir.isDirectory) {
