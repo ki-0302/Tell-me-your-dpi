@@ -101,6 +101,10 @@ val copyUnitTestReports by tasks.register("copyUnitTestReports") {
     recursiveDeleteFile(reportsDir)
     reportsDir.mkdirs()
 
+    if (reportsDir.exists()) {
+        println("test")
+    }
+    
     // 各モジュールのUnitTestのXMLファイルをコピーする
     File(".").listFiles()?.forEach { moduleDir ->
         if (moduleDir.isDirectory) {
