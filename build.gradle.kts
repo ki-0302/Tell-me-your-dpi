@@ -107,7 +107,8 @@ val copyUnitTestReports by tasks.register("copyUnitTestReports") {
             val unitTestDir = File("${moduleDir.path}$pathSuffix")
             if (unitTestDir.exists()) {
                 unitTestDir.listFiles()?.filter { it.isFile }?.forEach { xmlFile ->
-                    xmlFile.copyTo(File("${Paths.TEST_REPORTS}${xmlFile.name}"), true)
+                    println(xmlFile.path)
+                    xmlFile.copyTo(File("${Paths.TEST_REPORTS}${xmlFile.name}"))
                 }
             }
         }
