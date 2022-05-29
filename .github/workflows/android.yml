@@ -128,9 +128,7 @@ jobs:
         run: |
           danger --verbose
   deploy:
-    if: cancelled() != true
     runs-on: ubuntu-latest
-    needs: [merge-lint-report,unit-test]
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup-jdk-gradle-keystore
