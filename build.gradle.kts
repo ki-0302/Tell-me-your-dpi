@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 // For tasks
-import Versions.ANDROID_GRADLE_PLUGIN
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -83,26 +82,67 @@ fun isNonStable(version: String): Boolean {
     return isStable.not()
 }
 
-// ktlintとlintのレポートを1つのファイルにマージする
+/**
+ * ktlintとlintのレポートを1つのファイルにマージする
+ */
 val mergeReports by tasks.register("mergeReports") {
     mergeKtlintReports()
-    mergeLintReports()
+    mergeAndroidLintReports()
 }
 
+/**
+ * UnitTestのレポートファイルをコピー
+ */
+val copyUnitTestReports by tasks.register("copyUnitTestReports") {
+    val pathSuffix = "/build/test-results/testDebugUnitTest/"
+
+    // ディレクトリを再作成
+    val reportsDir = File(Paths.TEST_REPORTS)
+    recursiveDeleteFile(reportsDir)
+    reportsDir.mkdirs()
+
+    // 各モジュールのUnitTestのXMLファイルをコピーする
+    File(".").listFiles()?.forEach { moduleDir ->
+        if (moduleDir.isDirectory) {
+            val unitTestDir = File("${moduleDir.path}$pathSuffix")
+            if (unitTestDir.exists()) {
+                unitTestDir.listFiles()?.filter { it.isFile }?.forEach { xmlFile ->
+                    xmlFile.copyTo(File("${Paths.TEST_REPORTS}${xmlFile.name}"), true)
+                }
+            }
+        }
+    }
+}
+
+/**
+ * 再帰的にディレクトリ内を削除
+ */
+fun recursiveDeleteFile(file: File) {
+    if (!file.exists()) return
+
+    if (file.isDirectory) {
+        file.listFiles()?.forEach {
+            recursiveDeleteFile(it)
+        }
+    }
+
+    // 上で処理した後の空のディレクトリ or ファイルを削除
+    file.delete()
+}
+
+
 fun mergeKtlintReports() {
-    val path = "reports/ktlint"
     val outputReportName = "ktlint-results.xml"
     val pattern = """^(<\?.*?<checkstyle .*?>\n)(.*?)(</checkstyle>)"""
 
-    writeLintReport(path, outputReportName, pattern)
+    writeLintReport(Paths.KTLINT_REPORTS, outputReportName, pattern)
 }
 
-fun mergeLintReports() {
-    val path = "reports/lint"
+fun mergeAndroidLintReports() {
     val outputReportName = "lint-results.xml"
     val pattern = """^(<\?.*?<issues .*?>\n)(.*?)(</issues>)"""
 
-    writeLintReport(path, outputReportName, pattern)
+    writeLintReport(Paths.ANDROID_LINT_REPORTS, outputReportName, pattern)
 }
 
 fun writeLintReport(path: String, outputReportName: String, pattern: String) {

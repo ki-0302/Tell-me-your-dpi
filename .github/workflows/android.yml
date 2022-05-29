@@ -38,7 +38,26 @@ jobs:
           name: reports
           path: ./reports
           retention-days: 3
-  lint-report-marge:
+  unit-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup-jdk-gradle-keystore
+        with:
+          debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+          google_service_json_base64: ${{ secrets.GOOGLE_SERVICE_JSON_BASE64 }}
+      - name: Run Unit Test
+        run: ./gradlew testDebugUnitTest
+      - name: Copy unit test reports to reports dir
+        run: ./gradlew copyUnitTestReports
+      - name: Archive reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: reports
+          path: ./reports
+          retention-days: 3
+  merge-lint-report:
     if: cancelled() != true
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -67,7 +86,7 @@ jobs:
   danger:
     if: cancelled() != true
     runs-on: ubuntu-latest
-    needs: [lint-report-marge]
+    needs: [merge-lint-report]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
@@ -101,3 +120,19 @@ jobs:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
         run: |
           danger --verbose
+  publish-test-results:
+    if: cancelled() != true
+    runs-on: ubuntu-latest
+    needs: [unit-test]
+    timeout-minutes: 10
+    steps:
+      - name: Download reports
+        uses: actions/download-artifact@v2
+        with:
+          name: reports
+          path: ./reports
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          junit_files: "test-results/*.xml"

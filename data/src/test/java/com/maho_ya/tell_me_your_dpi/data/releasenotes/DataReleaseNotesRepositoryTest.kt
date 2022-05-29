@@ -27,12 +27,6 @@ class DataReleaseNotesRepositoryTest {
 
     @Test
     fun formatDate_correctDate_returnDate() {
-
-        val releaseNotesRepository =
-            DataReleaseNotesRepository(
-                createMockDataSource("2020-05-26T09:36:00.000Z")
-            )
-
         runBlocking {
 
             DataReleaseNotesRepository(
@@ -40,14 +34,13 @@ class DataReleaseNotesRepositoryTest {
             )
                 .getReleaseNotes().drop(1)
                 .collect {
-                    assertThat(it.data?.releaseNotes?.get(0)?.date, `is`(""))
+                    assertThat(it.data?.releaseNotes?.get(0)?.date, `is`("デバッグ用消す"))
                 }
         }
     }
 
     @Test
     fun formatDate_notDateFormat_returnBlank() {
-
         runBlocking {
 
             DataReleaseNotesRepository(
