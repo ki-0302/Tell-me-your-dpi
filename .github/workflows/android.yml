@@ -63,7 +63,7 @@ jobs:
         uses: mikepenz/action-junit-report@v3
         if: always()
         with:
-          report_paths: 'report/test-results/*.xml'
+          report_paths: 'reports/test-results/*.xml'
   merge-lint-report:
     if: cancelled() != true
     runs-on: ubuntu-latest
