@@ -1,10 +1,10 @@
 object Libs {
     const val ANALYTICS = "com.google.firebase:firebase-analytics"
-    const val ANDROID_BROWSER_HELPER =
-        "com.google.androidbrowserhelper:androidbrowserhelper"
+    const val ANDROIDX_BROWSER = "androidx.browser:browser"
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler"
-    const val ANDROIDX_HILT_VIEW_MODEL = "androidx.hilt:hilt-lifecycle-viewmodel"
-    const val ANDROIDX_TEST_EXT = "androidx.test.ext:junit"
+
+    const val ANDROIDX_TEST_CORE = "androidx.test:core-ktx"
+    const val ANDROIDX_TEST_EXT = "androidx.test.ext:junit-ktx"
     const val ANDROIDX_TEST_ESPRESSO = "androidx.test.espresso:espresso-core"
     const val APPCOMPAT = "androidx.appcompat:appcompat"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout"
@@ -12,10 +12,10 @@ object Libs {
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
     const val CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom"
     const val HILT_ANDROID = "com.google.dagger:hilt-android"
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler"
     const val JUNIT = "junit:junit"
-    const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx"
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx"
     const val MATERIAL = "com.google.android.material:material"

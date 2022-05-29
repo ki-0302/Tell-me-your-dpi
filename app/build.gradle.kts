@@ -1,13 +1,10 @@
 import java.io.FileInputStream
 import java.util.Properties
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("kotlin-kapt")
-    id("org.jlleitschuh.gradle.ktlint")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
@@ -16,15 +13,17 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+apply(from = "../lint.gradle.kts")
+
 android {
-    compileSdkVersion(Versions.COMPILE_SDK)
+    compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
         applicationId = "com.maho_ya.tell_me_your_dpi"
-        minSdkVersion(Versions.MIN_SDK)
-        targetSdkVersion(Versions.TARGET_SDK)
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
+        versionCode = Versions.VERSION_CODE
+        versionName = Versions.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,8 +36,7 @@ android {
 
     // For Kotlin projects. Support Java 8
     kotlinOptions {
-        val options = this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-        options.jvmTarget = "1.8"
+        this.jvmTarget = "1.8"
     }
 
     signingConfigs {
@@ -104,21 +102,17 @@ android {
         viewBinding = true
     }
 
-    lintOptions {
-        xmlReport = true
-    }
+    lint {
+        val lintReportPath: String by project
+        val lintReportFilePrefix: String by project
+        val lintReportFileSuffix: String by project
 
-    // https://github.com/jlleitschuh/ktlint-gradle
-    // https://github.com/JLLeitschuh/ktlint-gradle/blob/565c3e782d32fbbe91502e4b7b784ad93a050163/plugin/src/main/kotlin/org/jlleitschuh/gradle/ktlint/KtlintExtension.kt
-    ktlint {
-        version.set("0.37.2")
-        android.set(true)
-        ignoreFailures.set(true) // When warning continued build
-        // disabledRules = ["no-line-break-before-assignment"]
-        reporters {
-            reporter(ReporterType.CHECKSTYLE) // for Danger
-        }
+        xmlReport = true
+        xmlOutput = rootProject.file("${lintReportPath}${lintReportFilePrefix}${project.name}${lintReportFileSuffix}")
+        abortOnError = false
+        checkDependencies = false // 実行時間がかかるため、依存関係やリソースのチェックは行わない
     }
+    namespace = "com.maho_ya.tell_me_your_dpi"
 }
 
 dependencies {
@@ -132,7 +126,6 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.COROUTINES)
     implementation(Libs.APPCOMPAT)
     implementation(Libs.CORE_KTX)
@@ -155,12 +148,13 @@ dependencies {
     implementation(Libs.HILT_ANDROID)
     kapt(Libs.HILT_COMPILER)
     // androidx Hilt
-    implementation(Libs.ANDROIDX_HILT_VIEW_MODEL)
     kapt(Libs.ANDROIDX_HILT_COMPILER)
     // Play Core
     implementation(Libs.PLAY_CORE_KTX)
-
+    // Custom Tabs
+    implementation(Libs.ANDROIDX_BROWSER)
     // Firebase
+    implementation(platform(Libs.FIREBASE_BOM))
     implementation(Libs.ANALYTICS)
     implementation(Libs.CRASHLYTICS)
     implementation(Libs.PERF)
@@ -176,10 +170,6 @@ dependencies {
     implementation(Libs.MOSHI_KOTLIN) // convert kotlin class from JSON
     kapt(Libs.MOSHI_KOTLIN_CODEGEN) // annotation processor
 
-    // AndroidBrowserHelper
-    // https://github.com/GoogleChrome/android-browser-helper
-    // https://developers.google.com/web/android/trusted-web-activity/integration-guide
-    implementation(Libs.ANDROID_BROWSER_HELPER)
     // etc
     implementation(Libs.TIMBER)
     implementation(Libs.OSS_LICENSES)
@@ -187,8 +177,8 @@ dependencies {
     testImplementation(Libs.JUNIT)
     testImplementation(Libs.MOCKITO)
 
-    androidTestImplementation(Libs.ANDROIDX_TEST_EXT)
-    androidTestImplementation(Libs.ANDROIDX_TEST_ESPRESSO)
-    // Testing Navigation
-    androidTestImplementation(Libs.NAVIGATION_TEST)
+    androidTestImplementation("${Libs.ANDROIDX_TEST_CORE}:${Versions.ANDROIDX_TEST_CORE}")
+    androidTestImplementation("${Libs.ANDROIDX_TEST_EXT}:${Versions.ANDROIDX_TEST_EXT}")
+    androidTestImplementation("${Libs.ANDROIDX_TEST_ESPRESSO}:${Versions.ANDROIDX_TEST_ESPRESSO}")
+    androidTestImplementation("${Libs.NAVIGATION_TEST}:${Versions.NAVIGATION}")
 }

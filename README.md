@@ -20,13 +20,13 @@ Google Play In-App Review API でアプリ内レビューを表示するよう�
 DIはDagger Hiltを使用し実装しています。
 
 # 開発環境
-Android Studio 4.01で開発を行っています。
+Android Studio Bumblebee で開発を行っています。
 
 コードはKotlinで記述しています。
 
 # 動作環境
 
-Android 5.0 から Android 11.0 で動作するように設計されています。
+Android 5.0 から Android 12.0 で動作するように設計されています。
 
 # アーキテクチャ
 

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.maho_ya.ui.releasenotes.ReleaseNotesViewModel" />
+            type="com.maho_ya.tell_me_your_dpi.ui.releasenotes.ReleaseNotesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

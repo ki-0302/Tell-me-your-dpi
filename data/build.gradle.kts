@@ -1,20 +1,19 @@
 plugins {
     id("com.android.library")
     // https://kotlinlang.org/docs/reference/using-gradle.html
-    kotlin("android")
-    kotlin("android.extensions")
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
 }
 
+apply(from = "../lint.gradle.kts")
+
 android {
-    compileSdkVersion(Versions.COMPILE_SDK)
+    compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
-        minSdkVersion(Versions.MIN_SDK)
-        targetSdkVersion(Versions.TARGET_SDK)
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +29,18 @@ android {
         val options = this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
         options.jvmTarget = "1.8"
     }
+
+    lint {
+        val lintReportPath: String by project
+        val lintReportFilePrefix: String by project
+        val lintReportFileSuffix: String by project
+
+        xmlReport = true
+        xmlOutput = rootProject.file("${lintReportPath}${lintReportFilePrefix}${project.name}${lintReportFileSuffix}")
+        abortOnError = false
+        checkDependencies = false // 実行時間がかかるため、依存関係やリソースのチェックは行わない
+    }
+    namespace = "com.maho_ya.tell_me_your_dpi.data"
 }
 
 dependencies {
@@ -42,7 +53,6 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.COROUTINES)
     implementation(Libs.CORE_KTX)
     // Dagger Hilt
@@ -66,7 +76,4 @@ dependencies {
     testImplementation(Libs.JUNIT)
     testImplementation(Libs.MOCKITO)
     testImplementation(Libs.COROUTINES_TEST)
-
-    androidTestImplementation(Libs.ANDROIDX_TEST_EXT)
-    androidTestImplementation(Libs.ANDROIDX_TEST_ESPRESSO)
 }
