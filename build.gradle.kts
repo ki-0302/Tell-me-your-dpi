@@ -98,17 +98,9 @@ val copyUnitTestReports by tasks.register("copyUnitTestReports") {
     val pathSuffix = "/build/test-results/testDebugUnitTest/"
 
     // ディレクトリを再作成
-
-    val reportDir = File(Paths.REPORTS)
-    if (!reportDir.exists()) reportDir.mkdir()
-
     val testReportsDir = File(Paths.TEST_REPORTS)
     recursiveDeleteFile(testReportsDir)
-    if (!testReportsDir.exists()) testReportsDir.mkdir()
-
-    if (testReportsDir.exists()) {
-        println("test")
-    }
+    recursiveCreateDir(testReportsDir)
 
     // 各モジュールのUnitTestのXMLファイルをコピーする
     File(".").listFiles()?.forEach { moduleDir ->
@@ -121,6 +113,19 @@ val copyUnitTestReports by tasks.register("copyUnitTestReports") {
             }
         }
     }
+}
+
+/**
+ * 再帰的にディレクトリを作成。GitHub Actionsでmkdirsが動作しなかったため
+ */
+fun recursiveCreateDir(file: File) {
+    if (file.exists()) return
+
+    if (!file.parent.isNullOrEmpty()) {
+        println(file.parent)
+        recursiveCreateDir(file.parentFile)
+    }
+    file.mkdir()
 }
 
 /**
