@@ -1,3 +1,4 @@
+import Libs.SPLASH_SCREEN
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -25,6 +26,7 @@ android {
         versionCode = Versions.VERSION_CODE
         versionName = Versions.VERSION_NAME
 
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -169,6 +171,8 @@ dependencies {
     implementation(Libs.MOSHI)
     implementation(Libs.MOSHI_KOTLIN) // convert kotlin class from JSON
     kapt(Libs.MOSHI_KOTLIN_CODEGEN) // annotation processor
+    // Splash Screen
+    implementation(Libs.SPLASH_SCREEN)
 
     // etc
     implementation(Libs.TIMBER)

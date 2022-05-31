@@ -37,5 +37,6 @@ object Libs {
     const val RECYCLER_VIEW_SELECTION = "androidx.recyclerview:recyclerview-selection"
     const val RETROFIT = "com.squareup.retrofit2:retrofit"
     const val RETROFIT_CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi"
+    const val SPLASH_SCREEN = "androidx.core:core-splashscreen"
     const val TIMBER = "com.jakewharton.timber:timber"
 }

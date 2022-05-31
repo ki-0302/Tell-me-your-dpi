@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Splash Screen -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- 背景に背景かアニメーションアイコンを設定する -->
+        <item name="windowSplashScreenBackground">@color/color_primary</item>
+
+        <!-- アニメーションアイコンかdrawableを表示するアイコンとして設定する -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animator_logo</item>
+        <!-- 最大1000。Android 12以上で有効 -->
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+
+        <!-- Splash Screenの次に表示するActivityのテーマを指定する -->
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+
     <!-- Base application theme. Disable AppBar to enable Toolbar -->
     <!-- https://developer.android.com/training/appbar/setting-up?hl=ja -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

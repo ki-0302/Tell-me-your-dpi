@@ -22,6 +22,7 @@ val play_core_ktx = "1.8.1"
 val recycler_view = "1.2.1"
 val recycler_view_selection = "1.1.0"
 val retrofit = "2.9.0"
+val splash_screen="1.0.0-rc01"
 val timber = "5.0.1"
 
 // Use the same dependencies in multi-module.
@@ -56,6 +57,7 @@ dependencies {
         api("${Libs.RECYCLER_VIEW_SELECTION}:$recycler_view_selection")
         api("${Libs.RETROFIT}:$retrofit")
         api("${Libs.RETROFIT_CONVERTER_MOSHI}:$retrofit")
+        api("${Libs.SPLASH_SCREEN}:$splash_screen")
         api("${Libs.TIMBER}:$timber")
 
         api("${Libs.FIREBASE_BOM}:$firebase_bom")
