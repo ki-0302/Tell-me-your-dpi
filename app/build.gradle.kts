@@ -98,10 +98,15 @@ android {
         }
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.JETPACK_COMPOSE  // For Jetpack Compose
+    }
+
     // Setting up to use DataBinding.
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true  // For Jetpack Compose
     }
 
     lint {
@@ -137,6 +142,7 @@ dependencies {
     implementation(Libs.RECYCLER_VIEW_SELECTION)
 
     // ViewModel
+    implementation(Libs.LIFECYCLE_VIEW_MODEL_COMPOSE)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     // LiveData
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
@@ -151,6 +157,9 @@ dependencies {
     kapt(Libs.HILT_COMPILER)
     // androidx Hilt
     kapt(Libs.ANDROIDX_HILT_COMPILER)
+    // Jetpack Compose
+    implementation(Libs.JETPACK_COMPOSE_MATERIAL)
+    implementation(Libs.JETPACK_COMPOSE_UI_TOOLING) // ComposeView, Preview, etc..
     // Play Core
     implementation(Libs.PLAY_CORE_KTX)
     // Custom Tabs
