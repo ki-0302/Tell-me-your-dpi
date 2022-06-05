@@ -9,7 +9,6 @@ import com.maho_ya.tell_me_your_dpi.databinding.FragmentAboutAppBinding
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-
 // https://developer.android.com/guide/fragments/create#create
 @AndroidEntryPoint
 class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
