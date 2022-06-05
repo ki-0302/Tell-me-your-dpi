@@ -1,79 +1,33 @@
 package com.maho_ya.tell_me_your_dpi.ui.aboutapp
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.browser.customtabs.CustomTabColorSchemeParams
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.databinding.BindingAdapter
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentAboutAppBinding
+import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
+// https://developer.android.com/guide/fragments/create#create
 @AndroidEntryPoint
 class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 
-    private val aboutAppViewModel: AboutAppViewModel by viewModels()
-    private val privacyPolicyUrl = "https://maho-ya.firebaseapp.com//privacy.html"
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // https://developer.android.com/topic/libraries/data-binding/generated-binding#create
         val binding = FragmentAboutAppBinding.bind(view)
-        binding.viewModel = aboutAppViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        view.findViewById<TextView>(R.id.privacy_policy)?.apply {
-            setOnClickListener { openPrivacyPolicySite() }
-        }
-
-        view.findViewById<TextView>(R.id.oss_licences)?.apply {
-            setOnClickListener { openOssLicences() }
-        }
-    }
-
-    private fun openPrivacyPolicySite() {
-        activity?.let { activity ->
-            val color = when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> getColorForMOrHigher()
-                else -> getColorForLessThanM()
+        binding.composeView.apply {
+            // Lifecycleが破棄された時にCompositionを破棄する設定
+            // https://developer.android.google.cn/jetpack/compose/interop/interop-apis?hl=ja#composition-strategy
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                AppTheme {
+                    AboutAppScreen()
+                }
             }
-            val defaultColors = CustomTabColorSchemeParams.Builder()
-                .setToolbarColor(color)
-                .setNavigationBarColor(color)
-                .build()
-            val builder = CustomTabsIntent.Builder()
-                .setDefaultColorSchemeParams(defaultColors)
-                .build()
-            builder.launchUrl(activity, Uri.parse(privacyPolicyUrl))
         }
     }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun getColorForMOrHigher() =
-        resources.getColor(R.color.color_primary, context?.theme)
-
-    @Suppress("DEPRECATION")
-    private fun getColorForLessThanM() =
-        resources.getColor(R.color.color_primary)
-
-    private fun openOssLicences() {
-        activity?.let { activity ->
-            val intent = Intent(activity, OssLicensesMenuActivity::class.java)
-            intent.putExtra("title", getString(R.string.about_oss_licences_title))
-            startActivity(intent)
-        }
-    }
-}
-
-@BindingAdapter("versionName")
-fun setAppVersion(textView: TextView, versionName: String) {
-    textView.text = textView.resources.getString(
-        R.string.about_version_title, versionName
-    )
 }

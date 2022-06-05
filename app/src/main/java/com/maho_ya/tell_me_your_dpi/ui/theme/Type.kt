@@ -9,9 +9,9 @@ import androidx.compose.ui.unit.sp
 import com.maho_ya.tell_me_your_dpi.R
 
 private val MPlusRounded = FontFamily(
-    Font(R.font.m_plus_rounded_1c_light),
-    Font(R.font.m_plus_rounded_1c_light, FontWeight.W500),
-    Font(R.font.m_plus_rounded_1c_light, FontWeight.W600)
+    Font(R.font.m_plus_rounded_1c_medium),
+    Font(R.font.m_plus_rounded_1c_medium, FontWeight.W500),
+    Font(R.font.m_plus_rounded_1c_medium, FontWeight.W600)
 )
 
 val AppTypography = Typography(
