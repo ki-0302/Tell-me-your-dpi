@@ -26,6 +26,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val homeVieModel: HomeVieModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val binding = FragmentHomeBinding.bind(view)
         binding.viewModel = homeVieModel
         binding.lifecycleOwner = viewLifecycleOwner

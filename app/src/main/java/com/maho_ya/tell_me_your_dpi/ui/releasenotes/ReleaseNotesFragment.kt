@@ -17,6 +17,7 @@ class ReleaseNotesFragment : Fragment(R.layout.fragment_release_notes) {
     private val releaseNotesViewModel: ReleaseNotesViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val binding = FragmentReleaseNotesBinding.bind(view)
         binding.viewModel = releaseNotesViewModel
         binding.lifecycleOwner = viewLifecycleOwner
