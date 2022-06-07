@@ -13,7 +13,7 @@ val coroutines = "1.5.2"
 val firebase_bom = "29.3.0"
 val junit = "4.13"
 val lifecycle = "2.4.1"
-val material = "1.5.0"
+val material = "1.6.1"
 val mockito = "3.3.1"
 val moshi = "1.13.0"
 val okhttp = "4.9.3"
@@ -38,8 +38,11 @@ dependencies {
         api("${Libs.COROUTINES_TEST}:$coroutines")
         api("${Libs.HILT_ANDROID}:${Versions.HILT}")
         api("${Libs.HILT_COMPILER}:${Versions.HILT}")
+        api("${Libs.JETPACK_COMPOSE_MATERIAL}:${Versions.JETPACK_COMPOSE}")
+        api("${Libs.JETPACK_COMPOSE_UI_TOOLING}:${Versions.JETPACK_COMPOSE}")
         api("${Libs.JUNIT}:$junit")
         api("${Libs.LIFECYCLE_LIVE_DATA_KTX}:$lifecycle")
+        api("${Libs.LIFECYCLE_VIEW_MODEL_COMPOSE}:$lifecycle")
         api("${Libs.LIFECYCLE_VIEW_MODEL_KTX}:$lifecycle")
         api("${Libs.MATERIAL}:$material")
         api("${Libs.MOCKITO}:$mockito")
