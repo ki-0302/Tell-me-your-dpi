@@ -2,6 +2,7 @@ package com.maho_ya.tell_me_your_dpi.ui.releasenotes
 
 import android.os.Bundle
 import android.view.View
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentReleaseNotesBinding
+import com.maho_ya.tell_me_your_dpi.ui.aboutapp.AboutAppScreen
+import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +24,15 @@ class ReleaseNotesFragment : Fragment(R.layout.fragment_release_notes) {
         val binding = FragmentReleaseNotesBinding.bind(view)
         binding.viewModel = releaseNotesViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.composeView.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                AppTheme {
+                    ReleaseNotesScreen()
+                }
+            }
+        }
     }
 }
 
