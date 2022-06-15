@@ -15,6 +15,7 @@ object Libs {
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom"
     const val HILT_ANDROID = "com.google.dagger:hilt-android"
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler"
+    const val ACCOMPANIST_SWIPE_REFRESH = "com.google.accompanist:accompanist-swiperefresh"
     const val JETPACK_COMPOSE_MATERIAL = "androidx.compose.material:material"
     const val JETPACK_COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling"
     const val JUNIT = "junit:junit"

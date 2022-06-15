@@ -38,6 +38,7 @@ dependencies {
         api("${Libs.COROUTINES_TEST}:$coroutines")
         api("${Libs.HILT_ANDROID}:${Versions.HILT}")
         api("${Libs.HILT_COMPILER}:${Versions.HILT}")
+        api("${Libs.ACCOMPANIST_SWIPE_REFRESH}:${Versions.ACCOMPANIST}")
         api("${Libs.JETPACK_COMPOSE_MATERIAL}:${Versions.JETPACK_COMPOSE}")
         api("${Libs.JETPACK_COMPOSE_UI_TOOLING}:${Versions.JETPACK_COMPOSE}")
         api("${Libs.JUNIT}:$junit")

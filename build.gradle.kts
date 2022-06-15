@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 // For tasks
-import org.gradle.internal.impldep.com.google.common.io.Files.isFile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {

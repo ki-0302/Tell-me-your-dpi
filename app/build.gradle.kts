@@ -157,6 +157,8 @@ dependencies {
     kapt(Libs.HILT_COMPILER)
     // androidx Hilt
     kapt(Libs.ANDROIDX_HILT_COMPILER)
+    // Accompanist
+    implementation(Libs.ACCOMPANIST_SWIPE_REFRESH)
     // Jetpack Compose
     implementation(Libs.JETPACK_COMPOSE_MATERIAL)
     implementation(Libs.JETPACK_COMPOSE_UI_TOOLING) // ComposeView, Preview, etc..
