@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -16,11 +17,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maho_ya.tell_me_your_dpi.BuildConfig
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
@@ -33,30 +34,30 @@ private val spacerSizeBetweenAppVersionAndDate = 8.dp
 fun ReleaseNoteContent(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    state: LazyListState = rememberLazyListState()
+    uiState: ReleaseNoteUiState,
+    listState: LazyListState = rememberLazyListState(),
+    onRefresh: () -> Unit
 ) {
-    // contextを取得
-    // https://developer.android.google.cn/jetpack/compose/interop/interop-apis?hl=ja#composition-locals
-    val context = LocalContext.current
-
-    // 多数のアイテムを表示する必要がある場合に使用する
-    // 表示するアイテムのみコンポーズする、スクロール可能なレイアウト
-    // https://developer.android.com/jetpack/compose/lists?hl=ja#lazy
-    LazyColumn(
-        modifier = modifier,
-        state = state,
+    // https://google.github.io/accompanist/swiperefresh/
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(uiState.isLoading),
+        onRefresh = onRefresh,
     ) {
-        item {
-            ReleaseNoteContentItem(
-                modifier = modifier,
-                // リソースの取得
-                // https://developer.android.com/jetpack/compose/resources?hl=ja#strings
-                releaseNote = ReleaseNote(
-                    appVersion = "1.0",
-                    date = "2020.11.11",
-                    description = "test"
+        // 多数のアイテムを表示する必要がある場合に使用する
+        // 表示するアイテムのみコンポーズする、スクロール可能なレイアウト
+        // https://developer.android.com/jetpack/compose/lists?hl=ja#lazy
+        LazyColumn(
+            modifier = modifier,
+            state = listState,
+        ) {
+            items(uiState.items) { item ->
+                ReleaseNoteContentItem(
+                    modifier = modifier,
+                    // リソースの取得
+                    // https://developer.android.com/jetpack/compose/resources?hl=ja#strings
+                    releaseNote = item
                 )
-            )
+            }
         }
     }
 }
@@ -105,9 +106,9 @@ fun LoadingContent() {
 
 }
 
-
 /**
- * リリースノートを表示
+ * リリースノートを表示。スクリーンレベルComposable（ルートとなるComposable）
+ * ViewModelはスクリーンレベルのみに渡す。
  * @param modifier modifier
  * @param state 現在表示中のスクロール可能なアイテムの制御・監視が行える状態オブジェクトを保存したもの
  */
@@ -115,7 +116,9 @@ fun LoadingContent() {
 fun ReleaseNotesScreen(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    state: LazyListState = rememberLazyListState()
+    uiState: ReleaseNoteUiState,
+    listState:LazyListState = rememberLazyListState(),
+    onRefresh: () -> Unit
 ) {
     // ScaffoldまたはSurfaceを置くとコンテンツに共通の設定を反映できる。詳細はリンク参照。
     // ScaffoldはTopAppBar, BottomAppBarなどが必要な時に使用する
@@ -128,7 +131,9 @@ fun ReleaseNotesScreen(
             ReleaseNoteContent(
                 modifier = modifier,
                 darkTheme = darkTheme,
-                state = state
+                uiState = uiState,
+                listState = listState,
+                onRefresh = onRefresh
             )
         }
     }
@@ -138,7 +143,17 @@ fun ReleaseNotesScreen(
 @Preview("Release Note (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReleaseNotesScreen() {
+    val uiState = ReleaseNoteUiState(
+        items = listOf(
+            ReleaseNote(date = "2022/06/15", "1.1.0", "アップデートしました"),
+            ReleaseNote(date = "2022/06/13", "1.0.0", "リリースしました"),
+        )
+    )
+
     AppTheme {
-        ReleaseNotesScreen()
+        ReleaseNotesScreen(
+            uiState = uiState,
+            onRefresh = {}
+        )
     }
 }
