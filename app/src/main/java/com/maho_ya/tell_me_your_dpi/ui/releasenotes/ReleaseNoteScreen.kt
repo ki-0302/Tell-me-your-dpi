@@ -2,7 +2,6 @@ package com.maho_ya.tell_me_your_dpi.ui.releasenotes
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,9 +21,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +32,6 @@ import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.model.ReleaseNote
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import com.maho_ya.tell_me_your_dpi.ui.theme.Colors
-
 
 private val defaultSpacerSize = 16.dp
 private val spacerSizeBetweenAppVersionAndDate = 8.dp
@@ -204,7 +200,9 @@ fun LoadingContent(
  * リリースノートを表示。スクリーンレベルComposable（ルートとなるComposable）
  * ViewModelはスクリーンレベルのみに渡す。
  * @param modifier modifier
- * @param state 現在表示中のスクロール可能なアイテムの制御・監視が行える状態オブジェクトを保存したもの
+ * @param uiState UIの状態
+ * @param listState 現在表示中のスクロール可能なアイテムの制御・監視が行える状態オブジェクトを保存したもの
+ * @param onRefresh リロード用の高階関数
  */
 @Composable
 fun ReleaseNotesScreen(

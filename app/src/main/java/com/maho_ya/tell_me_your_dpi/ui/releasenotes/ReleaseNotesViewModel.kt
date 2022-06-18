@@ -20,7 +20,6 @@ data class ReleaseNoteUiState(
     val userMessage: Int? = null
 )
 
-
 @HiltViewModel
 class ReleaseNotesViewModel @Inject constructor(
     private val releaseNotesUseCase: ReleaseNotesUseCase
