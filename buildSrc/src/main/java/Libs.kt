@@ -9,7 +9,7 @@ object Libs {
     const val APPCOMPAT = "androidx.appcompat:appcompat"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout"
     const val CORE_KTX = "androidx.core:core-ktx"
-    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
     const val CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom"

@@ -38,18 +38,6 @@ buildscript {
     }
 }
 
-subprojects {
-    // Setting up to use Coroutine Flow.
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs +=
-            "-Xuse-experimental=" +
-                    "kotlin.Experimental," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview"
-    }
-}
-
 tasks.register("clean", Delete::class.java) {
     delete(project.rootProject.buildDir)
 }
