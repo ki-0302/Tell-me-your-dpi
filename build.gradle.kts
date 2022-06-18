@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 // For tasks
-import org.gradle.internal.impldep.com.google.common.io.Files.isFile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -36,18 +35,6 @@ buildscript {
         classpath("com.google.firebase:perf-plugin:${Versions.FIREBASE_PERF}")
         // etc
         classpath("com.google.android.gms:oss-licenses-plugin:${Versions.OSS_LICENSES}")
-    }
-}
-
-subprojects {
-    // Setting up to use Coroutine Flow.
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs +=
-            "-Xuse-experimental=" +
-                    "kotlin.Experimental," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview"
     }
 }
 

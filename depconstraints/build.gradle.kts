@@ -9,7 +9,7 @@ val appcompat = "1.4.1"
 val constraint_layout = "2.1.3"
 val core_ktx = "1.7.0"
 // https://github.com/Kotlin/kotlinx.coroutines
-val coroutines = "1.5.2"
+val coroutines = "1.6.2"
 val firebase_bom = "29.3.0"
 val junit = "4.13"
 val lifecycle = "2.4.1"
@@ -38,6 +38,7 @@ dependencies {
         api("${Libs.COROUTINES_TEST}:$coroutines")
         api("${Libs.HILT_ANDROID}:${Versions.HILT}")
         api("${Libs.HILT_COMPILER}:${Versions.HILT}")
+        api("${Libs.ACCOMPANIST_SWIPE_REFRESH}:${Versions.ACCOMPANIST}")
         api("${Libs.JETPACK_COMPOSE_MATERIAL}:${Versions.JETPACK_COMPOSE}")
         api("${Libs.JETPACK_COMPOSE_UI_TOOLING}:${Versions.JETPACK_COMPOSE}")
         api("${Libs.JUNIT}:$junit")

@@ -4,7 +4,7 @@ github.dismiss_out_of_range_messages
 warn("PR is classed as Work in Progress") if github.pr_title.include? "[WIP]"
 
 # Warn when there is a big PR!
-warn("Big PR") if git.lines_of_code > 500
+warn("Big PR") if git.lines_of_code > 1000
 
 # ktlintの結果をコメント投稿
 checkstyle_format.base_path = Dir.pwd

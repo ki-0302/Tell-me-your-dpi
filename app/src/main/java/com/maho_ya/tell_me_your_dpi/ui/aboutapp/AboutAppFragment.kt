@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AboutAppFragment : Fragment(R.layout.fragment_about_app) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // https://developer.android.com/topic/libraries/data-binding/generated-binding#create
         val binding = FragmentAboutAppBinding.bind(view)
         binding.lifecycleOwner = viewLifecycleOwner

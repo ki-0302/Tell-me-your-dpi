@@ -66,7 +66,7 @@ private fun openOssLicences(context: Context) {
 }
 
 @Composable
-fun AboutContent(
+fun AboutAppContent(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     state: LazyListState = rememberLazyListState()
@@ -83,7 +83,7 @@ fun AboutContent(
         state = state,
     ) {
         item {
-            AboutContentItem(
+            AboutAppContentItem(
                 modifier = modifier,
                 // リソースの取得
                 // https://developer.android.com/jetpack/compose/resources?hl=ja#strings
@@ -94,7 +94,7 @@ fun AboutContent(
             )
         }
         item {
-            AboutContentItem(
+            AboutAppContentItem(
                 modifier = modifier.clickable {
                     openPrivacyPolicySite(context)
                 },
@@ -104,7 +104,7 @@ fun AboutContent(
             )
         }
         item {
-            AboutContentItem(
+            AboutAppContentItem(
                 modifier = modifier.clickable {
                     openOssLicences(context)
                 },
@@ -116,7 +116,7 @@ fun AboutContent(
 }
 
 @Composable
-fun AboutContentItem(
+fun AboutAppContentItem(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     text: String
@@ -131,7 +131,6 @@ fun AboutContentItem(
                 vertical = defaultSpacerSize
             ),
     )
-    isSystemInDarkTheme()
     Divider(color = if (darkTheme) Colors.Gray333 else Colors.GrayAAA)
 }
 
@@ -155,7 +154,7 @@ fun AboutAppScreen(
     ) {
         // parentサイズ分のレイアウト
         Row(modifier.fillMaxSize()) {
-            AboutContent(
+            AboutAppContent(
                 modifier = modifier,
                 darkTheme = darkTheme,
                 state = state

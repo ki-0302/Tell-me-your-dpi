@@ -38,12 +38,12 @@ val AppTypography = Typography(
     ),
     subtitle2 = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
+        fontSize = 15.sp,
         letterSpacing = 0.1.sp
     ),
     body1 = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontSize = 18.sp,
         letterSpacing = 0.5.sp
     ),
     body2 = TextStyle(
