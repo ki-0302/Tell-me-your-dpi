@@ -110,6 +110,7 @@ class DataDeviceDataSource @Inject constructor(
 
     private fun getAndroidCodeName(): String {
 
+        // https://source.android.google.cn/setup/start/build-numbers?hl=en
         return when (Build.VERSION.SDK_INT) {
             Build.VERSION_CODES.BASE, Build.VERSION_CODES.BASE_1_1 -> "Base"
             Build.VERSION_CODES.CUPCAKE -> "Cupcake"
@@ -138,8 +139,11 @@ class DataDeviceDataSource @Inject constructor(
             Build.VERSION_CODES.O,
             Build.VERSION_CODES.O_MR1 -> "Oreo"
             Build.VERSION_CODES.P -> "Pie"
-            Build.VERSION_CODES.Q -> "Android 10 (Q)"
-            30 -> "Android 11 (R)"
+            Build.VERSION_CODES.Q -> "Android10 (Quince Tart)"
+            Build.VERSION_CODES.R -> "Android11 (Red Velvet Cake)"
+            Build.VERSION_CODES.S -> "Android12 (Snow Cone)"
+            Build.VERSION_CODES.S_V2 -> "Android12L (Sv2)"
+            33 -> "Android13 (Tiramisu)"
             else -> "UnKnown"
         }
     }
