@@ -16,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.ActivityMainBinding
+import com.maho_ya.tell_me_your_dpi.util.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,8 +57,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         registerToolbar(savedInstanceState)
-
         registerBottomNavigation()
+
+        NotificationUtils.createNotificationChannel(this)
     }
 
     private fun registerToolbar(savedInstanceState: Bundle?) {

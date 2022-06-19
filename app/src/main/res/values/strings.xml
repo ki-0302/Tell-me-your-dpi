@@ -1,16 +1,20 @@
 <resources>
     <string name="app_name">Tell me your DPI</string>
 
-    // Fragment Titles
+    <!-- Fragment Titles -->
     <string name="title_release_notes">リリースノート</string>
     <string name="title_about_app">Tell me your DPI? について</string>
-    // Menu
+    <!-- Menu -->
     <string name="menu_home">Home</string>
     <string name="menu_release">Release</string>
     <string name="menu_about_app">About</string>
-    // Release Notes
+    <!-- Release Notes -->
     <string name="release_notes_item_version">Version %s</string>
 
+    <!-- Firebase Messaging -->
+    <string name="default_notification_channel_id">topics</string>
+    <string name="default_notification_channel_name">トピック</string>
+    <string name="default_notification_channel_description">トピックの通知です</string>
 
     <string name="copy_button">Copy</string>
 

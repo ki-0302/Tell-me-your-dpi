@@ -10,10 +10,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.scopes.ActivityScoped
 
-@InstallIn(ActivityComponent::class)
+@Suppress("unused")
 @Module
+@InstallIn(ActivityComponent::class)
 internal abstract class DeviceModule {
 
+    // @Binds は所有しているコードをInjectしたい場合に使用する。@Provides でも可能だが記述が少なく済む。実装なしで済むためabstract
     @ActivityScoped
     @Binds
     abstract fun provideDeviceRepository(

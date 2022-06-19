@@ -1,11 +1,16 @@
 package com.maho_ya.tell_me_your_dpi.ui.home
 
+import android.Manifest
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,12 +21,14 @@ import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
 import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    @Inject lateinit var deviceUseCase: DeviceUseCase
+    @Inject
+    lateinit var deviceUseCase: DeviceUseCase
 
     private val homeVieModel: HomeVieModel by viewModels()
 
@@ -46,6 +53,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         homeVieModel.getDevice(deviceUseCase)
+
+        showPostNotificationsPermissionIfNeeded()
     }
 
     override fun onResume() {
@@ -87,35 +96,56 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val availableMemory: Int = homeVieModel.device.value?.availableMemory ?: 0
 
         return getString(R.string.device_density_qualifier_title) + ": " +
-            homeVieModel.device.value?.densityQualifier + "\n" +
-            getString(R.string.device_density_dpi_title) + ": " +
-            homeVieModel.device.value?.densityDpi.toString() + "\n" +
-            getString(R.string.device_real_display_size_width_title) + ": " +
-            getString(
-                R.string.device_real_display_size,
-                realDisplaySizeWidth
-            ) + "\n" +
-            getString(R.string.device_real_display_size_height_title) + ": " +
-            getString(
-                R.string.device_real_display_size,
-                realDisplaySizeHeight
-            ) + "\n" +
-            getString(R.string.device_brand_title) + ": " +
-            homeVieModel.device.value?.brand + "\n" +
-            getString(R.string.device_model_title) + ": " +
-            homeVieModel.device.value?.model + "\n" +
-            getString(R.string.device_api_level_title) + ": " +
-            homeVieModel.device.value?.apiLevel.toString() + "\n" +
-            getString(R.string.device_android_os_version_title) + ": " +
-            homeVieModel.device.value?.androidOsVersion + "\n" +
-            getString(R.string.device_android_code_name_title) + ": " +
-            homeVieModel.device.value?.androidCodeName + "\n" +
-            getString(R.string.device_memory_size_title) + ": " +
-            getString(
-                R.string.device_memory_size,
-                totalMemory,
-                availableMemory
-            )
+                homeVieModel.device.value?.densityQualifier + "\n" +
+                getString(R.string.device_density_dpi_title) + ": " +
+                homeVieModel.device.value?.densityDpi.toString() + "\n" +
+                getString(R.string.device_real_display_size_width_title) + ": " +
+                getString(
+                    R.string.device_real_display_size,
+                    realDisplaySizeWidth
+                ) + "\n" +
+                getString(R.string.device_real_display_size_height_title) + ": " +
+                getString(
+                    R.string.device_real_display_size,
+                    realDisplaySizeHeight
+                ) + "\n" +
+                getString(R.string.device_brand_title) + ": " +
+                homeVieModel.device.value?.brand + "\n" +
+                getString(R.string.device_model_title) + ": " +
+                homeVieModel.device.value?.model + "\n" +
+                getString(R.string.device_api_level_title) + ": " +
+                homeVieModel.device.value?.apiLevel.toString() + "\n" +
+                getString(R.string.device_android_os_version_title) + ": " +
+                homeVieModel.device.value?.androidOsVersion + "\n" +
+                getString(R.string.device_android_code_name_title) + ": " +
+                homeVieModel.device.value?.androidCodeName + "\n" +
+                getString(R.string.device_memory_size_title) + ": " +
+                getString(
+                    R.string.device_memory_size,
+                    totalMemory,
+                    availableMemory
+                )
+    }
+}
+
+// Android 13以降の場合、通知権限をリクエストする
+// https://developer.android.com/about/versions/13/changes/notification-permission
+fun Fragment.showPostNotificationsPermissionIfNeeded() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+
+    val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+        Timber.d("POST_NOTIFICATIONS Permission : $result")
+    }
+
+    when {
+        ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED -> return
+        shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
+            requestPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+        else -> requestPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 }
 
