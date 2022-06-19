@@ -1,5 +1,7 @@
 package com.maho_ya.tell_me_your_dpi.ui
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -7,6 +9,8 @@ import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.ActivityMainBinding
+import com.maho_ya.tell_me_your_dpi.util.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,8 +61,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         registerToolbar(savedInstanceState)
-
         registerBottomNavigation()
+
+        NotificationUtils.createNotificationChannel(this)
     }
 
     private fun registerToolbar(savedInstanceState: Bundle?) {

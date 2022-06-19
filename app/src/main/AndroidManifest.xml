@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name="com.maho_ya.tell_me_your_dpi.MainApplication"
@@ -33,6 +34,27 @@
             android:theme="@style/OssLicenseTheme"
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:exported="false" />
+
+        <!-- Firebase Cloud Messaging -->
+        <service
+            android:name="com.maho_ya.tell_me_your_dpi.domain.services.AppFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/color_primary" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
 
     </application>
 
