@@ -7,8 +7,4 @@
 
     <color name="toolbar_text">#e2e0e1</color>
     <color name="color_separator_line">#AAA</color>
-
-    <color name="solid_rounded_button_text">@color/toolbar_text</color>
-    <color name="solid_rounded_button_background">@color/color_primary</color>
-    <color name="solid_rounded_button_solid">@color/color_primary</color>
 </resources>

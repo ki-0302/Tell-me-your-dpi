@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- In order for the background shape to reflect the ripple,
-        you need to set the ripple tag to drawable. -->
-<ripple
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#AAA">
-    <item
-        android:drawable="@drawable/outlined_rounded_button"/>
-</ripple>
