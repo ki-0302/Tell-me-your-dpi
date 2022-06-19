@@ -16,5 +16,4 @@ internal object FirebaseModule {
     // 所有していないコードをInjectする場合に使用する
     @Provides
     fun provideAnalytics(): FirebaseAnalytics = Firebase.analytics
-
 }

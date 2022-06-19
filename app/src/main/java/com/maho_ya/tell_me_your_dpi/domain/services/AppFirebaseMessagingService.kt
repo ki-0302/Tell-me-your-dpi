@@ -31,7 +31,7 @@ class AppFirebaseMessagingService : FirebaseMessagingService() {
                 this,
                 0,
                 intent,
-                PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT
             )
 
             val builder =
