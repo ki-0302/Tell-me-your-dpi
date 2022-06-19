@@ -8,8 +8,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+@Suppress("unused")
 @Module
+@InstallIn(SingletonComponent::class)
 internal abstract class ReviewModule {
 
     @Singleton

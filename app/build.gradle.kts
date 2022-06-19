@@ -78,13 +78,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
-            // マッピングファイルをアップロードしない設定。難読化されてCrashlyticsにあがる
-            // https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android#keep_obfuscated_build_variants
-            // https://firebase.google.com/docs/crashlytics/upgrade-sdk?platform=android&hl=ID#the_gradle_plugin_contains_new_flags
-            firebaseCrashlytics {
-                mappingFileUploadEnabled = false
-            }
         }
         getByName("release") {
             // https://developer.android.com/studio/build/shrink-code?hl=ja#shrink-resources
@@ -168,9 +161,10 @@ dependencies {
     implementation(Libs.ANDROIDX_BROWSER)
     // Firebase
     implementation(platform(Libs.FIREBASE_BOM))
-    implementation(Libs.ANALYTICS)
-    implementation(Libs.CRASHLYTICS)
-    implementation(Libs.PERF)
+    implementation(Libs.FIREBASE_ANALYTICS)
+    implementation(Libs.FIREBASE_CRASHLYTICS)
+    implementation(Libs.FIREBASE_MESSAGING)
+    implementation(Libs.FIREABSE_PERF)
     // Retrofit
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_CONVERTER_MOSHI)
