@@ -3,7 +3,7 @@ object Versions {
     const val VERSION_CODE = 5
 
     const val COMPILE_SDK = 32
-    const val TARGET_SDK = 32
+    const val TARGET_SDK = 33
     const val MIN_SDK = 21
 
     const val ANDROID_GRADLE_PLUGIN = "7.2.1"
