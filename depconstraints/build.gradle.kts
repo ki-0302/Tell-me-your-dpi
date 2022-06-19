@@ -10,7 +10,7 @@ val constraint_layout = "2.1.3"
 val core_ktx = "1.7.0"
 // https://github.com/Kotlin/kotlinx.coroutines
 val coroutines = "1.6.2"
-val firebase_bom = "29.3.0"
+val firebase_bom = "30.1.0"
 val junit = "4.13"
 val lifecycle = "2.4.1"
 val material = "1.6.1"
