@@ -6,32 +6,36 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.model.ReleaseNote
-import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
+import com.maho_ya.tell_me_your_dpi.ui.TdpiApp
 import com.maho_ya.tell_me_your_dpi.ui.theme.Colors
+import com.maho_ya.tell_me_your_dpi.ui.theme.PreviewDefault
 
 private val defaultSpacerSize = 16.dp
 private val spacerSizeBetweenAppVersionAndDate = 8.dp
@@ -43,16 +47,16 @@ fun ReleaseNoteContent(
     modifier: Modifier = Modifier,
     uiState: ReleaseNoteUiState,
     listState: LazyListState = rememberLazyListState(),
-    onRefresh: () -> Unit
+    onRefresh: () -> Unit = {}
 ) {
-    LoadingContent(
+    LoadingReleaseNoteContent(
         isLoading = uiState.isLoading,
         onRefresh = onRefresh,
         content = {
-            if (uiState.userMessage != null) {
+            if (uiState.userMessageId != null) {
                 ReleaseNoteErrorContent(
                     modifier = modifier,
-                    userMessage = uiState.userMessage,
+                    userMessageId = uiState.userMessageId,
                     onClick = onRefresh
                 )
             } else {
@@ -79,12 +83,13 @@ fun ReleaseNoteContentList(
         modifier = modifier,
         state = listState,
     ) {
-        items(uiState.items) { item ->
+        itemsIndexed(uiState.items) { index, item ->
             ReleaseNoteContentItem(
-                modifier = modifier,
+                modifier = Modifier,
                 // リソースの取得
                 // https://developer.android.com/jetpack/compose/resources?hl=ja#strings
-                releaseNote = item
+                releaseNote = item,
+                hasDivider = index < uiState.items.size - 1
             )
         }
     }
@@ -94,7 +99,8 @@ fun ReleaseNoteContentList(
 fun ReleaseNoteContentItem(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    releaseNote: ReleaseNote
+    releaseNote: ReleaseNote,
+    hasDivider: Boolean = true
 ) {
     Column(modifier = modifier.padding(defaultSpacerSize)) {
         // Version
@@ -126,19 +132,19 @@ fun ReleaseNoteContentItem(
         )
     }
 
-    Divider(color = if (darkTheme) Colors.Gray333 else Colors.GrayAAA)
+    if (hasDivider) Divider(color = if (darkTheme) Colors.Gray555 else Colors.GrayAAA)
 }
 
 @Composable
 fun ReleaseNoteErrorContent(
     modifier: Modifier = Modifier,
-    @StringRes userMessage: Int?,
+    @StringRes userMessageId: Int?,
     onClick: () -> Unit,
 ) {
-    if (userMessage == null) return
+    if (userMessageId == null) return
 
     Box(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Column(
@@ -147,7 +153,7 @@ fun ReleaseNoteErrorContent(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(userMessage),
+                text = stringResource(userMessageId),
                 style = MaterialTheme.typography.body1,
                 modifier = modifier.padding(defaultSpacerSize),
             )
@@ -162,28 +168,13 @@ fun ReleaseNoteErrorContent(
                     modifier = Modifier.padding(spacerSizeBetweenDateAndDescription)
                 )
             }
+            Spacer(Modifier.size(100.dp))
         }
     }
 }
 
-@Preview("Release Note Error Content")
-@Preview("Release Note Error Content(dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewReleaseNoteErrorContent() {
-    val uiState = ReleaseNoteUiState(
-        userMessage = R.string.network_error_title
-    )
-
-    AppTheme {
-        ReleaseNotesScreen(
-            uiState = uiState,
-            onRefresh = {}
-        )
-    }
-}
-
-@Composable
-fun LoadingContent(
+fun LoadingReleaseNoteContent(
     isLoading: Boolean,
     onRefresh: () -> Unit,
     content: @Composable () -> Unit,
@@ -209,32 +200,35 @@ fun ReleaseNotesScreen(
     modifier: Modifier = Modifier,
     uiState: ReleaseNoteUiState,
     listState: LazyListState = rememberLazyListState(),
-    onRefresh: () -> Unit
+    onRefresh: () -> Unit = {}
 ) {
-    // ScaffoldまたはSurfaceを置くとコンテンツに共通の設定を反映できる。詳細はリンク参照。
-    // ScaffoldはTopAppBar, BottomAppBarなどが必要な時に使用する
-    // https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Surface(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.foundation.BorderStroke,androidx.compose.ui.unit.Dp,kotlin.Function0)
-    Surface(
+    ReleaseNoteContent(
         modifier = modifier,
-        color = MaterialTheme.colors.background,
-    ) {
-        Row(
-            modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ReleaseNoteContent(
-                modifier = modifier,
-                uiState = uiState,
-                listState = listState,
-                onRefresh = onRefresh
-            )
-        }
-    }
+        uiState = uiState,
+        listState = listState,
+        onRefresh = onRefresh
+    )
+}
+
+@Composable
+fun ReleaseNoteRoute(
+    releaseNotesViewModel: ReleaseNotesViewModel = viewModel()
+) {
+    // collectAsState() でuiStateをリスナーし、値が変わると再コンポーズするようになる
+    val uiState by releaseNotesViewModel.uiState.collectAsState()
+    // スクロール位置やアイテムのレイアウトの変更を検知できる
+    val listState: LazyListState = rememberLazyListState()
+
+    ReleaseNotesScreen(
+        uiState = uiState,
+        listState = listState,
+        onRefresh = { releaseNotesViewModel.onReloadClicked() }
+    )
 }
 
 @Preview("Release Note screen")
-@Preview("Release Note (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview("Release Note screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewDefault
 @Composable
 fun PreviewReleaseNotesScreen() {
     val uiState = ReleaseNoteUiState(
@@ -244,10 +238,21 @@ fun PreviewReleaseNotesScreen() {
         )
     )
 
-    AppTheme {
-        ReleaseNotesScreen(
-            uiState = uiState,
-            onRefresh = {}
-        )
+    TdpiApp() {
+        ReleaseNotesScreen(uiState = uiState)
+    }
+}
+
+@Preview("Release Note Error Content")
+@Preview("Release Note Error Content(dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewDefault
+@Composable
+fun PreviewReleaseNoteErrorContent() {
+    val uiState = ReleaseNoteUiState(
+        userMessageId = R.string.network_error_title
+    )
+
+    TdpiApp() {
+        ReleaseNotesScreen(uiState = uiState)
     }
 }

@@ -16,8 +16,8 @@ interface DeviceDataSource {
     suspend fun getDevice(): Device
 }
 
-class DataDeviceDataSource @Inject constructor(
-    @ActivityContext private val context: Context?
+class DataDeviceDataSource (
+    private val context: Context?
 ) : DeviceDataSource {
 
     override suspend fun getDevice(): Device {

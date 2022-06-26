@@ -66,3 +66,6 @@ dependencies {
     testImplementation(Libs.MOCKITO)
 }
 
+kapt {
+    correctErrorTypes = true
+}

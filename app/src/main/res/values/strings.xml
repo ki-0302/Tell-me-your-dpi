@@ -17,6 +17,7 @@
     <string name="default_notification_channel_description">トピックの通知です</string>
 
     <string name="copy_button">Copy</string>
+    <string name="copy_complete">デバイス情報をコピーしました。</string>
 
     <string name="network_error_title">サーバーへの接続に失敗しました。</string>
     <string name="network_error_reload">再読み込み</string>

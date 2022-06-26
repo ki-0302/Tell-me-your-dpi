@@ -4,26 +4,27 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import androidx.activity.viewModels
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maho_ya.tell_me_your_dpi.R
-import com.maho_ya.tell_me_your_dpi.databinding.ActivityMainBinding
 import com.maho_ya.tell_me_your_dpi.util.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private val mainActivityViewModel: MainActivityViewModel by viewModels()
-    private lateinit var binding: ActivityMainBinding
 
     // Tap ActionBar
     // https://developer.android.com/reference/android/app/Activity#onOptionsItemSelected(android.view.MenuItem)
@@ -53,11 +54,19 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        // SystemBarの背景にコンテンツを表示する
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        registerToolbar(savedInstanceState)
-        registerBottomNavigation()
+        setContent {
+            TdpiApp()
+        }
+
+
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        registerToolbar(savedInstanceState)
+//        registerBottomNavigation()
 
         NotificationUtils.createNotificationChannel(this)
     }

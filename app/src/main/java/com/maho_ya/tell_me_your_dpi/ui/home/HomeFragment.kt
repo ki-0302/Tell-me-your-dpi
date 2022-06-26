@@ -10,16 +10,27 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.databinding.FragmentHomeBinding
 import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
+import com.maho_ya.tell_me_your_dpi.ui.releasenotes.ReleaseNoteRoute
+import com.maho_ya.tell_me_your_dpi.ui.releasenotes.ReleaseNotesScreen
+import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,8 +38,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    @Inject
-    lateinit var deviceUseCase: DeviceUseCase
+
 
     private val homeVieModel: HomeVieModel by viewModels()
 
@@ -38,21 +48,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.viewModel = homeVieModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val fab: FloatingActionButton = requireView()
-            .findViewById(R.id.fab)
+//        val fab: FloatingActionButton = requireView()
+//            .findViewById(R.id.fab)
+//
+//        fab.setOnClickListener {
+//
+//            copyDeviceInfoToClipboard()
+//
+//            // fab.setImageResource(R.drawable.ic_check)
+//            // fab.setRippleColor(ContextCompat.getColor(this, R.color.colorPrimary))
+//            Snackbar.make(it, "デバイス情報をコピーしました。", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null)
+//                .show()
+//        }
 
-        fab.setOnClickListener {
-
-            copyDeviceInfoToClipboard()
-
-            // fab.setImageResource(R.drawable.ic_check)
-            // fab.setRippleColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            Snackbar.make(it, "デバイス情報をコピーしました。", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
-        }
-
-        homeVieModel.getDevice(deviceUseCase)
+//        binding.composeView.apply {
+//            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+//            setContent {
+//                AppTheme {
+//                    HomeRoute()
+//                }
+//            }
+//        }
 
         showPostNotificationsPermissionIfNeeded()
     }
@@ -60,10 +77,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onResume() {
         super.onResume()
 
-        if (homeVieModel.shouldLaunchReview()) {
-            homeVieModel.notifyReviewLaunchAttempted()
-            launchReviewFlow()
-        }
+//        if (homeVieModel.shouldLaunchReview()) {
+//            homeVieModel.notifyReviewLaunchAttempted()
+//            launchReviewFlow()
+//        }
     }
 
     private fun launchReviewFlow() {
@@ -127,6 +144,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 )
     }
 }
+
+
 
 // Android 13以降の場合、通知権限をリクエストする
 // https://developer.android.com/about/versions/13/changes/notification-permission

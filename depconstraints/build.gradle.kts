@@ -30,7 +30,7 @@ dependencies {
     constraints {
         api("${Libs.ANDROIDX_BROWSER}:$androidx_browser")
         api("${Libs.ANDROIDX_HILT_COMPILER}:$androidx_hilt")
-
+        api("${Libs.ANDROIDX_HILT_NAVIGATION_COMPOSE}:$androidx_hilt")
         api("${Libs.APPCOMPAT}:$appcompat")
         api("${Libs.CONSTRAINT_LAYOUT}:$constraint_layout")
         api("${Libs.CORE_KTX}:$core_ktx")
@@ -39,6 +39,7 @@ dependencies {
         api("${Libs.HILT_ANDROID}:${Versions.HILT}")
         api("${Libs.HILT_COMPILER}:${Versions.HILT}")
         api("${Libs.ACCOMPANIST_SWIPE_REFRESH}:${Versions.ACCOMPANIST}")
+        api("${Libs.ACCOMPANIST_SYSTEM_UI_CONTROLLER}:${Versions.ACCOMPANIST}")
         api("${Libs.JETPACK_COMPOSE_MATERIAL}:${Versions.JETPACK_COMPOSE}")
         api("${Libs.JETPACK_COMPOSE_UI_TOOLING}:${Versions.JETPACK_COMPOSE}")
         api("${Libs.JUNIT}:$junit")
@@ -50,6 +51,7 @@ dependencies {
         api("${Libs.MOSHI}:$moshi")
         api("${Libs.MOSHI_KOTLIN}:$moshi")
         api("${Libs.MOSHI_KOTLIN_CODEGEN}:$moshi")
+        api("${Libs.NAVIGATION_COMPOSE}:${Versions.NAVIGATION}")
         api("${Libs.NAVIGATION_DYNAMIC_FEATURES_FRAGMENT}:${Versions.NAVIGATION}")
         api("${Libs.NAVIGATION_FRAGMENT_KTX}:${Versions.NAVIGATION}")
         api("${Libs.NAVIGATION_UI_KTX}:${Versions.NAVIGATION}")
