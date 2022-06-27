@@ -12,6 +12,7 @@ object Colors {
     val Blue202223 = Color(0xff202223)
     val Gray212121 = Color(0xff212121)
     val Gray333 = Color(0xff333333)
+    val Gray555 = Color(0xff555555)
     val Gray666 = Color(0xff666666)
     val GrayAAA = Color(0xffAAAAAA)
     val GrayB8B8B8 = Color(0xffb8b8b8)

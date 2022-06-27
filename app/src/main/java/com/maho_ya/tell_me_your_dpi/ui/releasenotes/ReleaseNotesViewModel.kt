@@ -1,5 +1,6 @@
 package com.maho_ya.tell_me_your_dpi.ui.releasenotes
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maho_ya.tell_me_your_dpi.R
@@ -17,7 +18,7 @@ import javax.inject.Inject
 data class ReleaseNoteUiState(
     val items: List<ReleaseNote> = emptyList(),
     val isLoading: Boolean = false,
-    val userMessage: Int? = null
+    @StringRes val userMessageId: Int? = null
 )
 
 @HiltViewModel
@@ -55,7 +56,7 @@ class ReleaseNotesViewModel @Inject constructor(
                             it.copy(
                                 isLoading = false,
                                 items = result.data,
-                                userMessage = null
+                                userMessageId = null
                             )
                         }
                     }
@@ -64,7 +65,7 @@ class ReleaseNotesViewModel @Inject constructor(
                             it.copy(
                                 isLoading = false,
                                 items = emptyList(),
-                                userMessage = R.string.network_error_title
+                                userMessageId = R.string.network_error_title
                             )
                         }
                     }

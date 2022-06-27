@@ -8,16 +8,14 @@ import android.view.Display
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import com.maho_ya.tell_me_your_dpi.model.Device
-import dagger.hilt.android.qualifiers.ActivityContext
 import timber.log.Timber
-import javax.inject.Inject
 
 interface DeviceDataSource {
     suspend fun getDevice(): Device
 }
 
-class DataDeviceDataSource @Inject constructor(
-    @ActivityContext private val context: Context?
+class DataDeviceDataSource(
+    private val context: Context?
 ) : DeviceDataSource {
 
     override suspend fun getDevice(): Device {

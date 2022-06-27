@@ -10,7 +10,7 @@ import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,8 +29,9 @@ import androidx.compose.ui.unit.dp
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.maho_ya.tell_me_your_dpi.BuildConfig
 import com.maho_ya.tell_me_your_dpi.R
-import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
+import com.maho_ya.tell_me_your_dpi.ui.TdpiApp
 import com.maho_ya.tell_me_your_dpi.ui.theme.Colors
+import com.maho_ya.tell_me_your_dpi.ui.theme.PreviewDefault
 
 private val defaultSpacerSize = 20.dp
 private const val privacyPolicyUrl = "https://maho-ya.firebaseapp.com/privacy.html"
@@ -69,7 +69,7 @@ private fun openOssLicences(context: Context) {
 fun AboutAppContent(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    state: LazyListState = rememberLazyListState()
+    listState: LazyListState = rememberLazyListState(),
 ) {
     // contextを取得
     // https://developer.android.google.cn/jetpack/compose/interop/interop-apis?hl=ja#composition-locals
@@ -80,7 +80,7 @@ fun AboutAppContent(
     // https://developer.android.com/jetpack/compose/lists?hl=ja#lazy
     LazyColumn(
         modifier = modifier,
-        state = state,
+        state = listState,
     ) {
         item {
             AboutAppContentItem(
@@ -131,43 +131,43 @@ fun AboutAppContentItem(
                 vertical = defaultSpacerSize
             ),
     )
-    Divider(color = if (darkTheme) Colors.Gray333 else Colors.GrayAAA)
+    Divider(color = if (darkTheme) Colors.Gray555 else Colors.GrayAAA)
 }
 
 /**
  * アプリ情報を表示
- * @param modifier modifier
- * @param state 現在表示中のスクロール可能なアイテムの制御・監視が行える状態オブジェクトを保存したもの
  */
 @Composable
 fun AboutAppScreen(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    state: LazyListState = rememberLazyListState()
+    listState: LazyListState = rememberLazyListState()
 ) {
-    // ScaffoldまたはSurfaceを置くとコンテンツに共通の設定を反映できる。詳細はリンク参照。
-    // ScaffoldはTopAppBar, BottomAppBarなどが必要な時に使用する
-    // https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Surface(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.foundation.BorderStroke,androidx.compose.ui.unit.Dp,kotlin.Function0)
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colors.background,
-    ) {
-        // parentサイズ分のレイアウト
-        Row(modifier.fillMaxSize()) {
-            AboutAppContent(
-                modifier = modifier,
-                darkTheme = darkTheme,
-                state = state
-            )
-        }
+    // parentサイズ分のレイアウト
+    Column(modifier.fillMaxSize()) {
+        AboutAppContent(
+            darkTheme = darkTheme,
+            listState = listState
+        )
     }
+}
+
+@Composable
+fun AboutAppRoute() {
+    // スクロール位置やアイテムのレイアウトの変更を検知できる
+    val listState: LazyListState = rememberLazyListState()
+
+    AboutAppScreen(
+        listState = listState,
+    )
 }
 
 @Preview("About screen")
 @Preview("About screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewDefault
 @Composable
 fun PreviewAboutScreen() {
-    AppTheme {
+    TdpiApp() {
         AboutAppScreen()
     }
 }

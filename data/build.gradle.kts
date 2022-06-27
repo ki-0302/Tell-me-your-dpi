@@ -77,3 +77,7 @@ dependencies {
     testImplementation(Libs.MOCKITO)
     testImplementation(Libs.COROUTINES_TEST)
 }
+
+kapt {
+    correctErrorTypes = true
+}

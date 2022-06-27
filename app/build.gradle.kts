@@ -1,4 +1,3 @@
-import Libs.SPLASH_SCREEN
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -39,6 +38,7 @@ android {
     // For Kotlin projects. Support Java 8
     kotlinOptions {
         this.jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     signingConfigs {
@@ -140,6 +140,7 @@ dependencies {
     // LiveData
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     // Navigation
+    implementation(Libs.NAVIGATION_COMPOSE)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     implementation(Libs.NAVIGATION_UI_KTX)
     implementation(Libs.NAVIGATION_DYNAMIC_FEATURES_FRAGMENT)
@@ -150,8 +151,11 @@ dependencies {
     kapt(Libs.HILT_COMPILER)
     // androidx Hilt
     kapt(Libs.ANDROIDX_HILT_COMPILER)
+    implementation(Libs.ANDROIDX_HILT_NAVIGATION_COMPOSE)
     // Accompanist
+    implementation(Libs.ACCOMPANIST_PERMISSION)
     implementation(Libs.ACCOMPANIST_SWIPE_REFRESH)
+    implementation(Libs.ACCOMPANIST_SYSTEM_UI_CONTROLLER)
     // Jetpack Compose
     implementation(Libs.JETPACK_COMPOSE_MATERIAL)
     implementation(Libs.JETPACK_COMPOSE_UI_TOOLING) // ComposeView, Preview, etc..
@@ -164,7 +168,7 @@ dependencies {
     implementation(Libs.FIREBASE_ANALYTICS)
     implementation(Libs.FIREBASE_CRASHLYTICS)
     implementation(Libs.FIREBASE_MESSAGING)
-    implementation(Libs.FIREABSE_PERF)
+    implementation(Libs.FIREBASE_PERF)
     // Retrofit
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_CONVERTER_MOSHI)
@@ -190,4 +194,8 @@ dependencies {
     androidTestImplementation("${Libs.ANDROIDX_TEST_EXT}:${Versions.ANDROIDX_TEST_EXT}")
     androidTestImplementation("${Libs.ANDROIDX_TEST_ESPRESSO}:${Versions.ANDROIDX_TEST_ESPRESSO}")
     androidTestImplementation("${Libs.NAVIGATION_TEST}:${Versions.NAVIGATION}")
+}
+
+kapt {
+    correctErrorTypes = true
 }
