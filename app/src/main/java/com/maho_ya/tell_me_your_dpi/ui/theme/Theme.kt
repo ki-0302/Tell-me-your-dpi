@@ -1,6 +1,5 @@
 package com.maho_ya.tell_me_your_dpi.ui.theme
 
-import android.provider.MediaStore
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors

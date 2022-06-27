@@ -1,6 +1,5 @@
 package com.maho_ya.tell_me_your_dpi.ui.theme
 
-import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 

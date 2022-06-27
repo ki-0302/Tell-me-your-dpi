@@ -4,6 +4,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -308,13 +310,13 @@ private fun copyDeviceInfo(context: Context, device: Device?) {
         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
     clipboardManager.setPrimaryClip(ClipData.newPlainText("", deviceInfo))
-
 }
 
 // post notification permissionのリクエスト
 @OptIn(ExperimentalPermissionsApi::class)
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
-private fun requestPostNotificationPermission() {
+private fun RequestPostNotificationPermission() {
 
     val postNotificationPermissionState = rememberPermissionState(
         android.Manifest.permission.POST_NOTIFICATIONS
@@ -362,7 +364,9 @@ fun HomeScreen(
         onClick = copyFabClick
     )
 
-    requestPostNotificationPermission()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        RequestPostNotificationPermission()
+    }
 }
 
 @Preview("Home screen")

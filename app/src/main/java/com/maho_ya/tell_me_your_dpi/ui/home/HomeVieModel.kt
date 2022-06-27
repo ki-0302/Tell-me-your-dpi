@@ -2,16 +2,12 @@ package com.maho_ya.tell_me_your_dpi.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
-import com.maho_ya.tell_me_your_dpi.domain.releasenotes.ReleaseNotesUseCase
 import com.maho_ya.tell_me_your_dpi.domain.review.ShouldLaunchReviewUseCase
 import com.maho_ya.tell_me_your_dpi.model.Device
 import com.maho_ya.tell_me_your_dpi.result.Result
-import com.maho_ya.tell_me_your_dpi.result.data
 import com.maho_ya.tell_me_your_dpi.util.WhileUiSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,10 +38,6 @@ class HomeVieModel @Inject constructor(
         started = WhileUiSubscribed,
         initialValue = _homeUiState.value
     )
-
-    private val _device = MutableLiveData<Device>()
-    val device: LiveData<Device>
-        get() = _device
 
     fun getDevice(deviceUseCase: DeviceUseCase) {
         _homeUiState.update { it.copy(isLoading = true) }
