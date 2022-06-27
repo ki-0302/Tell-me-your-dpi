@@ -1,4 +1,3 @@
-import Libs.ANDROIDX_HILT_NAVIGATION_COMPOSE
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -39,6 +38,7 @@ android {
     // For Kotlin projects. Support Java 8
     kotlinOptions {
         this.jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     signingConfigs {
@@ -153,6 +153,7 @@ dependencies {
     kapt(Libs.ANDROIDX_HILT_COMPILER)
     implementation(Libs.ANDROIDX_HILT_NAVIGATION_COMPOSE)
     // Accompanist
+    implementation(Libs.ACCOMPANIST_PERMISSION)
     implementation(Libs.ACCOMPANIST_SWIPE_REFRESH)
     implementation(Libs.ACCOMPANIST_SYSTEM_UI_CONTROLLER)
     // Jetpack Compose

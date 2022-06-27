@@ -1,8 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-// For tasks
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("com.android.application") version Versions.ANDROID_GRADLE_PLUGIN apply false
     id("com.android.library") version Versions.ANDROID_GRADLE_PLUGIN apply false

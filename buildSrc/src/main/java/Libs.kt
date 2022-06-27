@@ -17,6 +17,7 @@ object Libs {
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf-ktx"
     const val HILT_ANDROID = "com.google.dagger:hilt-android"
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler"
+    const val ACCOMPANIST_PERMISSION = "com.google.accompanist:accompanist-permissions"
     const val ACCOMPANIST_SWIPE_REFRESH = "com.google.accompanist:accompanist-swiperefresh"
     const val ACCOMPANIST_SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller"
     const val JETPACK_COMPOSE_MATERIAL = "androidx.compose.material:material"

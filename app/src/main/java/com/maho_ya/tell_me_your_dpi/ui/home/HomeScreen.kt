@@ -53,6 +53,10 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.android.material.snackbar.Snackbar
@@ -323,6 +327,39 @@ private fun copyDeviceInfo(context: Context, device: Device?) {
 
 }
 
+// post notification permissionのリクエスト
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+private fun requestPostNotificationPermission() {
+
+    val postNotificationPermissionState = rememberPermissionState(
+        android.Manifest.permission.POST_NOTIFICATIONS
+    )
+
+    when (postNotificationPermissionState.status) {
+        is PermissionStatus.Granted -> {}
+        is PermissionStatus.Denied -> {
+            Column {
+                val textToShow = if (postNotificationPermissionState.status.shouldShowRationale) {
+                    // If the user has denied the permission but the rationale can be shown,
+                    // then gently explain why the app requires this permission
+                    "The camera is important for this app. Please grant the permission."
+                } else {
+                    // If it's the first time the user lands on this feature, or the user
+                    // doesn't want to be asked again for this permission, explain that the
+                    // permission is required
+                    "Camera permission required for this feature to be available. " +
+                            "Please grant the permission"
+                }
+                Text(textToShow)
+                Button(onClick = { postNotificationPermissionState.launchPermissionRequest() }) {
+                    Text("Request permission")
+                }
+            }
+        }
+    }
+}
+
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -341,6 +378,8 @@ fun HomeScreen(
     CopyFab(
         onClick = copyFabClick
     )
+
+    requestPostNotificationPermission()
 }
 
 @Preview("Home screen")
