@@ -1,6 +1,5 @@
 package com.maho_ya.tell_me_your_dpi.ui.home
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -12,10 +11,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -27,11 +24,8 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.SnackbarData
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -52,14 +46,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.google.android.material.snackbar.Snackbar
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.model.Device
@@ -290,36 +282,28 @@ private fun CopyFab(
 }
 
 private fun copyDeviceInfo(context: Context, device: Device?) {
-    val deviceInfo = context.getString(R.string.device_density_qualifier_title) + ": " +
-            device?.densityQualifier + "\n" +
-            context.getString(R.string.device_density_dpi_title) + ": " +
-            device?.densityDpi.toString() + "\n" +
-            context.getString(R.string.device_real_display_size_width_title) + ": " +
-            context.getString(
-                R.string.device_real_display_size,
-                device?.realDisplaySizeWidth ?: 0
-            ) + "\n" +
-            context.getString(R.string.device_real_display_size_height_title) + ": " +
-            context.getString(
-                R.string.device_real_display_size,
-                device?.realDisplaySizeHeight
-            ) + "\n" +
-            context.getString(R.string.device_brand_title) + ": " +
-            device?.brand + "\n" +
-            context.getString(R.string.device_model_title) + ": " +
-            device?.model + "\n" +
-            context.getString(R.string.device_api_level_title) + ": " +
-            device?.apiLevel.toString() + "\n" +
-            context.getString(R.string.device_android_os_version_title) + ": " +
-            device?.androidOsVersion + "\n" +
-            context.getString(R.string.device_android_code_name_title) + ": " +
-            device?.androidCodeName + "\n" +
-            context.getString(R.string.device_memory_size_title) + ": " +
-            context.getString(
-                R.string.device_memory_size,
-                device?.totalMemory ?: 0,
-                device?.availableMemory ?: 0
-            )
+    val deviceInfo = listOf(
+        context.getString(R.string.device_density_qualifier_title) + ": " + device?.densityQualifier,
+        context.getString(R.string.device_density_dpi_title) + ": " + device?.densityDpi.toString(),
+        context.getString(R.string.device_real_display_size_width_title) + ": " + context.getString(
+            R.string.device_real_display_size,
+            device?.realDisplaySizeWidth ?: 0
+        ),
+        context.getString(R.string.device_real_display_size_height_title) + ": " + context.getString(
+            R.string.device_real_display_size,
+            device?.realDisplaySizeHeight
+        ),
+        context.getString(R.string.device_brand_title) + ": " + device?.brand,
+        context.getString(R.string.device_model_title) + ": " + device?.model,
+        context.getString(R.string.device_api_level_title) + ": " + device?.apiLevel.toString(),
+        context.getString(R.string.device_android_os_version_title) + ": " + device?.androidOsVersion,
+        context.getString(R.string.device_android_code_name_title) + ": " + device?.androidCodeName,
+        context.getString(R.string.device_memory_size_title) + ": " + context.getString(
+            R.string.device_memory_size,
+            device?.totalMemory ?: 0,
+            device?.availableMemory ?: 0
+        )
+    ).joinToString("\n")
     val clipboardManager: ClipboardManager =
         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
@@ -368,7 +352,6 @@ fun HomeScreen(
     onRefresh: () -> Unit = {},
     copyFabClick: () -> Unit = {}
 ) {
-    val context = LocalContext.current
     HomeContent(
         modifier = modifier,
         uiState = uiState,
@@ -402,7 +385,7 @@ fun PreviewHomeScreen() {
         )
     )
 
-    TdpiApp() {
+    TdpiApp {
         HomeScreen(uiState = uiState)
     }
 }

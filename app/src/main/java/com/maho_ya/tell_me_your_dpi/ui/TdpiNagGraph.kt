@@ -41,7 +41,7 @@ fun TdpiNagGraph(
             val homeViewModel = hiltViewModel<HomeVieModel>()
             HomeRoute(
                 homeViewModel = homeViewModel,
-                scaffoldState= scaffoldState
+                scaffoldState = scaffoldState
             )
         }
         composable(TdpiDestinations.RELEASE_NOTE_ROUTE) {

@@ -41,7 +41,6 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 
-
 private val topBarHeight = 84.dp
 private val bottomBarHeight = 64.dp
 
