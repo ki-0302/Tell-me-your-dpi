@@ -1,7 +1,5 @@
 package com.maho_ya.tell_me_your_dpi.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
