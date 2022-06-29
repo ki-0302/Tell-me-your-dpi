@@ -5,6 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import com.maho_ya.tell_me_your_dpi.util.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,5 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContent {
             TdpiApp()
         }
+
+        // 通知チャネルの作成
+        NotificationUtils.createNotificationChannel(this)
     }
 }

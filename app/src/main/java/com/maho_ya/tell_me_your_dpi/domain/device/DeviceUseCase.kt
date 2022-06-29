@@ -5,7 +5,6 @@ import com.maho_ya.tell_me_your_dpi.data.device.DataDeviceRepository
 import com.maho_ya.tell_me_your_dpi.data.device.DeviceRepository
 import com.maho_ya.tell_me_your_dpi.domain.UseCase
 import com.maho_ya.tell_me_your_dpi.model.Device
-import javax.inject.Inject
 
 class DeviceUseCase constructor(
     context: Context?,

@@ -13,6 +13,7 @@ private val LightThemeColors = lightColors(
     primary = Colors.RedD01C31,
     primaryVariant = Colors.RedD01C31, // AppBar & System Bar(status bar&navigation bar)
     onPrimary = Colors.PinkE2E0E1, // コンテンツ色
+    secondary = Colors.Gray888,
     secondaryVariant = Colors.Red48282C,
     onSecondary = Colors.PinkE2E0E1,
     background = Colors.GrayF0F0F3, // スクロール可能なコンテンツの背景色
@@ -23,6 +24,7 @@ private val DarkThemeColors = darkColors(
     primary = Colors.Red211314,
     primaryVariant = Colors.Red211314,
     onPrimary = Colors.PinkE2E0E1,
+    secondary = Colors.Gray555,
     secondaryVariant = Colors.GrayB8B8B8,
     onSecondary = Colors.RedD11C2C,
     background = Colors.Gray333,
@@ -32,7 +34,8 @@ private val DarkThemeColors = darkColors(
 private val AppImages = Images(
     logo = R.drawable.ic_logo_toolbar,
     contentCopy = R.drawable.ic_content_copy,
-    copyFab = R.drawable.ic_content_copy
+    copyFab = R.drawable.ic_content_copy,
+    notifications = R.drawable.ic_notifications
 )
 
 @Composable

@@ -8,6 +8,14 @@
     <string name="menu_home">Home</string>
     <string name="menu_release">Release</string>
     <string name="menu_about_app">About</string>
+    <!-- TUtorial -->
+    <string name="title_tutorial_post_notifications">通知</string>
+    <string name="post_notifications_description">最新の情報を受け取るために通知を有効にしましょう</string>
+    <string name="title_tutorial_post_notifications_denied">通知が許可されていません</string>
+    <string name="post_notifications_denied_description">通知を受け取るにはシステム設定から通知を許可してください</string>
+    <string name="post_notifications_skip_button">スキップ</string>
+    <string name="post_notifications_activate_button">有効にする</string>
+
     <!-- Release Notes -->
     <string name="release_notes_item_version">Version %s</string>
 
@@ -16,6 +24,7 @@
     <string name="default_notification_channel_name">トピック</string>
     <string name="default_notification_channel_description">トピックの通知です</string>
 
+    <string name="ok_button">OK</string>
     <string name="copy_button">Copy</string>
     <string name="copy_complete">デバイス情報をコピーしました。</string>
 

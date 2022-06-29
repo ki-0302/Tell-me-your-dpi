@@ -12,7 +12,8 @@ import androidx.compose.runtime.staticCompositionLocalOf
 data class Images(
     @DrawableRes val logo: Int,
     @DrawableRes val contentCopy: Int,
-    @DrawableRes val copyFab: Int
+    @DrawableRes val copyFab: Int,
+    @DrawableRes val notifications: Int
 )
 
 // Composition Local を使用すると引数Composableの最上位から引数を渡さなくても静的に呼び出すことができる
