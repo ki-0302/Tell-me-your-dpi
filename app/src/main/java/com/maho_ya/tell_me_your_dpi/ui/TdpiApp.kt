@@ -44,46 +44,57 @@ import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 private val topBarHeight = 84.dp
 private val bottomBarHeight = 64.dp
 
-// 引数をcomposableにしてPreviewでHomeとかを渡せば良さそう
+/**
+ * AppRoute
+ * @param scaffoldState
+ * @param hasAppBar Preview用
+ * @param content Preview用
+ */
 @Composable
 fun TdpiApp(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
+    hasAppBar: Boolean = true,
     content: (@Composable () -> Unit)? = null
 ) {
     AppTheme {
         // https://google.github.io/accompanist/systemuicontroller/
         // StatusBarを透明にする。darkIconsがtrueだと黒いアイコンが表示される
         val systemUiController = rememberSystemUiController()
-        val useDarkIcons = MaterialTheme.colors.isLight
+        // val useDarkIcons = MaterialTheme.colors.isLight
 
         SideEffect {
             systemUiController.setSystemBarsColor(
                 color = Color.Transparent,
-                darkIcons = useDarkIcons
+                darkIcons = false
             )
         }
 
-        val tabs = remember { BottomTabs.values() }
+        val tabs = remember {
+            listOf(Screen.Home, Screen.ReleaseNote, Screen.AboutApp)
+        }
         val navController = rememberNavController()
+
         Scaffold(
-            topBar = { TopBar(navController) },
-            bottomBar = { BottomBar(navController = navController, tabs = tabs) },
+            topBar = { if (hasAppBar) TopBar(navController) },
+            bottomBar = { if (hasAppBar) BottomBar(navController = navController, tabs = tabs) },
             scaffoldState = scaffoldState
         ) { paddingValues ->
             // paddingValuesでSystemBar＋AppBar+NavigationBarのサイズを取得する
             // 表示のずれが生じるため、contentのコンテナに対してpaddingを設定する必要がある（設定しないと一部隠れる）
             val modifier = Modifier.padding(paddingValues)
-            if (content == null) {
-                TdpiNagGraph(
-                    modifier = modifier,
-                    navController = navController,
-                    scaffoldState = scaffoldState
-                )
-            } else {
+
+            if (content != null) {
                 Column(modifier) {
                     content()
                 }
+                return@Scaffold
             }
+
+            TdpiNagGraph(
+                modifier = modifier,
+                navController = navController,
+                scaffoldState = scaffoldState
+            )
         }
     }
 }
@@ -95,6 +106,8 @@ private fun TopBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
+    if (currentDestination?.route == Screen.Tutorial.PostNotifications.route) return
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -103,7 +116,7 @@ private fun TopBar(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        if (currentDestination?.route == BottomTabs.HOME.route) {
+        if (currentDestination?.route == Screen.Home.route) {
             Image(
                 painter = painterResource(id = AppTheme.images.logo),
                 contentDescription = null,
@@ -119,12 +132,15 @@ private fun TopBar(
 }
 
 @Composable
-fun BottomBar(navController: NavController, tabs: Array<BottomTabs>) {
+fun BottomBar(navController: NavController, tabs: List<Screen>) {
     // https://developer.android.com/jetpack/compose/navigation?hl=ja#bottom-nav
     // 現在のNavDestinationにアクセスできるようにする
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     // バックスタックのルートを取得
-    val currentRoute = navBackStackEntry?.destination?.route ?: BottomTabs.HOME.route
+    val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
+    val currentDestination = navBackStackEntry?.destination
+
+    if (currentDestination?.route == Screen.Tutorial.PostNotifications.route) return
 
     BottomNavigation(
         // BottomNavigationの高さを設定
@@ -136,8 +152,8 @@ fun BottomBar(navController: NavController, tabs: Array<BottomTabs>) {
     ) {
         tabs.forEach { tab ->
             BottomNavigationItem(
-                icon = { Icon(painterResource(tab.icon), contentDescription = null) },
-                label = { Text(stringResource(tab.title)) },
+                icon = { tab.iconId?.let { Icon(painterResource(it), contentDescription = null) } },
+                label = { Text(stringResource(tab.titleId)) },
                 selected = currentRoute == tab.route,
                 onClick = {
                     if (tab.route != currentRoute) {
@@ -161,15 +177,31 @@ fun BottomBar(navController: NavController, tabs: Array<BottomTabs>) {
 }
 
 /**
- * BottomNavigationのアイテム
+ * NavigationGraphの遷移先
  */
-enum class BottomTabs(
-    @StringRes val title: Int,
-    @DrawableRes val icon: Int,
-    val route: String
-) {
-    HOME(R.string.menu_home, R.drawable.ic_baseline_home, TdpiDestinations.HOME_ROUTE),
-    RELEASE_NOTE(R.string.menu_release, R.drawable.ic_baseline_new_releases, TdpiDestinations.RELEASE_NOTE_ROUTE),
-    ABOUT_APP(R.string.menu_about_app, R.drawable.ic_baseline_about, TdpiDestinations.ABOUT_APP_ROUTE)
-}
+sealed class Screen(val route: String, @DrawableRes val iconId: Int?, @StringRes val titleId: Int) {
+    object Home : Screen("home", R.drawable.ic_baseline_home, R.string.menu_home)
+    object ReleaseNote : Screen(
+        "release_note",
+        R.drawable.ic_baseline_new_releases,
+        R.string.menu_release
+    )
 
+    object AboutApp : Screen("about_app", R.drawable.ic_baseline_about, R.string.menu_about_app)
+
+    sealed class Tutorial(route: String, @DrawableRes iconId: Int?, @StringRes titleId: Int) : Screen(
+        route, iconId, titleId
+    ) {
+        object TutorialRoot : Tutorial(
+            "tutorial",
+            null,
+            R.string.title_tutorial_post_notifications
+        )
+
+        object PostNotifications : Tutorial(
+            "tutorial_post_notifications",
+            null,
+            R.string.title_tutorial_post_notifications
+        )
+    }
+}

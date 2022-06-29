@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Splash Screen -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- 背景に背景かアニメーションアイコンを設定する -->
         <item name="windowSplashScreenBackground">@color/color_primary</item>
 
@@ -18,7 +19,7 @@
     <!-- Base application theme. Disable AppBar to enable Toolbar -->
     <!-- https://developer.android.com/training/appbar/setting-up?hl=ja -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item> <!-- 効かない -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
@@ -26,15 +27,6 @@
         <item name="android:textColor">@color/text_color</item>
         <!-- Button style for MaterialComponents. -->
         <item name="materialButtonStyle">@style/Widget.tell_me_your_dpi.Button</item>
-    </style>
-
-    <!-- Required to change Toolbar text color to white.  -->
-    <style name="ToolbarTheme" parent="Theme.MaterialComponents.DayNight">
-        <item name="android:textColorPrimary">@color/toolbar_text</item>
-        <item name="android:textColorSecondary">@color/toolbar_text</item>
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="OssLicenseTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">

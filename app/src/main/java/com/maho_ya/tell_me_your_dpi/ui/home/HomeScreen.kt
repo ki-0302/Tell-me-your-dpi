@@ -1,5 +1,6 @@
 package com.maho_ya.tell_me_your_dpi.ui.home
 
+import android.Manifest
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -32,8 +33,10 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,10 +47,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
@@ -60,6 +64,7 @@ import com.maho_ya.tell_me_your_dpi.model.Device
 import com.maho_ya.tell_me_your_dpi.ui.TdpiApp
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import com.maho_ya.tell_me_your_dpi.ui.theme.Colors
+import com.maho_ya.tell_me_your_dpi.ui.tutorial.postnotifications.PostNotificationsRoute
 
 private val defaultSpacerSize = 16.dp
 private val spacerSizeBetweenTitleAndDescription = 3.dp
@@ -312,40 +317,6 @@ private fun copyDeviceInfo(context: Context, device: Device?) {
     clipboardManager.setPrimaryClip(ClipData.newPlainText("", deviceInfo))
 }
 
-// post notification permissionのリクエスト
-@OptIn(ExperimentalPermissionsApi::class)
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
-@Composable
-private fun RequestPostNotificationPermission() {
-
-    val postNotificationPermissionState = rememberPermissionState(
-        android.Manifest.permission.POST_NOTIFICATIONS
-    )
-
-    when (postNotificationPermissionState.status) {
-        is PermissionStatus.Granted -> {}
-        is PermissionStatus.Denied -> {
-            Column {
-                val textToShow = if (postNotificationPermissionState.status.shouldShowRationale) {
-                    // If the user has denied the permission but the rationale can be shown,
-                    // then gently explain why the app requires this permission
-                    "The camera is important for this app. Please grant the permission."
-                } else {
-                    // If it's the first time the user lands on this feature, or the user
-                    // doesn't want to be asked again for this permission, explain that the
-                    // permission is required
-                    "Camera permission required for this feature to be available. " +
-                            "Please grant the permission"
-                }
-                Text(textToShow)
-                Button(onClick = { postNotificationPermissionState.launchPermissionRequest() }) {
-                    Text("Request permission")
-                }
-            }
-        }
-    }
-}
-
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -363,10 +334,6 @@ fun HomeScreen(
     CopyFab(
         onClick = copyFabClick
     )
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        RequestPostNotificationPermission()
-    }
 }
 
 @Preview("Home screen")
@@ -394,10 +361,11 @@ fun PreviewHomeScreen() {
     }
 }
 
+// NavigationGraphで使用するためにhiltViewModelを使用する
 @Composable
 fun HomeRoute(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-    homeViewModel: HomeVieModel = viewModel(),
+    homeViewModel: HomeVieModel = hiltViewModel(),
     scaffoldState: ScaffoldState = rememberScaffoldState()
 ) {
     // collectAsState() でuiStateをリスナーし、値が変わると再コンポーズするようになる
@@ -448,4 +416,33 @@ fun HomeRoute(
             homeViewModel.showSnackBar()
         }
     )
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val openDialog = remember { mutableStateOf(true) }
+        if (openDialog.value) RequestPostNotificationPermission(openDialog)
+    }
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+private fun RequestPostNotificationPermission(
+    openDialog: MutableState<Boolean>
+) {
+    val postNotificationPermissionState = rememberPermissionState(
+        Manifest.permission.POST_NOTIFICATIONS
+    )
+
+    when (postNotificationPermissionState.status) {
+        is PermissionStatus.Granted -> openDialog.value = false
+        is PermissionStatus.Denied -> {
+            if (postNotificationPermissionState.status.shouldShowRationale) {
+                Popup(onDismissRequest = {}) {
+                    PostNotificationsRoute(openDialog)
+                }
+            } else {
+                openDialog.value = false
+            }
+        }
+    }
 }
