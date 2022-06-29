@@ -18,5 +18,5 @@ android_lint.filtering = false # すべてのファイルをLint対象にする
 android_lint.lint(inline_mode: true) # コメントで出力。GitHub用
 
 # dependency updates
-danger.import_plugin("./dependency_updates.rb")
-dependency_updates.checkDependencyUpdates
+# danger.import_plugin("./dependency_updates.rb")
+# dependency_updates.checkDependencyUpdates
