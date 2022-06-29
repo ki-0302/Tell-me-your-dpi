@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Color
 import com.maho_ya.tell_me_your_dpi.R
 
 private val LightThemeColors = lightColors(
-    primary = Colors.RedD01C31,
-    primaryVariant = Colors.RedD01C31, // AppBar & System Bar(status bar&navigation bar)
+    primary = Colors.RedA83232,
+    primaryVariant = Colors.RedA83232, // AppBar & System Bar(status bar&navigation bar)
     onPrimary = Colors.PinkE2E0E1, // コンテンツ色
     secondary = Colors.Gray888,
     secondaryVariant = Colors.Red48282C,

@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 object Colors {
     val Red211314 = Color(0xff211314)
     val Red48282C = Color(0xff48282c)
-    val RedD01C31 = Color(0xffD01C31)
+    val RedA83232 = Color(0xffA83232)
     val RedD11C2C = Color(0xffd11c2c)
     val PinkE2E0E1 = Color(0xffe2e0e1)
     val Blue202223 = Color(0xff202223)
