@@ -1,6 +1,7 @@
 package com.maho_ya.tell_me_your_dpi.ui.home
 
 import android.Manifest
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -58,6 +59,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.model.Device
@@ -65,6 +67,7 @@ import com.maho_ya.tell_me_your_dpi.ui.TdpiApp
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import com.maho_ya.tell_me_your_dpi.ui.theme.Colors
 import com.maho_ya.tell_me_your_dpi.ui.tutorial.postnotifications.PostNotificationsRoute
+import timber.log.Timber
 
 private val defaultSpacerSize = 16.dp
 private val spacerSizeBetweenTitleAndDescription = 3.dp
@@ -419,7 +422,45 @@ fun HomeRoute(
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         val openDialog = remember { mutableStateOf(true) }
-        if (openDialog.value) RequestPostNotificationPermission(openDialog)
+        val isFirstPostNotificationsPermission = remember {
+            mutableStateOf(uiState.isFirstPostNotificationsPermission)
+        }
+        if (openDialog.value) {
+            RequestPostNotificationPermission(
+                openDialog = openDialog,
+                isFirstPostNotificationsPermission = isFirstPostNotificationsPermission,
+                onFirstPostNotificationsPermissionComplete = {
+                    homeViewModel.firstPostNotificationPermissionCompleted()
+                }
+            )
+        }
+    }
+
+    if (uiState.shouldLaunchReview) {
+        Timber.d("kim")
+        val activity = LocalContext.current as Activity
+        launchReviewFlow(
+            activity = activity,
+            onComplete = { homeViewModel.notifyReviewLaunchAttempted()}
+        )
+    }
+}
+
+private fun launchReviewFlow(
+    activity: Activity,
+    onComplete: () -> Unit = {}
+) {
+    val manager = ReviewManagerFactory.create(activity)
+    val request = manager.requestReviewFlow()
+    onComplete()
+    request.addOnCompleteListener {
+        if (!it.isSuccessful) return@addOnCompleteListener
+
+        // Request in-app reviews.
+        val flow = manager.launchReviewFlow(activity, it.result)
+        flow.addOnCompleteListener {
+            // Nothing
+        }
     }
 }
 
@@ -427,21 +468,26 @@ fun HomeRoute(
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 private fun RequestPostNotificationPermission(
-    openDialog: MutableState<Boolean>
+    openDialog: MutableState<Boolean> = mutableStateOf(false),
+    isFirstPostNotificationsPermission: MutableState<Boolean> = mutableStateOf(false),
+    onFirstPostNotificationsPermissionComplete: () -> Unit = {},
 ) {
-    val postNotificationPermissionState = rememberPermissionState(
+    val permissionState = rememberPermissionState(
         Manifest.permission.POST_NOTIFICATIONS
     )
 
-    when (postNotificationPermissionState.status) {
+    when (permissionState.status) {
         is PermissionStatus.Granted -> openDialog.value = false
         is PermissionStatus.Denied -> {
-            if (postNotificationPermissionState.status.shouldShowRationale) {
+            // 初回はshouldShowRationale = falseを返すため強制で表示する
+            if (isFirstPostNotificationsPermission.value || permissionState.status.shouldShowRationale) {
                 Popup(onDismissRequest = {}) {
-                    PostNotificationsRoute(openDialog)
+                    PostNotificationsRoute(
+                        openDialog = openDialog,
+                        isFirstPostNotificationsPermission = isFirstPostNotificationsPermission,
+                        onFirstPostNotificationsPermissionComplete = onFirstPostNotificationsPermissionComplete
+                    )
                 }
-            } else {
-                openDialog.value = false
             }
         }
     }
