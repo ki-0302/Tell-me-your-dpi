@@ -43,7 +43,7 @@ private val spacerSizeBetweenDateAndDescription = 3.dp
 private val errorMessagePadding = 20.dp
 
 @Composable
-fun ReleaseNoteContent(
+private fun ReleaseNoteContent(
     modifier: Modifier = Modifier,
     uiState: ReleaseNoteUiState,
     listState: LazyListState = rememberLazyListState(),
@@ -71,7 +71,7 @@ fun ReleaseNoteContent(
 }
 
 @Composable
-fun ReleaseNoteContentList(
+private fun ReleaseNoteContentList(
     modifier: Modifier = Modifier,
     uiState: ReleaseNoteUiState,
     listState: LazyListState = rememberLazyListState(),
@@ -96,7 +96,7 @@ fun ReleaseNoteContentList(
 }
 
 @Composable
-fun ReleaseNoteContentItem(
+private fun ReleaseNoteContentItem(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     releaseNote: ReleaseNote,
@@ -136,7 +136,7 @@ fun ReleaseNoteContentItem(
 }
 
 @Composable
-fun ReleaseNoteErrorContent(
+private fun ReleaseNoteErrorContent(
     modifier: Modifier = Modifier,
     @StringRes userMessageId: Int?,
     onClick: () -> Unit,
@@ -174,7 +174,7 @@ fun ReleaseNoteErrorContent(
 }
 
 @Composable
-fun LoadingReleaseNoteContent(
+private fun LoadingReleaseNoteContent(
     isLoading: Boolean,
     onRefresh: () -> Unit,
     content: @Composable () -> Unit,
@@ -196,7 +196,7 @@ fun LoadingReleaseNoteContent(
  * @param onRefresh リロード用の高階関数
  */
 @Composable
-fun ReleaseNotesScreen(
+private fun ReleaseNotesScreen(
     modifier: Modifier = Modifier,
     uiState: ReleaseNoteUiState,
     listState: LazyListState = rememberLazyListState(),
@@ -230,7 +230,7 @@ fun ReleaseNoteRoute(
 @Preview("Release Note screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @PreviewDefault
 @Composable
-fun PreviewReleaseNotesScreen() {
+private fun PreviewReleaseNotesScreen() {
     val uiState = ReleaseNoteUiState(
         items = listOf(
             ReleaseNote(date = "2022/06/15", "1.1.0", "アップデートしました"),
@@ -247,7 +247,7 @@ fun PreviewReleaseNotesScreen() {
 @Preview("Release Note Error Content(dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @PreviewDefault
 @Composable
-fun PreviewReleaseNoteErrorContent() {
+private fun PreviewReleaseNoteErrorContent() {
     val uiState = ReleaseNoteUiState(
         userMessageId = R.string.network_error_title
     )

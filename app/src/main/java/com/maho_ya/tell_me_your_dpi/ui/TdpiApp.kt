@@ -132,7 +132,7 @@ private fun TopBar(
 }
 
 @Composable
-fun BottomBar(navController: NavController, tabs: List<Screen>) {
+private fun BottomBar(navController: NavController, tabs: List<Screen>) {
     // https://developer.android.com/jetpack/compose/navigation?hl=ja#bottom-nav
     // 現在のNavDestinationにアクセスできるようにする
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -192,6 +192,7 @@ sealed class Screen(val route: String, @DrawableRes val iconId: Int?, @StringRes
     sealed class Tutorial(route: String, @DrawableRes iconId: Int?, @StringRes titleId: Int) : Screen(
         route, iconId, titleId
     ) {
+        @Suppress("unused")
         object TutorialRoot : Tutorial(
             "tutorial",
             null,

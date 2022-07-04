@@ -37,9 +37,7 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.maho_ya.tell_me_your_dpi.R
-import com.maho_ya.tell_me_your_dpi.ui.Screen
 import com.maho_ya.tell_me_your_dpi.ui.TdpiApp
-import com.maho_ya.tell_me_your_dpi.ui.home.HomeUiState
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
 import com.maho_ya.tell_me_your_dpi.ui.theme.Colors
 import com.maho_ya.tell_me_your_dpi.ui.theme.PreviewDefault
@@ -47,7 +45,7 @@ import com.maho_ya.tell_me_your_dpi.ui.theme.PreviewDefault
 private val defaultSpacerSize = 32.dp
 
 @Composable
-fun PostNotificationsContent(
+private fun PostNotificationsContent(
     modifier: Modifier = Modifier,
     onActivate: () -> Unit = {},
     onSkip: () -> Unit = {}
@@ -110,7 +108,7 @@ fun PostNotificationsContent(
 }
 
 @Composable
-fun PostNotificationsScreen(
+private fun PostNotificationsScreen(
     modifier: Modifier = Modifier,
     onActivate: () -> Unit = {},
     onSkip: () -> Unit = {}
@@ -165,6 +163,7 @@ private fun RequestPostNotificationPermission(
                         openDialog.value = false
                     },
                     onSkip = {
+                        onFirstPostNotificationsPermissionComplete()
                         openDialog.value = false
                     }
                 )
