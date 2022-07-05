@@ -1,4 +1,5 @@
 package com.maho_ya.tell_me_your_dpi.ui.home
+
 import android.Manifest
 import android.app.Activity
 import android.content.ClipData
@@ -439,7 +440,7 @@ fun HomeRoute(
     } else {
         launchReviewFlow(
             uiState = uiState,
-            onComplete = { homeViewModel.notifyReviewLaunchAttempted()}
+            onComplete = { homeViewModel.notifyReviewLaunchAttempted() }
         )
     }
 }
