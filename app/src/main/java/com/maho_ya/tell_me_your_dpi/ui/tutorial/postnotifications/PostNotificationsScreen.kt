@@ -23,6 +23,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -44,7 +45,7 @@ import com.maho_ya.tell_me_your_dpi.ui.theme.PreviewDefault
 private val defaultSpacerSize = 32.dp
 
 @Composable
-fun PostNotificationsContent(
+private fun PostNotificationsContent(
     modifier: Modifier = Modifier,
     onActivate: () -> Unit = {},
     onSkip: () -> Unit = {}
@@ -107,7 +108,7 @@ fun PostNotificationsContent(
 }
 
 @Composable
-fun PostNotificationsScreen(
+private fun PostNotificationsScreen(
     modifier: Modifier = Modifier,
     onActivate: () -> Unit = {},
     onSkip: () -> Unit = {}
@@ -128,58 +129,75 @@ fun PostNotificationsScreen(
 
 @Composable
 fun PostNotificationsRoute(
-    openDialog: MutableState<Boolean>
+    openDialog: MutableState<Boolean> = mutableStateOf(false),
+    isFirstPostNotificationsPermission: MutableState<Boolean> = mutableStateOf(false),
+    onFirstPostNotificationsPermissionComplete: () -> Unit = {}
 ) {
-    RequestPostNotificationPermission(openDialog)
+    RequestPostNotificationPermission(
+        openDialog = openDialog,
+        isFirstPostNotificationsPermission = isFirstPostNotificationsPermission,
+        onFirstPostNotificationsPermissionComplete = onFirstPostNotificationsPermissionComplete
+    )
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 private fun RequestPostNotificationPermission(
-    openDialog: MutableState<Boolean>,
+    openDialog: MutableState<Boolean> = mutableStateOf(false),
+    isFirstPostNotificationsPermission: MutableState<Boolean> = mutableStateOf(false),
+    onFirstPostNotificationsPermissionComplete: () -> Unit = {}
 ) {
-    val postNotificationPermissionState = rememberPermissionState(
+    val permissionState = rememberPermissionState(
         Manifest.permission.POST_NOTIFICATIONS
     )
 
-    when (postNotificationPermissionState.status) {
+    when (permissionState.status) {
         is PermissionStatus.Granted -> openDialog.value = false
         is PermissionStatus.Denied -> {
-            if (postNotificationPermissionState.status.shouldShowRationale) {
+            if (isFirstPostNotificationsPermission.value || permissionState.status.shouldShowRationale) {
                 PostNotificationsScreen(
                     onActivate = {
-                        postNotificationPermissionState.launchPermissionRequest()
+                        permissionState.launchPermissionRequest()
+                        onFirstPostNotificationsPermissionComplete()
                         openDialog.value = false
                     },
                     onSkip = {
+                        onFirstPostNotificationsPermissionComplete()
                         openDialog.value = false
                     }
                 )
             } else {
-                val context = LocalContext.current
-                AlertDialog(
-                    onDismissRequest = {},
-                    title = {
-                        Text(stringResource(id = R.string.title_tutorial_post_notifications_denied))
-                    },
-                    text = {
-                        Text(stringResource(id = R.string.post_notifications_denied_description))
-                    },
-                    confirmButton = {
-                        Button(
-                            onClick = {
-                                openNotificationSetting(context)
-                                openDialog.value = false
-                            }
-                        ) {
-                            Text(stringResource(id = R.string.ok_button))
-                        }
-                    }
-                )
+                PostNotificationsErrorDialog(openDialog)
             }
         }
     }
+}
+
+@Composable
+fun PostNotificationsErrorDialog(
+    openDialog: MutableState<Boolean> = mutableStateOf(false),
+) {
+    val context = LocalContext.current
+    AlertDialog(
+        onDismissRequest = {},
+        title = {
+            Text(stringResource(id = R.string.title_tutorial_post_notifications_denied))
+        },
+        text = {
+            Text(stringResource(id = R.string.post_notifications_denied_description))
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    openNotificationSetting(context)
+                    openDialog.value = false
+                }
+            ) {
+                Text(stringResource(id = R.string.ok_button))
+            }
+        }
+    )
 }
 
 /**

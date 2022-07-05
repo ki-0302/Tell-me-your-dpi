@@ -66,7 +66,7 @@ private fun openOssLicences(context: Context) {
 }
 
 @Composable
-fun AboutAppContent(
+private fun AboutAppContent(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     listState: LazyListState = rememberLazyListState(),
@@ -116,7 +116,7 @@ fun AboutAppContent(
 }
 
 @Composable
-fun AboutAppContentItem(
+private fun AboutAppContentItem(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     text: String
@@ -138,7 +138,7 @@ fun AboutAppContentItem(
  * アプリ情報を表示
  */
 @Composable
-fun AboutAppScreen(
+private fun AboutAppScreen(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     listState: LazyListState = rememberLazyListState()
@@ -166,7 +166,7 @@ fun AboutAppRoute() {
 @Preview("About screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @PreviewDefault
 @Composable
-fun PreviewAboutScreen() {
+private fun PreviewAboutScreen() {
     TdpiApp() {
         AboutAppScreen()
     }

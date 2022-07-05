@@ -1,6 +1,7 @@
 package com.maho_ya.tell_me_your_dpi.ui.home
 
 import android.Manifest
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -58,6 +59,8 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.domain.device.DeviceUseCase
 import com.maho_ya.tell_me_your_dpi.model.Device
@@ -76,7 +79,7 @@ data class DeviceItem(
 )
 
 @Composable
-fun HomeContent(
+private fun HomeContent(
     modifier: Modifier = Modifier,
     uiState: HomeUiState,
     listState: LazyListState = rememberLazyListState(),
@@ -104,7 +107,7 @@ fun HomeContent(
 }
 
 @Composable
-fun HomeContentList(
+private fun HomeContentList(
     modifier: Modifier = Modifier,
     uiState: HomeUiState,
     listState: LazyListState = rememberLazyListState(),
@@ -184,7 +187,7 @@ private fun getDeviceItemList(
 }
 
 @Composable
-fun HomeContentItem(
+private fun HomeContentItem(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     deviceItem: DeviceItem,
@@ -212,7 +215,7 @@ fun HomeContentItem(
 }
 
 @Composable
-fun HomeErrorContent(
+private fun HomeErrorContent(
     modifier: Modifier = Modifier,
     userMessage: String?,
     onClick: () -> Unit,
@@ -249,7 +252,7 @@ fun HomeErrorContent(
 }
 
 @Composable
-fun LoadingHomeContent(
+private fun LoadingHomeContent(
     isLoading: Boolean,
     onRefresh: () -> Unit,
     content: @Composable () -> Unit,
@@ -318,7 +321,7 @@ private fun copyDeviceInfo(context: Context, device: Device?) {
 }
 
 @Composable
-fun HomeScreen(
+private fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUiState,
     listState: LazyListState = rememberLazyListState(),
@@ -339,7 +342,7 @@ fun HomeScreen(
 @Preview("Home screen")
 @Preview("Home screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewHomeScreen() {
+private fun PreviewHomeScreen() {
     val uiState = HomeUiState(
         device = Device(
             densityQualifier = "xxxdpi",
@@ -417,9 +420,56 @@ fun HomeRoute(
         }
     )
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        val openDialog = remember { mutableStateOf(true) }
-        if (openDialog.value) RequestPostNotificationPermission(openDialog)
+    val openDialog = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        remember { mutableStateOf(true) }
+    } else {
+        remember { mutableStateOf(false) }
+    }
+    val isFirstPostNotificationsPermission = remember {
+        mutableStateOf(uiState.isFirstPostNotificationsPermission)
+    }
+
+    if (openDialog.value && isFirstPostNotificationsPermission.value) {
+        RequestPostNotificationPermission(
+            openDialog = openDialog,
+            isFirstPostNotificationsPermission = isFirstPostNotificationsPermission,
+            onFirstPostNotificationsPermissionComplete = {
+                homeViewModel.firstPostNotificationPermissionCompleted()
+            }
+        )
+    } else {
+        launchReviewFlow(
+            uiState = uiState,
+            onComplete = { homeViewModel.notifyReviewLaunchAttempted() }
+        )
+    }
+}
+
+@Composable
+private fun launchReviewFlow(
+    uiState: HomeUiState,
+    onComplete: () -> Unit = {}
+) {
+    if (!uiState.shouldLaunchReview) return
+
+    val activity = LocalContext.current as Activity
+    val reviewManager = remember {
+        ReviewManagerFactory.create(activity)
+    }
+    val reviewInfo: MutableState<ReviewInfo?> = remember {
+        mutableStateOf(null)
+    }
+
+    reviewManager.requestReviewFlow().addOnCompleteListener {
+        if (it.isSuccessful) reviewInfo.value = it.result
+    }
+
+    // コルーチンを起動。key1が変更になると再起動する。addOnCompleteListenerで実行されると呼び出されることになる
+    LaunchedEffect(key1 = reviewInfo.value) {
+        reviewInfo.value?.let {
+            reviewManager.launchReviewFlow(activity, it)
+            onComplete()
+        }
     }
 }
 
@@ -427,21 +477,26 @@ fun HomeRoute(
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 private fun RequestPostNotificationPermission(
-    openDialog: MutableState<Boolean>
+    openDialog: MutableState<Boolean> = mutableStateOf(false),
+    isFirstPostNotificationsPermission: MutableState<Boolean> = mutableStateOf(false),
+    onFirstPostNotificationsPermissionComplete: () -> Unit = {},
 ) {
-    val postNotificationPermissionState = rememberPermissionState(
+    val permissionState = rememberPermissionState(
         Manifest.permission.POST_NOTIFICATIONS
     )
 
-    when (postNotificationPermissionState.status) {
+    when (permissionState.status) {
         is PermissionStatus.Granted -> openDialog.value = false
         is PermissionStatus.Denied -> {
-            if (postNotificationPermissionState.status.shouldShowRationale) {
+            // 初回はshouldShowRationale = falseを返すため強制で表示する
+            if (isFirstPostNotificationsPermission.value || permissionState.status.shouldShowRationale) {
                 Popup(onDismissRequest = {}) {
-                    PostNotificationsRoute(openDialog)
+                    PostNotificationsRoute(
+                        openDialog = openDialog,
+                        isFirstPostNotificationsPermission = isFirstPostNotificationsPermission,
+                        onFirstPostNotificationsPermissionComplete = onFirstPostNotificationsPermissionComplete
+                    )
                 }
-            } else {
-                openDialog.value = false
             }
         }
     }

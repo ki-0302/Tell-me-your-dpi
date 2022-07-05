@@ -15,7 +15,7 @@ class ShouldLaunchReviewUseCaseImpl @Inject constructor(
     private var shouldLaunchReview: Boolean = false
 
     companion object {
-        private const val REVIEW_DISPLAY_CYCLE = 10
+        private const val REVIEW_DISPLAY_CYCLE = 5
     }
 
     init {
