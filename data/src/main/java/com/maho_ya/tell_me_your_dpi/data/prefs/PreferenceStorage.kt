@@ -31,11 +31,11 @@ class SharedPreferenceStorage @Inject constructor(
         )
     }
 
-    override var appLaunchCount: Int
-            by IntPreference(prefs, PREF_APP_LAUNCH_COUNT, 0)
+    override var appLaunchCount: Int by IntPreference(prefs, PREF_APP_LAUNCH_COUNT, 0)
 
-    override var firstPostNotificationsPermission: Boolean
-            by BooleanPreference(prefs, PREF_FIRST_POST_NOTIFICATIONS_PERMISSION, true)
+    override var firstPostNotificationsPermission: Boolean by BooleanPreference(
+        prefs, PREF_FIRST_POST_NOTIFICATIONS_PERMISSION, true
+    )
 }
 
 class IntPreference(
