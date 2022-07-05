@@ -8,14 +8,22 @@
 
 [<img alt="Google Play で手に入れよう" src="https://play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png" width="155px">](https://play.google.com/store/apps/details?id=com.maho_ya.tell_me_your_dpi)
 
+# 動作イメージ
+
+![Movie](docs/img/app-movie.gif "Movie")
+
 # 機能
 自分のデバイスがどの密度サイズ（xxhdpiなどAndroid Studioで認識される情報）であったかなどを1つの画面で確認でき、表示した情報をまとめてクリップボードにコピーすることもできるようになっています。
 
 その他の画面として、リリースノートやプライバシーポリシーなどのアプリに関しての画面があります。
 
+Androidの最新の宣言型 UI ツールキットである Jetpack Compose で構築しています。
+
 ダークテーマにも対応しており、Android 10 以上であればユーザーのデバイスで設置を変えることにより、表示の切り替えが可能です。
 
 Google Play In-App Review API でアプリ内レビューを表示するようにしました。
+
+Android 13で追加されたPost Notifications Permissionの確認用に通知機能を追加しました。
 
 DIはDagger Hiltを使用し実装しています。
 
@@ -38,7 +46,7 @@ Android 5.0 から Android 13.0 で動作するように設計されています
 
 DIはDagger Hiltを使用することで、簡潔に記述することができるようになりました。
 
-LiveDataを利用し、データソースの状態にあわせUIに自動的に通知されるようになっています。
+Jetpack Composeと相性のよいState Flowを利用し、データソースの状態にあわせUIに自動的に通知されるようになっています。
 
 Kotlin、Kotlin Coroutines、Firebase、Retrofitがそれらを支えています。
 
@@ -59,7 +67,7 @@ Navigation GraphとBottomNavigationを利用することで、コード上では
 
 デバイスの情報をここではデータソースと見立て、Kotlin Coroutinesを使用し、非同期に受け取るようにしています。
 
-データソースはLiveDataにバインディングされており、ViewModelと連携し自動的に取得したデータを通知します。
+データソースはState Flowで更新されるようになっており、ViewModelと連携し自動的に取得したデータを通知します。
 
 データソースにはApplicationContextのみ渡しています。
 
@@ -79,7 +87,9 @@ Navigation GraphとBottomNavigationを利用することで、コード上では
 
 アプリのリリースノートを表示する画面です。
 
-アプリのリリースタイミングで更新ができるように、Webサイト上に配置したJSONファイルからデータを取得し、RecyclerViewでリスト形式で各バージョンのリリース情報を表示しています。
+アプリのリリースタイミングで更新ができるように、Webサイト上に配置したJSONファイルからデータを取得し、Lazy Columnでリスト形式で各バージョンのリリース情報を表示しています。
+
+AccompanistのSwipeRefreshで再読み込みにも対応しています。
 
 今後、REST APIなどにデータソースを変更した場合にも、アプリの変更をせずに対応できるようにする狙いもあります。
 
@@ -89,9 +99,7 @@ Retrofitがsuspendをサポートするようになったため、非同期処�
 
 これによりコードが簡潔に記載でき、状態の管理も非常に簡単にできるようになっています。
 
-例としてストリームとDataBindingを合わせることで、ローディングや成功時のリスト表示、エラーの表示を普段のDataBindingとほとんど手間がかわらず記載することができるようになっています。
-
-Flowはコールドストリームのためメモリリークもほとんど意識せずにすむようになりました。
+例としてストリームとState Flowを合わせることで、ローディングや成功時のリスト表示、エラーの表示を簡単に記載することができるようになっています。
 
 ### エラー時の処理
 
@@ -99,7 +107,7 @@ Flowはコールドストリームのためメモリリークもほとんど意�
 
 エラーもストリームで管理が容易なためエラー時のみ専用の画面を表示し、再読み込み用のボタンをクリックすることで再度UseCaseからRepositoryに対しリリースノートのデータ取得をするように指示するのみですみます。
 
-クリック後にエラーメッセージを消去する処理もDataBindingがストリームに紐付いているため、あえてコーディングせずに自動的に状態が変わり非表示になるようになっています。
+クリック後にエラーメッセージを消去する処理もState Flowがストリームに紐付いているため、あえてコーディングせずに自動的に状態が変わり非表示になるようになっています。
 
 ローディングのProgressBarについても同様の処理で自動的に表示・非表示がなされています。
 
@@ -131,6 +139,16 @@ AndroidBrowserHelper の AppBar をダークテーマに対応できるように
 
 このライブラリから作成されるActivityのAppBarのバックボタンへのダークテーマの対応方法がわからなかったため、アイコンを差し替えることで対応しています。
 
+# Jetpack Compose
+
+アプリ全体を既存のAndroid Viewから、最新のUIツールキットであるJetpack Composeで構築をし直しました。
+
+Googleは既存のAndroid Viewはメンテナンスモードとしているため、今後の新機能を使用する場合はJetpack Composeで構築していくことが必要になってきます。
+
+まだベストプラクティスも確立しておらず、Android Viewでの設計とは大きく異なるため検討することが多いのが現実です。
+
+Accompanistライブラリも一部使用して、Android Viewで実現できたことと同じものを実現しています。
+
 # DarkTheme
 
 このアプリはダークテーマに対応しています。
@@ -138,6 +156,8 @@ AndroidBrowserHelper の AppBar をダークテーマに対応できるように
 Android 10以上であれば、設定のダークテーマの有効・無効で画面表示がそれぞれに合わせた配色に切り替わるようになっています。
 
 専用のテーマや配色、アイコンを定義することで対応しています。
+
+![DarkTheme](docs/img/app-dark.png "DarkTheme")
 
 # アダプティブアイコン
 
@@ -148,6 +168,16 @@ Illustratorでアプリのロゴアイコンを作成し、svg形式のファイ
 # Firebase
 
 いくつかのFirebaseのサービスを利用しています。
+
+### Messaging
+
+プッシュ通知の受信用に利用しています。
+
+Android 13では 通知を受け取るのにユーザーの通知権限の許可が必要になりました。
+
+通知権限が必要な理由を画面上で表示するとユーザーの理解が得られやすいため、説明用の画面を追加しています。
+
+![Messaging1](docs/img/app-messaging-1.png "Messaging1") ![Messaging2](docs/img/app-messaging-2.png "Messaging2")
 
 ### Hosting
 
@@ -210,12 +240,12 @@ Adobe XDでプロトタイプデザインを行いました。
 - [Android Jetpack](https://developer.android.com/jetpack/)
   - Core
   - ConstraintLayout
+  - JetpackCompose
   - AppCompat
-  - RecyclerView
+  - Accompanist
   - Navigation
   - [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)
     - ViewModel
-    - LiveData
 - [Play Core Library](https://developer.android.com/reference/com/google/android/play/core/release-notes)
 - [Material Components for Android](https://github.com/material-components/material-components-android)
 - [Kotlin](https://kotlinlang.org/)
@@ -225,6 +255,7 @@ Adobe XDでプロトタイプデザインを行いました。
   - Analytics
   - Crashlytics
   - Performance
+  - Messaging
 - [Retrofit](https://github.com/square/retrofit)
 - [Moshi](https://github.com/square/moshi/)
 - [AndroidBrowserHelper](https://github.com/GoogleChrome/android-browser-helper)
