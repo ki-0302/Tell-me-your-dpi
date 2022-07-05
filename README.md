@@ -51,11 +51,9 @@ Jetpack Composeと相性のよいState Flowを利用し、データソースの�
 Kotlin、Kotlin Coroutines、Firebase、Retrofitがそれらを支えています。
 
 ## 画面構成
-画面の構成はActivityはMainActivityのみとなっており、Home、リリースノート、このアプリについての各画面がFragmentで切り替わる仕組みになっています。
+画面の構成はActivityはMainActivityのみとなっており、Home、リリースノート、このアプリについての各画面がJetpack Composeで切り替わる仕組みになっています。
 
-画面下にはBottomNavigationを配置し、各ボタンをクリックすることでFragmentが切り替わるようになっています。
-
-Navigation GraphとBottomNavigationを利用することで、コード上ではFragmentの生成処理はあえて記述せずに済むようになりました。
+画面下にはBottomNavigationを配置し、各ボタンをクリックすることで切り替わるようになっています。
 
 ## Home(Device info)
 
