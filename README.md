@@ -155,7 +155,7 @@ Android 10以上であれば、設定のダークテーマの有効・無効で�
 
 専用のテーマや配色、アイコンを定義することで対応しています。
 
-![DarkTheme](docs/img/app-dark.png "DarkTheme")
+<img src="docs/img/app-dark.png" width="320" />
 
 # アダプティブアイコン
 
@@ -175,7 +175,7 @@ Android 13では 通知を受け取るのにユーザーの通知権限の許可
 
 通知権限が必要な理由を画面上で表示するとユーザーの理解が得られやすいため、説明用の画面を追加しています。
 
-![Messaging1](docs/img/app-messaging-1.png "Messaging1") ![Messaging2](docs/img/app-messaging-2.png "Messaging2")
+<img src="docs/img/app-messaging-1.png" width="320" /> <img src="docs/img/app-messaging-2.png" width="320" />
 
 ### Hosting
 
