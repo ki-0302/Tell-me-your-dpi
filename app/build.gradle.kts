@@ -167,6 +167,7 @@ dependencies {
     implementation(platform(Libs.FIREBASE_BOM))
     implementation(Libs.FIREBASE_ANALYTICS)
     implementation(Libs.FIREBASE_CRASHLYTICS)
+    implementation(Libs.FIREBASE_IN_APP_MESSAGING)
     implementation(Libs.FIREBASE_MESSAGING)
     implementation(Libs.FIREBASE_PERF)
     // Retrofit

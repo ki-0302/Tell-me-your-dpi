@@ -13,6 +13,7 @@ object Libs {
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom"
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-ktx"
+    const val FIREBASE_IN_APP_MESSAGING = "com.google.firebase:firebase-inappmessaging-display-ktx"
     const val FIREBASE_MESSAGING = "com.google.firebase:firebase-messaging-ktx"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf-ktx"
     const val HILT_ANDROID = "com.google.dagger:hilt-android"
