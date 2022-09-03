@@ -56,6 +56,11 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
+        <!-- AdMob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6774046779990039~3760348660"/>
+
     </application>
 
 </manifest>

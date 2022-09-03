@@ -6,7 +6,7 @@ object Versions {
     const val TARGET_SDK = 33
     const val MIN_SDK = 21
 
-    const val ANDROID_GRADLE_PLUGIN = "7.2.1"
+    const val ANDROID_GRADLE_PLUGIN = "7.2.2"
 
     const val ANDROIDX_TEST_CORE = "1.4.0"
     const val ANDROIDX_TEST_EXT = "1.1.3"
