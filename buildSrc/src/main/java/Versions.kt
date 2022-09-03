@@ -18,7 +18,7 @@ object Versions {
     const val KTLINT = "10.2.1"
     const val HILT = "2.41"
     const val GOOGLE_SERVICES = "4.3.10"
-    const val FIREBASE_CRASHLYTICS = "2.9.0"
+    const val FIREBASE_CRASHLYTICS = "2.9.1"
     const val FIREBASE_PERF = "1.4.1"
     const val OSS_LICENSES = "0.10.5"
     const val BEN_MANES = "0.42.0"
