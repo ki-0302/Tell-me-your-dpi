@@ -104,10 +104,10 @@ jobs:
         with:
           debug-keystore-base64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
           google_service_json_base64: ${{ secrets.GOOGLE_SERVICE_JSON_BASE64 }}
-      - name: Set up Ruby 2.6
+      - name: Set up Ruby 2.7
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
+          ruby-version: 2.7
           bundler-cache: true
       - name: Setup bundler
         run: |
