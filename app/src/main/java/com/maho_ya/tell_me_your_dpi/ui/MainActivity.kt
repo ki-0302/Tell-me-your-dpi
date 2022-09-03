@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.google.android.gms.ads.MobileAds
-import com.maho_ya.tell_me_your_dpi.BuildConfig
 import com.maho_ya.tell_me_your_dpi.util.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 

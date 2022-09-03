@@ -106,7 +106,6 @@ fun TdpiApp(
                     scaffoldState = scaffoldState
                 )
             }
-
         }
     }
 }
