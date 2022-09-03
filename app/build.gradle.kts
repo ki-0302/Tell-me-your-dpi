@@ -78,6 +78,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            // AdMob 広告ID テスト専用広告ユニット ID。本番のものをテストで使用するとアカウントが停止される
+            buildConfigField("String", "AD_UNIT_ID", "\"ca-app-pub-3940256099942544/6300978111\"")
         }
         getByName("release") {
             // https://developer.android.com/studio/build/shrink-code?hl=ja#shrink-resources
@@ -88,6 +91,9 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
+
+            // AdMob 広告ID
+            buildConfigField("String", "AD_UNIT_ID", "\"ca-app-pub-6774046779990039/4121997976\"")
         }
     }
 
@@ -161,6 +167,8 @@ dependencies {
     implementation(Libs.JETPACK_COMPOSE_UI_TOOLING) // ComposeView, Preview, etc..
     // Play Core
     implementation(Libs.PLAY_CORE_KTX)
+    // AdMob
+    implementation(Libs.PLAY_SERVICES_ADS)
     // Custom Tabs
     implementation(Libs.ANDROIDX_BROWSER)
     // Firebase

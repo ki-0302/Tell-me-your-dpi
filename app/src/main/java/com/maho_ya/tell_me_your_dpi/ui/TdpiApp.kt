@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -34,12 +36,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.maho_ya.tell_me_your_dpi.BuildConfig
 import com.maho_ya.tell_me_your_dpi.R
 import com.maho_ya.tell_me_your_dpi.ui.theme.AppTheme
+import com.maho_ya.tell_me_your_dpi.ui.theme.Colors
 
 private val topBarHeight = 84.dp
 private val bottomBarHeight = 64.dp
@@ -90,11 +98,14 @@ fun TdpiApp(
                 return@Scaffold
             }
 
-            TdpiNagGraph(
-                modifier = modifier,
-                navController = navController,
-                scaffoldState = scaffoldState
-            )
+            Column {
+                AdMobBanner()
+                TdpiNagGraph(
+                    modifier = modifier,
+                    navController = navController,
+                    scaffoldState = scaffoldState
+                )
+            }
         }
     }
 }
@@ -174,6 +185,22 @@ private fun BottomBar(navController: NavController, tabs: List<Screen>) {
             )
         }
     }
+}
+
+@Composable
+fun AdMobBanner(darkTheme: Boolean = isSystemInDarkTheme(),) {
+    AndroidView(
+        modifier = Modifier.fillMaxWidth().padding(10.dp),
+        factory = { context ->
+            val adView = AdView(context)
+            adView.setAdSize(AdSize.BANNER)
+            adView.adUnitId = BuildConfig.AD_UNIT_ID
+            adView.loadAd(AdRequest.Builder().build())
+            adView
+        },
+    )
+
+    Divider(color = if (darkTheme) Colors.Gray555 else Colors.GrayAAA)
 }
 
 /**
