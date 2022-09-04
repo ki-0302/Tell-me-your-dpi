@@ -37,7 +37,7 @@ android {
 
     // For Kotlin projects. Support Java 8
     kotlinOptions {
-        this.jvmTarget = "1.8"
+        jvmTarget = "1.8"
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
     }
 
