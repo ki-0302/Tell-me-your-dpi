@@ -26,8 +26,7 @@ android {
 
     // For Kotlin projects. Support Java 8
     kotlinOptions {
-        val options = this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-        options.jvmTarget = "1.8"
+        jvmTarget = "1.8"
     }
 
     lint {
