@@ -62,6 +62,7 @@ private val bottomBarHeight = 64.dp
 fun TdpiApp(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
     hasAppBar: Boolean = true,
+    adView: AdView? = null,
     content: (@Composable () -> Unit)? = null
 ) {
     AppTheme {
@@ -99,7 +100,9 @@ fun TdpiApp(
             }
 
             Column {
-                AdMobBanner()
+                adView?.let {
+                    AdMobBanner(adView = it)
+                }
                 TdpiNagGraph(
                     modifier = modifier,
                     navController = navController,
@@ -188,14 +191,16 @@ private fun BottomBar(navController: NavController, tabs: List<Screen>) {
 }
 
 @Composable
-fun AdMobBanner(darkTheme: Boolean = isSystemInDarkTheme(),) {
+fun AdMobBanner(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    adView: AdView
+) {
     AndroidView(
-        modifier = Modifier.fillMaxWidth().padding(10.dp),
-        factory = { context ->
-            val adView = AdView(context)
-            adView.setAdSize(AdSize.BANNER)
-            adView.adUnitId = BuildConfig.AD_UNIT_ID
-            adView.loadAd(AdRequest.Builder().build())
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp)
+            .padding(10.dp),
+        factory = {
             adView
         },
     )
